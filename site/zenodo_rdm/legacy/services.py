@@ -7,25 +7,49 @@
 
 """Zenodo legacy services."""
 
-from invenio_drafts_resources.services.records.config import is_draft, is_record
+from copy import deepcopy
+from os.path import splitext
+
+from flask import current_app
+from invenio_app_rdm.records_ui.previewer.iiif_simple import (
+    previewable_extensions as image_extensions,
+)
+from invenio_db import db
+from invenio_drafts_resources.services.records.config import is_record
+from invenio_files_rest.models import FileInstance, ObjectVersion
+from invenio_pidstore.models import PersistentIdentifier
 from invenio_rdm_records.proxies import current_record_communities_service
 from invenio_rdm_records.services import (
     RDMFileDraftServiceConfig,
     RDMRecordService,
     RDMRecordServiceConfig,
 )
+from invenio_rdm_records.services.config import has_doi, is_record_and_has_parent_doi
 from invenio_records_resources.services import ConditionalLink
+from invenio_records_resources.services.base.links import preprocess_vars
 from invenio_records_resources.services.files import FileLink, FileService
-from invenio_records_resources.services.records.links import Link, RecordLink
+from invenio_records_resources.services.records.links import RecordLink
 from invenio_records_resources.services.uow import (
     IndexRefreshOp,
     RecordCommitOp,
     unit_of_work,
 )
+from sqlalchemy.exc import NoResultFound
+from werkzeug.local import LocalProxy
+
+record_thumbnail_sizes = LocalProxy(
+    lambda: current_app.config["APP_RDM_RECORD_THUMBNAIL_SIZES"]
+)
+"""Proxy for the config variable for the available record thumbnail sizes."""
+
+
+def is_published(record, ctx):
+    """True if the record/draft is published."""
+    return record.is_published
 
 
 class LegacyRecordLink(RecordLink):
-    """Short cut for writing record links."""
+    """Legacy record links with bucket information."""
 
     @staticmethod
     def vars(record, vars):
@@ -38,9 +62,57 @@ class LegacyRecordLink(RecordLink):
         )
 
 
-def is_latest_draft(record, ctx):
-    """Shortcut for links to determine if record is the latest draft."""
-    return record.is_draft and record.versions.is_latest_draft
+class LegacyThumbsLink(RecordLink):
+    """Legacy thumbnail links dictionary."""
+
+    def __init__(self, *args, sizes=None, **kwargs):
+        """Constructor."""
+        self._sizes = sizes
+        super().__init__(*args, **kwargs)
+
+    def expand(self, obj, context):
+        """Expand the thumbs size dictionary of URIs."""
+        vars = {}
+        vars.update(deepcopy(context))
+        self.vars(obj, vars)
+        if self._vars_func:
+            self._vars_func(obj, vars)
+        vars = preprocess_vars(vars)
+        return {str(s): self._uritemplate.expand(size=s, **vars) for s in self._sizes}
+
+
+def is_iiif_compatible(record, ctx):
+    """Check if a record is IIIF compatible, i.e. if it has compatible image files."""
+    for f in record.files.entries:
+        f_ext = splitext(f)[1].replace(".", "").lower()
+        if f_ext in image_extensions:
+            return True
+    return False
+
+
+class RecordPIDLink(RecordLink):
+    """Record PID links."""
+
+    @staticmethod
+    def vars(record, vars):
+        """Variables for the URI template."""
+        vars.update(
+            {f"pid_{scheme}": pid["identifier"] for scheme, pid in record.pids.items()}
+        )
+
+
+class RecordParentPIDLink(RecordLink):
+    """Record parent PID links."""
+
+    @staticmethod
+    def vars(record, vars):
+        """Variables for the URI template."""
+        vars.update(
+            {
+                f"pid_{scheme}": pid["identifier"]
+                for scheme, pid in record.parent.pids.items()
+            }
+        )
 
 
 class LegacyRecordServiceConfig(RDMRecordServiceConfig):
@@ -57,6 +129,16 @@ class LegacyRecordServiceConfig(RDMRecordServiceConfig):
             if_=RecordLink("{+ui}/records/{id}"),
             else_=RecordLink("{+ui}/deposit/{id}"),
         ),
+        "doi": RecordPIDLink("https://doi.org/{+pid_doi}", when=has_doi),
+        "parent_doi": RecordParentPIDLink(
+            "{+ui}/doi/{+pid_doi}",
+            when=is_record_and_has_parent_doi,
+        ),
+        "badge": RecordPIDLink("{+ui}/badge/doi/{pid_doi}.svg"),
+        "conceptbadge": RecordParentPIDLink(
+            "{+ui}/badge/doi/{pid_doi}.svg",
+            when=is_record_and_has_parent_doi,
+        ),
         #
         # Files
         #
@@ -66,58 +148,66 @@ class LegacyRecordServiceConfig(RDMRecordServiceConfig):
             else_=RecordLink("{+api}/deposit/depositions/{id}/files"),
         ),
         "bucket": LegacyRecordLink("{+api}/files/{bucket_id}"),
-        # Versioning
-        "versions": RecordLink("{+api}/records/{id}/versions", when=is_record),
-        "latest_draft": RecordLink(
-            "{+api}/deposit/depositions/{id}", when=is_latest_draft
+        #
+        # Thumbnails
+        #
+        "thumb250": RecordLink("{+ui}/record/{id}/thumb250", when=is_iiif_compatible),
+        "thumbs": LegacyThumbsLink(
+            "{+ui}/record/{id}/thumb{size}",
+            when=is_iiif_compatible,
+            sizes=record_thumbnail_sizes,
         ),
-        # "latest_draft_html": RecordLink("{+ui}/deposit/{id}", when=is_draft),
+        # Versioning
+        "latest_draft": RecordLink("{+api}/deposit/depositions/{id}"),
+        "latest_draft_html": RecordLink("{+ui}/deposit/{id}"),
         #
         # Actions
         #
-        "publish": RecordLink(
-            "{+api}/deposit/depositions/{id}/actions/publish", when=is_draft
+        "publish": RecordLink("{+api}/deposit/depositions/{id}/actions/publish"),
+        "edit": RecordLink("{+api}/deposit/depositions/{id}/actions/edit"),
+        "discard": RecordLink("{+api}/deposit/depositions/{id}/actions/discard"),
+        "newversion": RecordLink("{+api}/deposit/depositions/{id}/actions/newversion"),
+        "registerconceptdoi": RecordLink(
+            "{+api}/deposit/depositions/{id}/actions/registerconceptdoi"
         ),
-        "edit": RecordLink(
-            "{+api}/deposit/depositions/{id}/actions/edit", when=is_draft
+        #
+        # Published draft
+        #
+        "record": RecordLink("{+api}/records/{id}", when=is_published),
+        "record_html": RecordLink("{+ui}/record/{id}", when=is_published),
+        "latest": RecordLink("{+api}/records/{id}/versions/latest", when=is_published),
+        "latest_html": RecordLink(
+            "{+ui}/record/{id}/versions/latest", when=is_published
         ),
-        "discard": RecordLink(
-            "{+api}/deposit/depositions/{id}/actions/discard", when=is_draft
-        ),
-        "doi_url": Link(
-            "https://doi.org/{+pid_doi}",
-            when=is_record,
-            vars=lambda record, vars: vars.update(
-                {
-                    f"pid_{scheme}": pid["identifier"]
-                    for (scheme, pid) in record.pids.items()
-                }
-            ),
-        ),
-        "record_url": RecordLink("{+ui}/records/{id}", when=is_record),
     }
 
 
 class LegacyRecordService(RDMRecordService):
     """Legacy record service."""
 
-    @unit_of_work()
-    def create(self, identity, data, uow=None, expand=False):
-        """Create a draft and prereserve the DOI."""
-        res = super().create(identity, data, uow=uow, expand=False)
-        pids = data.get("pids", {})
+    def read_draft(self, identity, id_, expand=False):
+        """Retrieve a draft."""
+        try:
+            # Try first the draft
+            draft = self.draft_cls.pid.resolve(id_, registered_only=False)
+        except NoResultFound:
+            # If it's published try the record
+            draft = self.record_cls.pid.resolve(id_, registered_only=True)
+        self.require_permission(identity, "read_draft", record=draft)
 
-        # If pids is provided, it is created automatically.
-        if not pids:
-            res = self.pids.create(
-                identity=identity,
-                id_=res.id,
-                scheme="doi",
-                expand=True,
-                uow=uow,
-            )
+        # Run components
+        for component in self.components:
+            if hasattr(component, "read_draft"):
+                component.read_draft(identity, draft=draft)
 
-        return res
+        return self.result_item(
+            self,
+            identity,
+            draft,
+            links_tpl=self.links_item_tpl,
+            expandable_fields=self.expandable_fields,
+            expand=expand,
+        )
 
     @unit_of_work()
     def publish(self, identity, id_, uow=None, expand=False):
@@ -130,7 +220,6 @@ class LegacyRecordService(RDMRecordService):
 
         community_ops = []
         # TODO: Check if we need to actually remove communities
-        # TODO: Check if user is owner/curator of all the communities (i.e. auto-accept)
         for community_id in communities:
             try:
                 community_ops.append(
@@ -164,6 +253,7 @@ class LegacyFileLink(FileLink):
                 "key": file_record.key,
                 "bucket_id": file_record.record.bucket_id,
                 "version_id": file_record.object_version_id,
+                "file_id": file_record.file.id,
             }
         )
 
@@ -178,7 +268,17 @@ class LegacyFileDraftServiceConfig(RDMFileDraftServiceConfig):
     }
 
     file_links_item = {
-        "self": LegacyFileLink("{+api}/deposit/depositions/{id}/files/{key}"),
+        "draft_files.self": LegacyFileLink(
+            "{+api}/deposit/depositions/{id}/files/{file_id}"
+        ),
+        "draft_files.download": LegacyFileLink("{+api}/files/{bucket_id}/files/{key}"),
+        "files_rest.self": LegacyFileLink("{+api}/files/{bucket_id}/files/{key}"),
+        "files_rest.version": LegacyFileLink(
+            "{+api}/files/{bucket_id}/files/{key}?versionId={version_id}"
+        ),
+        "files_rest.uploads": LegacyFileLink(
+            "{+api}/files/{bucket_id}/files/{key}?uploads"
+        ),
     }
 
 
@@ -190,3 +290,21 @@ class LegacyFileService(FileService):
         model_cls = self.record_cls.model_cls
         obj = model_cls.query.filter(model_cls.bucket_id == bucket_id).one()
         return self.record_cls(obj.data, model=obj)
+
+    def get_file_key_by_id(self, pid_value, file_id):
+        """Get the associated record file key by its ID."""
+        RDMDraft = self.record_cls.model_cls
+        key = (
+            db.session.query(ObjectVersion.key)
+            .join(FileInstance, ObjectVersion.file_id == FileInstance.id)
+            .join(RDMDraft, ObjectVersion.bucket_id == RDMDraft.bucket_id)
+            .join(PersistentIdentifier, PersistentIdentifier.object_uuid == RDMDraft.id)
+            .filter(
+                FileInstance.id == file_id,
+                PersistentIdentifier.pid_type == "recid",
+                PersistentIdentifier.pid_value == pid_value,
+                PersistentIdentifier.object_type == "rec",
+            )
+            .scalar()
+        )
+        return key

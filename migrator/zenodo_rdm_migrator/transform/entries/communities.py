@@ -6,6 +6,7 @@
 # it under the terms of the MIT License; see LICENSE file for more details.
 """Zenodo migrator communities transformer entries."""
 
+import bleach
 from invenio_rdm_migrator.streams.communities import (
     CommunityEntry,
     CommunityFileEntry,
