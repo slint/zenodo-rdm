@@ -39,6 +39,7 @@ ORCID_APP_CREDENTIALS = {
 pip install invenio-cli
 invenio-cli check-requirements --development
 invenio-cli install
+pipenv run pip install -e ./site
 invenio-cli services setup
 invenio-cli run
 ```
@@ -56,7 +57,13 @@ environment:
 docker run -it --platform="linux/amd64" --rm -v $(pwd):/app \
     registry.cern.ch/inveniosoftware/almalinux:1
 
-# Inside the container update the Pipfile.lock
+# Inside the container update the Pipfile.lock and package(-lock).json
 [root@3954486e4a37]# cd /app
-[root@3954486e4a37]# pipenv lock
+[root@3954486e4a37]# rm Pipfile.lock
+[root@3954486e4a37]# pipenv install
+[root@3954486e4a37]# pip install ./site
+[root@3954486e4a37]# invenio webpack create
+[root@3954486e4a37]# invenio webpack install --package-lock-only
+[root@3954486e4a37]# cp ${INVENIO_INSTANCE_PATH}/assets/package.json .
+[root@3954486e4a37]# cp ${INVENIO_INSTANCE_PATH}/assets/package-lock.json .
 ```
