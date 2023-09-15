@@ -8,56 +8,25 @@
 """Locust file for a ZenodoRDM instance stress testing.
 
 Usage:
-.. code-block:: console
-  $ pip install locust
 
-.. code-block:: console
-  $ locust -f tests/locust/locustfile.py --host=http://0.0.0.0
-  [2017-12-19 12:56:37,173] 127.0.0.1/INFO/locust.main: Starting web monitor \
-  at *:8089
-  [2017-12-19 12:56:37,175] 127.0.0.1/INFO/locust.main: Starting Locust 0.8
-  ...
-  $ firefox http://127.0.0.1:8089
-
-If you need to run an specific set of tests:
-.. code-block:: console
-   $ locust -f tests/locust/locustfile.py Records --host=http://0.0.0.0
-  [2017-12-19 12:56:37,173] 127.0.0.1/INFO/locust.main: Starting web monitor \
-  at *:8089
-  [2017-12-19 12:56:37,175] 127.0.0.1/INFO/locust.main: Starting Locust 0.8
-  ...
-  $ firefox http://127.0.0.1:8089
+```shell
+$ locust --host=http://0.0.0.0 AuthenticatedUser
 """
 
-from locust import FastHttpUser, HttpUser, task, between
+from locust import HttpUser, task, between
 import random
 import secrets
 import io
 
-
-"""
-# Anonymous
-- view record
-- download file
-- search
-
-# Logged-in
-- create record
-- upload file(s)
-- edit metadata
-- publish record
-- view created record
-- (edit record?)
-"""
-
-
+# REST API tokens for Auth
 USERS = {
-    # "user3@zenodo.org": "VrZgOGfdsycALotzS3sWIx1BSUsM9ip1HKYiY4a4WKXJ505BKsaIKNRKEcI7",
-    # "user4@zenodo.org": "Tr0FxEVRs42C73T6oASBU4aSc0XbswyKSKaZsojeqmivDj9NZmCX7FNt4BkO",
-    # "user5@zenodo.org": "vMxXaKDsCFSkNgV9DWSwy3yPnMNy54IJHFkY2GPKWeva7pMvHpqfF0ALGonU",
-    # "user6@zenodo.org": "v4dqEgkKKvnjiRzRQOFqKhbCGLDVSRdka8dl5voh95i4HZ6fMEGx0ZKyKLb3",
-    # "user7@zenodo.org": "YnpgXurvW8ZcYlA8E76ULIwhDkwnpgsUu14mxmskgC5BdAZmJYaZj8DHTVBT",
-    "prod-user": "yJ6mEW65POupErknDGcJWgWtBNOG5C490RU7pmvPjbOOLD529bdeo0XG9Pon",
+    "user1@zenodo.org": "<token-here>",
+    "user2@zenodo.org": "<token-here>",
+    "user3@zenodo.org": "<token-here>",
+    "user4@zenodo.org": "<token-here>",
+    "user5@zenodo.org": "<token-here>",
+    "user6@zenodo.org": "<token-here>",
+    "user7@zenodo.org": "<token-here>",
 }
 
 
@@ -67,15 +36,22 @@ SEARCH_QUERIES = [
     "research",
 ]
 
-
 class GuestUser(HttpUser):
     wait_time = between(0.5, 5.0)
 
     @task
-    def api_search_random(self):
+    def api_search(self):
         """API Random search."""
+        # We add some random hex to end to possibly bust caches
         params = {"q": f"{random.choice(SEARCH_QUERIES)} OR {secrets.token_hex(16)}"}
         self.client.get("/api/records", params=params)
+
+    def on_start(self):
+        self.client.headers = {
+            "Accept": "application/json",
+            # Randomize user-agent (to bypass rate-limiting)
+            "User-Agent": secrets.token_hex(32),
+        }
 
 
 class AuthenticatedUser(HttpUser):
@@ -140,8 +116,8 @@ class AuthenticatedUser(HttpUser):
         self.client.get(f"/records/{recid}", name="/records/[id]")
 
 
-    @task(0)
-    def api_search_random(self):
+    @task
+    def api_search(self):
         """API Random search."""
         params = {"q": f"{random.choice(SEARCH_QUERIES)} OR {secrets.token_hex(16)}"}
         self.client.get("/api/records", params=params, name="/api/records")
