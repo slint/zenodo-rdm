@@ -6,5 +6,6 @@ CREATE INDEX IF NOT EXISTS idx_files_files_last_check ON files_files USING btree
 CREATE INDEX IF NOT EXISTS idx_pidstore_pid_pid_value ON pidstore_pid USING btree (pid_value);
 CREATE INDEX IF NOT EXISTS idx_rdm_parents_community_request_id ON rdm_parents_community USING btree (request_id);
 CREATE INDEX IF NOT EXISTS idx_rdm_records_files_record_id ON rdm_records_files USING btree (record_id);
+CREATE INDEX IF NOT EXISTS idx_rdm_drafts_files_record_id ON rdm_drafts_files USING btree (record_id);
 CREATE INDEX IF NOT EXISTS idx_rdm_records_metadata_bucket_id ON rdm_records_metadata USING btree (bucket_id);
 CREATE INDEX IF NOT EXISTS idx_rdm_versions_state_next_draft_id ON rdm_versions_state USING btree (next_draft_id);
