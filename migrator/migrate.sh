@@ -89,10 +89,10 @@ from invenio_rdm_records.proxies import current_rdm_records_service
 # funders_service.rebuild_index(identity=system_identity)
 # awards_service = current_service_registry.get("awards")
 # awards_service.rebuild_index(identity=system_identity)
-# vocab_service = current_service_registry.get("vocabularies")
-# vocab_service.rebuild_index(identity=system_identity)
-# subj_service = current_service_registry.get("subjects")
-# subj_service.rebuild_index(identity=system_identity)
+vocab_service = current_service_registry.get("vocabularies")
+vocab_service.rebuild_index(identity=system_identity)
+subj_service = current_service_registry.get("subjects")
+subj_service.rebuild_index(identity=system_identity)
 
 # Re-index record/drafts
 current_rdm_records_service.rebuild_index(identity=system_identity)
@@ -122,15 +122,21 @@ current_groups_service.rebuild_index(system_identity)
 current_communities.service.members.rebuild_index(system_identity)
 
 # reindex requests
-for req_meta in current_requests_service.record_cls.model_cls.query.all():
-    request = current_requests_service.record_cls(req_meta.data, model=req_meta)
-    if not request.is_deleted:
-        current_requests_service.indexer.index(request)
+def _req_iter():
+    for req_meta in current_requests_service.record_cls.model_cls.query.all():
+        request = current_requests_service.record_cls(req_meta.data, model=req_meta)
+        if not request.is_deleted:
+            yield request.id
+
+current_requests_service.indexer.bulk_index(_req_iter())
 
 # reindex requests events
-for event_meta in current_events_service.record_cls.model_cls.query.all():
-    event = current_events_service.record_cls(event_meta.data, model=event_meta)
-    current_events_service.indexer.index(event)
+def _req_event_iter():
+    for event_meta in current_events_service.record_cls.model_cls.query.all():
+        event = current_events_service.record_cls(event_meta.data, model=event_meta)
+        yield event.id
+
+current_events_service.indexer.bulk_index(_req_event_iter())
 com
 
 # Spawn an appropriate number of worker tasks to process bulk indexing queues
