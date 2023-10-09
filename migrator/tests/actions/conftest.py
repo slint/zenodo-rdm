@@ -9,50 +9,12 @@
 
 from pathlib import Path
 
-import dictdiffer
 import jsonlines
 import pytest
 from invenio_rdm_migrator.extract import Extract, Tx
 from invenio_rdm_migrator.load.postgresql.transactions import PostgreSQLTx
 from invenio_rdm_migrator.load.postgresql.transactions.operations import OperationType
 from invenio_rdm_migrator.state import STATE, StateDB
-from invenio_rdm_migrator.streams.models.communities import (
-    Community,
-    CommunityFile,
-    CommunityMember,
-    FeaturedCommunity,
-    RDMParentCommunityMetadata,
-)
-from invenio_rdm_migrator.streams.models.files import (
-    FilesBucket,
-    FilesInstance,
-    FilesObjectVersion,
-)
-from invenio_rdm_migrator.streams.models.github import Release, Repository, WebhookEvent
-from invenio_rdm_migrator.streams.models.oai import OAISet
-from invenio_rdm_migrator.streams.models.oauth import (
-    RemoteAccount,
-    RemoteToken,
-    ServerClient,
-    ServerToken,
-)
-from invenio_rdm_migrator.streams.models.pids import PersistentIdentifier
-from invenio_rdm_migrator.streams.models.records import (
-    RDMDraftFile,
-    RDMDraftMediaFile,
-    RDMDraftMetadata,
-    RDMParentMetadata,
-    RDMRecordFile,
-    RDMRecordMediaFile,
-    RDMRecordMetadata,
-    RDMVersionState,
-)
-from invenio_rdm_migrator.streams.models.users import (
-    LoginInformation,
-    SessionActivity,
-    User,
-    UserIdentity,
-)
 from invenio_rdm_migrator.streams.records.state import ParentModelValidator
 
 from zenodo_rdm_migrator.transform.transactions import ZenodoTxTransform
@@ -131,59 +93,6 @@ def test_extract_cls():
                 yield Tx(id=tx["tx_id"], operations=tx["operations"])
 
     return TestExtract
-
-
-@pytest.fixture(scope="session")
-def database(engine):
-    """Setup database.
-
-    Scope: module
-
-    Normally, tests should use the function-scoped :py:data:`db` fixture
-    instead. This fixture takes care of creating the database/tables and
-    removing the tables once tests are done.
-    """
-    tables = [
-        Community,
-        CommunityFile,
-        CommunityMember,
-        FeaturedCommunity,
-        FilesBucket,
-        FilesInstance,
-        FilesObjectVersion,
-        LoginInformation,
-        OAISet,
-        PersistentIdentifier,
-        RDMDraftMetadata,
-        RDMDraftFile,
-        RDMDraftMediaFile,
-        RDMRecordMetadata,
-        RDMRecordFile,
-        RDMRecordMediaFile,
-        RDMParentMetadata,
-        RDMVersionState,
-        RDMParentCommunityMetadata,
-        RemoteAccount,
-        RemoteToken,
-        Release,
-        Repository,
-        ServerClient,
-        ServerToken,
-        SessionActivity,
-        User,
-        UserIdentity,
-        WebhookEvent,
-    ]
-
-    # create tables
-    for model in tables:
-        model.__table__.create(bind=engine, checkfirst=True)
-
-    yield
-
-    # remove tables
-    for model in tables:
-        model.__table__.drop(engine)
 
 
 @pytest.fixture(scope="function")
