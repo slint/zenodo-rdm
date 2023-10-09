@@ -101,7 +101,14 @@ class DraftEditAction(TransformAction, DraftTransformMixin):
     @classmethod
     def matches_action(cls, tx):
         """Checks if the data corresponds with that required by the action."""
-        if len(tx.operations) not in (1, 2):
+        ops = tx.as_ops_tuples(
+            exclude=(
+                # when using a REST API Auth token, it receives an update
+                "oauth2server_token",
+            ),
+        )
+
+        if len(ops) not in (1, 2):
             return False
 
         ops = [(op["source"]["table"], op["op"]) for op in tx.operations]

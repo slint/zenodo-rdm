@@ -36,7 +36,7 @@ class FileChecksumAction(IgnoredTransformAction):
         if tx.as_ops_tuples() == [("files_files", OperationType.UPDATE)]:
             _, file = tx.ops_by("files_files").popitem()
             changed_keys = file.keys() - {"id"}
-            return {"last_check", "last_check_at", "updated"} <= changed_keys
+            return changed_keys <= {"last_check", "last_check_at", "updated"}
         return False
 
 
@@ -134,6 +134,28 @@ class DataCiteDOIRegistration(IgnoredTransformAction):
             )
 
 
+class MultiRecordNoOpUpdates(IgnoredTransformAction):
+    """Multiple record no-op updates."""
+
+    name = "nulti-record-noop-updates"
+
+    @classmethod
+    def matches_action(cls, tx):
+        """Checks for multiple no-op Zenodo updates to different records."""
+        ops = tx.as_ops_tuples(
+            include=["records_metadata"],
+            op_types=[OperationType.UPDATE],
+        )
+        if len(ops) != len(tx.operations):
+            return False
+        records = tx.ops_by("records_metadata")
+        has_multiple_different_records = len(records) > 1
+        all_no_op = all(
+            r.keys() == {"id", "updated", "version_id"} for r in records.values()
+        )
+        return has_multiple_different_records and all_no_op
+
+
 IGNORED_ACTIONS = [
     FileChecksumAction,
     UserSessionAction,
@@ -141,4 +163,5 @@ IGNORED_ACTIONS = [
     GitHubPingAction,
     OAuthReLoginAction,
     DataCiteDOIRegistration,
+    MultiRecordNoOpUpdates,
 ]
