@@ -6,6 +6,11 @@
 # it under the terms of the MIT License; see LICENSE file for more details.
 """Zenodo migrator communities transformer entries."""
 
+import functools
+import html
+import re
+import unicodedata
+
 import bleach
 from invenio_rdm_migrator.streams.communities import (
     CommunityEntry,
@@ -80,8 +85,17 @@ class ZenodoCommunityEntry(CommunityEntry):
         page = entry["page"]
         if description:
             no_style = bleach.clean(description, tags=["p"], strip=True).strip()
-            clean = bleach.clean(description, strip=True).strip()
             has_same_content = description.replace("\r", "").strip() == no_style
+
+            # Strip all HTML tags
+            clean = bleach.clean(description, strip=True)
+            # Escape any HTML entities (e.g. `&nbsp`, `&pound`, etc.)
+            clean = html.unescape(clean)
+            # Normalize Unicode characters (e.g. `non-breaking space` -> `space`)
+            clean = unicodedata.normalize("NFKD", clean)
+            # Limit multiple newlines to only two
+            clean = re.sub(r"\n\n+", "\n\n", clean).strip()
+
             # If a description does not contain any styling or special markup (i.e.
             # bold, italics, links, bullet-lists) and fits in 250 chars and, we strip
             # HTML tags and populate the description field.
