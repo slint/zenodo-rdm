@@ -55,6 +55,7 @@ class UserSessionAction(IgnoredTransformAction):
         )
         session_activity_ops = tx.as_ops_tuples(
             include=["accounts_user_session_activity"],
+            op_types=[OperationType.INSERT, OperationType.UPDATE],
         )
         # Don't accidentally match user deactivations
         if len(user_update_ops) == 1:
