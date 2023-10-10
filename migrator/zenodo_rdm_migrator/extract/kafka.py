@@ -81,6 +81,13 @@ class _TxState:
         """True if the available transaction info matches the ops table row counts."""
         return self.info is not None and self._info_counts == self._op_counts
 
+    @property
+    def skippable(self):
+        """True if the transaction is skippable."""
+        return self._op_counts == {"public.files_files": 1} or (
+            self.info is not None and self._info_counts == {"public.files_files": 1}
+        )
+
     def __str__(self):
         """Return Tx state information."""
         return (
@@ -390,6 +397,8 @@ class KafkaExtract(Extract):
                             commit_offset=offset,
                             info=tx_info,
                         )
+                    if self.tx_registry[tx_id].skippable:
+                        del self.tx_registry[tx_id]
                 self.logger.info("Stopped streaming tx info")
 
                 # We then consume operations and build up the (pending) transactions in
@@ -405,6 +414,8 @@ class KafkaExtract(Extract):
                         self.logger.info(
                             f"Completed transaction {tx_state.id}:{tx_state.commit_lsn}"
                         )
+                    if tx_state.skippable:
+                        del self.tx_registry[tx_id]
                 self.logger.info("Stopped streaming ops")
 
                 yield from self._yield_completed_tx(min_batch=self.tx_buffer)
