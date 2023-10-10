@@ -15,7 +15,6 @@ from pathlib import Path
 
 from invenio_rdm_migrator.extract import Extract, Tx
 from invenio_rdm_migrator.load.postgresql.transactions.operations import OperationType
-from invenio_rdm_migrator.logging import Logger
 from kafka import KafkaConsumer, TopicPartition
 from sortedcontainers import SortedList
 
@@ -23,11 +22,18 @@ from sortedcontainers import SortedList
 class _TxState:
     """Transaction state, internally used in the Kafka extract only."""
 
-    def __init__(self, id, commit_lsn=None, commit_offset=None, info=None):
+    def __init__(
+        self,
+        id,
+        commit_lsn=None,
+        commit_offset=None,
+        info=None,
+    ):
         """Constructor."""
         self.id = id
         self.commit_lsn = commit_lsn
         self.commit_offset = commit_offset
+        self._commit_ts = None
         self.info = info
         # We order operations based on the Postgres LSN
         self.ops = SortedList(key=lambda o: o["source"]["lsn"])
@@ -50,8 +56,14 @@ class _TxState:
                     for c in val["data_collections"]
                 }
             )
+            self._commit_ts = val.get("ts_ms")
         else:
             self._info_counts = None
+
+    @property
+    def commit_ts(self):
+        if self._commit_ts:
+            return datetime.fromtimestamp(self._commit_ts / 1000)
 
     def append(self, op):
         """Add a single table row operation to the transaction state."""
@@ -68,6 +80,17 @@ class _TxState:
     def complete(self):
         """True if the available transaction info matches the ops table row counts."""
         return self.info is not None and self._info_counts == self._op_counts
+
+    def __str__(self):
+        """Return Tx state information."""
+        return (
+            "<TxState("
+            f"[{self.id} (LSN: {self.commit_lsn}, @{self.commit_ts}) - "
+            f"Complete: {self.complete}, "
+            f"Info: {self._info_counts} Ops: {self._op_counts})>"
+        )
+
+    __repr__ = __str__
 
 
 def _load_json(val):
@@ -143,6 +166,7 @@ class KafkaExtract(Extract):
         tx_offset="earliest",
         ops_offset="earliest",
         _dump_dir=None,
+        **kwargs,
     ):
         """Constructor."""
         self.tx_topic = tx_topic
@@ -159,9 +183,8 @@ class KafkaExtract(Extract):
         self.max_ops_fetch = max_ops_fetch
         self._last_yielded_tx = None
         self._topic_states = {}
-        # TODO: This class probably needs a dedicated logger namespace
-        self.logger = Logger.get_logger()
         self._dump_dir = Path(_dump_dir) if _dump_dir else None
+        super().__init__(**kwargs)
 
     def _dump_msg(self, topic, msg):
         if self._dump_dir:
@@ -324,8 +347,22 @@ class KafkaExtract(Extract):
         for tx in completed_tx_batch:
             del self.tx_registry[tx.id]
             # Keep track of the last yielded transaction ID
-            self._last_yielded_tx = (tx.id, tx.commit_lsn, tx.commit_offset)
+            self._last_yielded_tx = tx
             yield Tx(id=tx.id, commit_lsn=tx.commit_lsn, operations=list(tx.ops))
+
+    def _log_stats(self):
+        """Log extract stats."""
+        last_yielded_tx = self._last_yielded_tx
+        tx_count = len(self.tx_registry)
+        incomplete_tx = len([t for t in self.tx_registry.values() if not t.complete])
+        self.logger.info(f"{last_yielded_tx=}, {tx_count=} ({incomplete_tx=})")
+
+        lsn_sorted_tx = sorted(
+            self.tx_registry.values(),
+            key=lambda t: (t.commit_lsn is None, t.commit_lsn),
+        )
+        self.logger.info(f"Next pending Tx: {lsn_sorted_tx[:3]}")
+        self.logger.info(f"Last pending Tx: {lsn_sorted_tx[-3:]}")
 
     def run(self):
         """Return a blocking generator yielding completed transactions."""
@@ -372,7 +409,7 @@ class KafkaExtract(Extract):
 
                 yield from self._yield_completed_tx(min_batch=self.tx_buffer)
 
-                self.logger.info(f"{self._last_yielded_tx=}")
+                self._log_stats()
 
                 # If no new transactions, we don't need to sleep since consumers
                 # have a timeout/sleep already via "consumer_timeout_ms".
