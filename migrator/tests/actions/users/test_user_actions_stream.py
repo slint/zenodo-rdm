@@ -155,7 +155,6 @@ def test_confirm_user_action_stream(
     assert user.confirmed_at.isoformat() == "2023-08-01T16:14:19.612306"
 
 
-@pytest.mark.skip("UserProfileEditAction not implemented yet")
 def test_change_user_profile_stream(
     db_user, pg_tx_load, session, test_extract_cls, change_user_profile_tx
 ):
@@ -170,7 +169,7 @@ def test_change_user_profile_stream(
     user = session.scalars(sa.select(User)).one()
     assert user.username == "another_mig_username"
     assert user.displayname == "another_mig_username"
-    assert user.full_name == "Some new full name"
+    assert user.profile["full_name"] == "Some new full name"
 
 
 def test_edit_user_action_stream(

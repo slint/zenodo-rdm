@@ -103,6 +103,36 @@ class UserEditAction(TransformAction):
         return dict(user=user, login_information=login_info)
 
 
+class UserProfileEditAction(TransformAction):
+    """Zenodo to RDM user edit action."""
+
+    name = "edit-user-profile"
+    load_cls = load.UserEditAction
+
+    @classmethod
+    def matches_action(cls, tx):
+        """Checks if the data corresponds with that required by the action."""
+        return tx.as_ops_tuples().count(
+            ("userprofiles_userprofile", OperationType.UPDATE)
+        ) in (1, 2)
+
+    def _transform_data(self):
+        """Transforms the data and returns an instance of the mapped_cls."""
+        # use only the latest updated information
+
+        _, user_profile = self.tx.ops_by("userprofiles_userprofile").popitem()
+        user = {"id": user_profile["user_id"]}
+        if user_profile.get("full_name"):
+            user["profile"] = {"full_name": user_profile["full_name"]}
+        if user_profile.get("username"):
+            user["username"] = user_profile.get("username")
+        if user_profile.get("displayname"):
+            user["displayname"] = user_profile.get("displayname")
+        return {
+            "user": user,
+        }
+
+
 class UserDeactivationAction(TransformAction):
     """Zenodo to RDM user deactivation action."""
 
@@ -169,4 +199,5 @@ USER_ACTIONS = [
     UserRegistrationAction,
     UserEditAction,
     UserDeactivationAction,
+    UserProfileEditAction,
 ]
