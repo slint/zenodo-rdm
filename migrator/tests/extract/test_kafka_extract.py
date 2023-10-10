@@ -7,11 +7,9 @@
 
 """Migrator tests configuration."""
 
-import copy
 import itertools
 import random
 from collections import Counter
-from types import SimpleNamespace
 from unittest.mock import PropertyMock
 
 from invenio_rdm_migrator.extract import Tx
@@ -53,8 +51,12 @@ def _patch_consumers(mocker, tx_info, ops):
     )
 
 
+LAST_TX_COMMIT_LSN = 1461029027816
+LATER_LAST_TX_COMMIT_LSN = 1461027893600
+OLDEST_ACTIVE_TX = 563388920
+
 FIRST_TX_OP_COUNTS = (
-    563388798,
+    563389016,
     {
         "public.oauth2server_token": 1,
         "public.records_metadata": 1,
@@ -144,14 +146,16 @@ def test_simple_extract(mocker, kafka_data):
     extract = KafkaExtract(
         ops_topic="test_topic",
         tx_topic="test_topic",
-        # first transaction ID in the file, will be skipped
-        last_tx=563388795,
+        # This Tx commit LSN has a few commited Tx before it
+        last_tx_commit_lsn=LAST_TX_COMMIT_LSN,
+        # We skip a couple of Tx
+        oldest_active_xid=OLDEST_ACTIVE_TX,
     )
     result = list(extract.run())
     _assert_result(
         result,
-        count=140,
-        first_tx_id=563388798,
+        count=122,
+        first_tx_id=563389016,
         last_tx_id=563390849,
         excluded_tx_ids=(563388795,),
         tx_op_counts=dict([FIRST_TX_OP_COUNTS, MIDDLE_TX_OP_COUNTS, LAST_TX_OP_COUNTS]),
@@ -175,13 +179,14 @@ def test_randomized_extract(mocker, kafka_data):
     extract = KafkaExtract(
         ops_topic="test_topic",
         tx_topic="test_topic",
-        last_tx=563388795,
+        last_tx_commit_lsn=LAST_TX_COMMIT_LSN,
+        oldest_active_xid=OLDEST_ACTIVE_TX,
     )
     result = list(extract.run())
     _assert_result(
         result,
-        count=140,
-        first_tx_id=563388798,
+        count=122,
+        first_tx_id=563389016,
         last_tx_id=563390849,
         excluded_tx_ids=(563388795,),
         tx_op_counts=dict([FIRST_TX_OP_COUNTS, MIDDLE_TX_OP_COUNTS, LAST_TX_OP_COUNTS]),
@@ -214,21 +219,21 @@ def test_random_sized_batches_extract(mocker, kafka_data):
     extract = KafkaExtract(
         ops_topic="test_topic",
         tx_topic="test_topic",
-        # first transaction ID in the file, will be skipped
-        last_tx=563388795,
+        last_tx_commit_lsn=LAST_TX_COMMIT_LSN,
+        oldest_active_xid=OLDEST_ACTIVE_TX,
     )
     result = list(extract.run())
     _assert_result(
         result,
-        count=140,
-        first_tx_id=563388798,
+        count=122,
+        first_tx_id=563389016,
         last_tx_id=563390849,
         excluded_tx_ids=(563388795,),
         tx_op_counts=dict([FIRST_TX_OP_COUNTS, MIDDLE_TX_OP_COUNTS, LAST_TX_OP_COUNTS]),
     )
 
 
-def test_later_last_tx(mocker, kafka_data):
+def test_later_last_commit_lsn(mocker, kafka_data):
     """Test passing a later transaction ID from the stream.
 
     In this case we should just get less transactions processed, but still they should
@@ -245,17 +250,15 @@ def test_later_last_tx(mocker, kafka_data):
         ops_topic="test_topic",
         tx_topic="test_topic",
         # a later transaction in the file
-        last_tx=563389290,
+        last_tx_commit_lsn=LATER_LAST_TX_COMMIT_LSN,
+        oldest_active_xid=OLDEST_ACTIVE_TX,
     )
     result = list(extract.run())
     _assert_result(
         result,
-        count=102,
-        first_tx_id=563389293,
+        count=129,
+        first_tx_id=563388920,
         last_tx_id=563390849,
-        excluded_tx_ids=(
-            563388798,
-            563389290,
-        ),
+        excluded_tx_ids=(563388910,),
         tx_op_counts=dict([MIDDLE_TX_OP_COUNTS, LAST_TX_OP_COUNTS]),
     )

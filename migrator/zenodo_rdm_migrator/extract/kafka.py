@@ -81,13 +81,6 @@ class _TxState:
         """True if the available transaction info matches the ops table row counts."""
         return self.info is not None and self._info_counts == self._op_counts
 
-    @property
-    def skippable(self):
-        """True if the transaction is skippable."""
-        return self._op_counts == {"public.files_files": 1} or (
-            self.info is not None and self._info_counts == {"public.files_files": 1}
-        )
-
     def __str__(self):
         """Return Tx state information."""
         return (
@@ -121,7 +114,7 @@ class KafkaExtract(Extract):
         extract = KafkaExtract(
             ops_topic="zenodo-migration.public",
             tx_topic="zenodo-migration.postgres_transaction",
-            last_tx=563385187,
+            last_tx_commit_lsn=563385187,
             offset=datetime.utcnow() - timedelta(minutes=5),
             config={
                 "bootstrap_servers": [
@@ -136,7 +129,7 @@ class KafkaExtract(Extract):
     :param ops_topic: Kafka topic to consume statements/operations from.
     :param tx_topic: Kafka topic to consume transaction information from.
     :param config: Dictionary of extra configuration for the Kafka consumers.
-    :param last_tx: Last transaction ID after which to start yielding.
+    :param last_tx_commit_lsn: Last transaction's commit LSN after which to start.
     :param tx_buffer: How many transactions to buffer before starting to return. Larger
         values trade memory for safety.
     :param max_tx_info_fetch: Max number of transaction info messages to fetch from the
@@ -165,10 +158,11 @@ class KafkaExtract(Extract):
         *,
         ops_topic,
         tx_topic,
-        last_tx,
-        tx_buffer=100,
-        max_tx_info_fetch=200,
-        max_ops_fetch=2000,
+        last_tx_commit_lsn: int,
+        oldest_active_xid: int,
+        tx_buffer: int = 100,
+        max_tx_info_fetch: int = 200,
+        max_ops_fetch: int = 2000,
         config=None,
         tx_offset="earliest",
         ops_offset="earliest",
@@ -180,9 +174,10 @@ class KafkaExtract(Extract):
         self.tx_offset = tx_offset
         self.ops_topic = ops_topic
         self.ops_offset = ops_offset
-
-        assert last_tx is not None, "`last_tx` is required."
-        self.last_tx = last_tx
+        assert last_tx_commit_lsn is not None, "`last_tx_commit_lsn` is required."
+        self.last_tx_commit_lsn = last_tx_commit_lsn
+        self.oldest_active_xid = oldest_active_xid
+        self._commited_tx_before_checkpoint = set()
         self.config = config or {}
         self.tx_registry = {}
         self.tx_buffer = tx_buffer
@@ -280,19 +275,30 @@ class KafkaExtract(Extract):
                 consumer.commit()
                 continue
 
-            tx_id, tx_lsn = map(int, tx_msg.value["id"].split(":"))
-            # We drop anything before the configured last transaction ID
-            if tx_id <= self.last_tx:
-                self.logger.info(f"Skipped {tx_id} at offset: {tx_msg.offset}")
-                consumer.commit()
-                continue
+            # ignore BEGIN statements
             if tx_msg.value["status"] == "BEGIN":
-                # ignore BEGIN statements
                 consumer.commit()
                 continue
-            elif tx_msg.value["status"] == "END":
+
+            # We drop anything before the oldest Tx ID
+            tx_id, tx_lsn = map(int, tx_msg.value["id"].split(":"))
+            if tx_id < self.oldest_active_xid:
+                self.logger.info(f"Skipped {tx_id}:{tx_lsn} at offset: {tx_msg.offset}")
                 consumer.commit()
-                yield ((tx_id, tx_lsn, tx_msg.offset), tx_msg.value)
+                continue
+
+            # We keep track of transactions older than the last Tx commit LSN
+            # to skip their operations
+            if tx_lsn < self.last_tx_commit_lsn:
+                self._commited_tx_before_checkpoint.add(tx_id)
+                # Remove any existing pending ops
+                self.tx_registry.pop(tx_id, None)
+                self.logger.info(f"Skipped {tx_id}:{tx_lsn} at offset: {tx_msg.offset}")
+                consumer.commit()
+                continue
+
+            consumer.commit()
+            yield ((tx_id, tx_lsn, tx_msg.offset), tx_msg.value)
 
     def iter_ops(self):
         """Yields operations/statements."""
@@ -304,11 +310,17 @@ class KafkaExtract(Extract):
                 self.logger.debug(f"No message value for op {op_msg}")
                 consumer.commit()
                 continue
+
+            # We drop anything before the oldest active Tx ID or from already commited
+            # Tx before the checkpoint
             tx_id = op_msg.value["source"]["txId"]
-            # We drop anything before the configured last transaction ID
-            if tx_id <= self.last_tx:
+            if (
+                tx_id < self.oldest_active_xid
+                or tx_id in self._commited_tx_before_checkpoint
+            ):
                 consumer.commit()
                 continue
+
             consumer.commit()
 
             op_msg.key.pop("__dbz__physicalTableIdentifier", None)
@@ -397,8 +409,6 @@ class KafkaExtract(Extract):
                             commit_offset=offset,
                             info=tx_info,
                         )
-                    if self.tx_registry[tx_id].skippable:
-                        del self.tx_registry[tx_id]
                 self.logger.info("Stopped streaming tx info")
 
                 # We then consume operations and build up the (pending) transactions in
@@ -414,8 +424,6 @@ class KafkaExtract(Extract):
                         self.logger.info(
                             f"Completed transaction {tx_state.id}:{tx_state.commit_lsn}"
                         )
-                    if tx_state.skippable:
-                        del self.tx_registry[tx_id]
                 self.logger.info("Stopped streaming ops")
 
                 yield from self._yield_completed_tx(min_batch=self.tx_buffer)
