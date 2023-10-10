@@ -7,6 +7,8 @@
 
 """Invenio RDM migration oauth actions module."""
 
+import base64
+
 from invenio_rdm_migrator.actions import TransformAction
 from invenio_rdm_migrator.load.postgresql.transactions.operations import OperationType
 from invenio_rdm_migrator.streams.actions import load
@@ -57,7 +59,9 @@ class OAuthServerTokenCreateAction(TransformAction):
 
         result = {
             "client": OAuthServerClientTransform()._transform(client_src),
-            "token": OAuthServerTokenTransform()._transform(token_src),
+            "token": OAuthServerTokenTransform(
+                base64_fields=["access_token", "refresh_token"]
+            )._transform(token_src),
         }
 
         return result
@@ -107,7 +111,9 @@ class OAuthServerTokenUpdateAction(TransformAction):
 
             elif op["source"]["table"] == "oauth2server_token":
                 self._microseconds_to_isodate(data=op["after"], fields=["expires"])
-                result["token"] = OAuthServerTokenTransform()._transform(op["after"])
+                result["token"] = OAuthServerTokenTransform(
+                    base64_fields=["access_token", "refresh_token"]
+                )._transform(op["after"])
 
         return result
 
@@ -136,7 +142,11 @@ class OAuthServerTokenDeleteAction(TransformAction):
         op = self.tx.operations[0]
 
         self._microseconds_to_isodate(data=op["before"], fields=["expires"])
-        return {"token": OAuthServerTokenTransform()._transform(op["before"])}
+        return {
+            "token": OAuthServerTokenTransform(
+                base64_fields=["access_token", "refresh_token"]
+            )._transform(op["before"])
+        }
 
 
 class OAuthApplicationCreateAction(TransformAction):
@@ -299,13 +309,19 @@ class OAuthLinkedAccountConnectAction(TransformAction, JSONTransformMixin):
             "remote_token": IdentityTransform()._transform(remote_token),
             "user_identity": IdentityTransform()._transform(user_identity),
         }
+        token = result.get("remote_token", {}).get("access_token")
+        if token:
+            result["remote_token"]["access_token"] = base64.b64decode(token)
+
         if server_client:
             result["server_client"]: OAuthServerClientTransform()._transform(
                 server_client
             )
         if server_token:
             self._microseconds_to_isodate(data=server_token, fields=["expires"])
-            result["server_token"]: OAuthServerTokenTransform()._transform(server_token)
+            result["server_token"]: OAuthServerTokenTransform(
+                base64_fields=["access_token", "refresh_token"]
+            )._transform(server_token)
 
         return result
 
@@ -364,6 +380,10 @@ class OAuthLinkedAccountDisconnectAction(TransformAction, JSONTransformMixin):
             "remote_token": IdentityTransform()._transform(remote_token),
         }
 
+        token = result.get("remote_token", {}).get("access_token")
+        if token:
+            result["remote_token"]["access_token"] = base64.b64decode(token)
+
         if user_identity:
             self._microseconds_to_isodate(
                 data=user_identity, fields=["created", "updated"]
@@ -413,7 +433,9 @@ class OAuthGHDisconnectToken(TransformAction):
                 user_identity = op["before"]
 
         return {
-            "token": OAuthServerTokenTransform()._transform(token),
+            "token": OAuthServerTokenTransform(
+                base64_fields=["access_token", "refresh_token"]
+            )._transform(token),
             "user_identity": IdentityTransform()._transform(user_identity),
         }
 

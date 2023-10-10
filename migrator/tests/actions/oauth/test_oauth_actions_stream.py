@@ -7,6 +7,8 @@
 
 """Test OAuth action stream for RDM migration."""
 
+import base64
+
 import pytest
 import sqlalchemy as sa
 from invenio_rdm_migrator.streams import Stream
@@ -60,7 +62,9 @@ def db_client_server(database, session):
         client_id="SZLrR8ApZPeBjqj7uMB1JWXavhxebu6V0mwMtvMr",
         user_id=123456,
         token_type="bearer",
-        access_token="cH4ng3DzbXd4QTcrRjFMcTVMRHl3QlY2Rkdib0VwREY4aDhPcHo2dUt2ZnZ3OVVPa1BvRDl0L1NRZmFrdXNIU2hJR2JWc0NHZDZSVEhVT2JQcmdjS1E9PQ==",
+        access_token=base64.b64decode(
+            "cH4ng3DzbXd4QTcrRjFMcTVMRHl3QlY2Rkdib0VwREY4aDhPcHo2dUt2ZnZ3OVVPa1BvRDl0L1NRZmFrdXNIU2hJR2JWc0NHZDZSVEhVT2JQcmdjS1E9PQ=="
+        ),
         refresh_token=None,
         expires=None,
         _scopes="tokens:generate user:email",
@@ -207,7 +211,9 @@ def db_linked_orcid_account(database, session):
     remote_token = RemoteToken(
         id_remote_account=8546,
         token_type="",
-        access_token="R3RVeGc3K0RrM25rbXc4ZWxGM3oxYVA4LzcwVWpCNkM4aG8vRy9CNWxkZFFCMk9OR1d2d29lN3dKdWk2eEVTQQ==",
+        access_token=base64.b64decode(
+            "R3RVeGc3K0RrM25rbXc4ZWxGM3oxYVA4LzcwVWpCNkM4aG8vRy9CNWxkZFFCMk9OR1d2d29lN3dKdWk2eEVTQQ=="
+        ),
         secret="",
         created="2023-06-29T13:00:00",
         updated="2023-06-29T14:00:00",
@@ -282,7 +288,9 @@ def db_linked_gh_account(database, session):
     remote_token = RemoteToken(
         id_remote_account=8546,
         token_type="",
-        access_token="R3RVeGc3K0RrM25rbXc4ZWxGM3oxYVA4LzcwVWpCNkM4aG8vRy9CNWxkZFFCMk9OR1d2d29lN3dKdWk2eEVTQQ==",
+        access_token=base64.b64decode(
+            "R3RVeGc3K0RrM25rbXc4ZWxGM3oxYVA4LzcwVWpCNkM4aG8vRy9CNWxkZFFCMk9OR1d2d29lN3dKdWk2eEVTQQ=="
+        ),
         secret="",
         created="2023-06-29T13:00:00",
         updated="2023-06-29T14:00:00",
@@ -301,7 +309,9 @@ def db_linked_gh_account(database, session):
         client_id="rKmVKlRxnQJfyizWeVKRO26cZjLqd2yWhsBFkjv0",
         user_id=86490,
         token_type="bearer",
-        access_token="cH4ng3DzbXd4QTcrRjFMcTVMRHl3QlY2Rkdib0VwREY4aDhPcHo2dUt2ZnZ3OVVPa1BvRDl0L1NRZmFrdXNIU2hJR2JWc0NHZDZSVEhVT2JQcmdjS1E9PQ==",
+        access_token=base64.b64decode(
+            "cH4ng3DzbXd4QTcrRjFMcTVMRHl3QlY2Rkdib0VwREY4aDhPcHo2dUt2ZnZ3OVVPa1BvRDl0L1NRZmFrdXNIU2hJR2JWc0NHZDZSVEhVT2JQcmdjS1E9PQ=="
+        ),
         refresh_token=None,
         expires=None,
         _scopes="webhooks:event",
