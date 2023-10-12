@@ -77,9 +77,11 @@ class GitHubSyncAction(IgnoredTransformAction):
     @classmethod
     def matches_action(cls, tx):
         """Checks for a single OAuth client remote account update op."""
-        return tx.as_ops_tuples() == [
-            ("oauthclient_remoteaccount", OperationType.UPDATE)
-        ]
+        ops = tx.as_ops_tuples()
+        ra_update = ops.count(("oauthclient_remoteaccount", OperationType.UPDATE))
+        repo_updates = ops.count(("github_repositories", OperationType.UPDATE))
+        # 1 remote account update + optionally multiple repo updates
+        return ra_update == 1 and len(ops) == (ra_update + repo_updates)
 
 
 class GitHubPingAction(IgnoredTransformAction):
