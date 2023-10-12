@@ -7,8 +7,7 @@
 
 """Test record transform for RDM migration."""
 
-from datetime import datetime
-from unittest.mock import patch
+from datetime import datetime, timedelta
 
 import dictdiffer
 import pytest
@@ -45,21 +44,16 @@ def expected_rdm_request_entry():
             "created_by": {"user": "3"},
             "$schema": "local://requests/request-v1.0.0.json",
         },
-        "expires_at": "2024-01-01T12:00:00",
+        "expires_at": (datetime.today() + timedelta(days=365)).isoformat(),
         "number": None,
     }
 
 
-class MockDatetime:
-    """Mocked datetime."""
-
-    def today(self):
-        """returns constant datetime."""
-        return datetime(2023, 1, 1, 12, 00, 00, 00000)
-
-
-@patch("zenodo_rdm_migrator.transform.entries.requests.datetime", MockDatetime())
 def test_zenodo_request_transform(zenodo_request_data, expected_rdm_request_entry):
     """Test the transformation of a request into a request and a relation."""
     result = ZenodoRequestTransform()._transform(zenodo_request_data)
+
+    expected_expires_at = expected_rdm_request_entry.pop("expires_at")
+    result_expires_at = result.pop("expires_at")
+    assert result_expires_at[:10] == expected_expires_at[:10]
     assert not list(dictdiffer.diff(result, expected_rdm_request_entry))

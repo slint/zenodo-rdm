@@ -8,7 +8,6 @@
 """Test record transform for RDM migration."""
 
 from datetime import datetime
-from unittest.mock import patch
 
 import pytest
 
@@ -1070,10 +1069,6 @@ def expected_rdm_draft_parent():
     }
 
 
-@patch(
-    "zenodo_rdm_migrator.transform.entries.records.records.datetime",
-    MockDateTime(),
-)
 def test_draft_entry(
     zenodo_draft_data,
     expected_rdm_draft_entry,
@@ -1092,10 +1087,6 @@ def test_draft_entry(
     assert result["draft"] == expected_rdm_draft_entry
 
 
-@patch(
-    "zenodo_rdm_migrator.transform.entries.records.records.datetime",
-    MockDateTime(),
-)
 def test_legacy_draft_entry(zenodo_draft_data, expected_rdm_draft_entry):
     """Test the transformation of a full Zenodo record."""
     zenodo_draft_data["json"]["_deposit"] = {
