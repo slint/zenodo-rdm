@@ -12,7 +12,6 @@ from invenio_rdm_migrator.actions import TransformAction
 from invenio_rdm_migrator.load.postgresql.transactions.operations import OperationType
 from invenio_rdm_migrator.streams.actions import load
 from invenio_rdm_migrator.streams.github import GitHubRepositoryTransform
-from invenio_rdm_migrator.streams.oauth import OAuthServerTokenTransform
 from invenio_rdm_migrator.transform import IdentityTransform, JSONTransformMixin
 
 from ...transform.entries.parents import ParentRecordEntry
@@ -269,18 +268,14 @@ class ReleaseProcessAction(TransformAction, JSONTransformMixin):
         rules = {
             "records_metadata",
             "pidstore_pid",
+            "pidrelations_pidrelation",
             "files_bucket",
             "files_object",
             "files_files",
             "github_releases",
         }
-
-        for op in tx.operations:
-            if op["source"]["table"] in rules and op["op"] == OperationType.INSERT:
-                rules.remove(op["source"]["table"])
-
-        # there is at least one creation of each of the tables needed
-        return len(rules) == 0
+        ops = {op["source"]["table"] for op in tx.operations}
+        return ops <= rules
 
     def _transform_data(self):
         """Transforms the data and returns dictionary."""
