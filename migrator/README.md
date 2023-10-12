@@ -191,7 +191,10 @@ directly on the legacy database, in the following manner:
 
 ```shell
 # NOTE: Adjust the connection string as necessary
-DUMP_DB_URI="service=zenodo-clone"
+export DUMP_DB_URI="service=zenodo-clone"
+
+# NOTE: To run all the extract queries all at once:
+#    grep -vE '^\s*(#|$)' dump_all.sh | parallel
 
 # Users, ~30min
 psql $DUMP_DB_URI -f scripts/users_dump.sql | sed 's/\\\\/\\/g' > "dumps/users.jsonl"

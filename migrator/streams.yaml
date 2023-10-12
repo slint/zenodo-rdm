@@ -8,12 +8,6 @@ new_secret_key: CHANGE_ME
 users:
   extract:
     filepath: /path/to/users.jsonl
-oauthserver_clients:
-  extract:
-    filepath: /path/to/oauthserver_clients.jsonl
-oauthserver_tokens:
-  extract:
-    filepath: /path/to/oauthserver_tokens.jsonl
 communities:
   extract:
     filepath: /path/to/communities.jsonl

@@ -43,6 +43,9 @@ pv dumps/award_metadata.csv | psql $DB_URI -c 'COPY award_metadata (id, pid, jso
 pv dumps/oauthclient_remoteaccount.bin | psql $DB_URI -c "COPY oauthclient_remoteaccount (id, user_id, client_id, extra_data, created, updated) FROM STDIN (FORMAT binary);"
 pv dumps/oauthclient_remotetoken.bin | psql $DB_URI -c "COPY oauthclient_remotetoken (id_remote_account, token_type, access_token, secret, created, updated) FROM STDIN (FORMAT binary);"
 
+pv dumps/oauth2server_client.bin | psql $DB_URI -c "COPY oauth2server_client (name, client_id, description, website, user_id, client_secret, _redirect_uris, _default_scopes, is_internal, is_confidential) FROM STDIN (FORMAT binary);"
+pv dumps/oauth2server_token.bin | psql $DB_URI -c "COPY oauth2server_token (id, client_id, user_id, access_token, refresh_token, expires, _scopes, token_type, is_personal, is_internal) FROM STDIN (FORMAT binary);"
+
 # GitHub-related
 pv dumps/webhooks_events.bin.gz | gzip -dc | psql $DB_URI -c "COPY webhooks_events (id, created, updated, receiver_id, user_id, payload, payload_headers, response, response_headers, response_code) FROM STDIN (FORMAT binary);"
 pv dumps/github_repositories.bin | psql $DB_URI -c "COPY github_repositories (id, created, updated, github_id, name, user_id, hook) FROM STDIN (FORMAT binary);"
