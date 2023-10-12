@@ -150,11 +150,10 @@ class MultiRecordNoOpUpdates(IgnoredTransformAction):
         if len(ops) != len(tx.operations):
             return False
         records = tx.ops_by("records_metadata")
-        has_multiple_different_records = len(records) > 1
-        all_no_op = all(
-            r.keys() == {"id", "updated", "version_id"} for r in records.values()
-        )
-        return has_multiple_different_records and all_no_op
+        # In one transaction we can maximum have 1 draft + 1 record change.
+        # Celery tasks updating OAI sets might cause multiple updates to a record/draft.
+        has_multiple_different_records = len(records) > 2
+        return has_multiple_different_records
 
 
 IGNORED_ACTIONS = [
