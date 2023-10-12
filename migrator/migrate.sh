@@ -1,10 +1,12 @@
 #!/bin/bash
 
+### <<<< Inside OpenShift Debug Pod >>>> ###
+
 # Clear DB, indices, Redis, and RabbitMQ
 invenio db drop --yes-i-know
 invenio index destroy --force --yes-i-know
 invenio shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
-invenio index queue init purge --all-queues
+invenio index queue --all-queues init purge
 
 # Create DB tables, files locations, and search indices
 invenio db create
@@ -15,6 +17,8 @@ invenio files location create --default 'default-location' $(invenio shell --no-
 invenio index init --force
 invenio rdm-records custom-fields init
 invenio communities custom-fields init
+
+### <<<< Inside the migrator VM >>>> ###
 
 # Migration target database
 DB_URI="service=zenodo-target"
@@ -35,9 +39,9 @@ psql $DB_URI -f scripts/drop_indices.sql
 
 # Vocabularies
 pv dumps/affiliation_metadata.csv | psql $DB_URI -c 'COPY affiliation_metadata (id, pid, json, created, updated, version_id) FROM STDIN (FORMAT csv);'
-pv dumps/name_metadata.bin | psql $DB_URI -c 'COPY name_metadata (id, created, updated, pid, json, version_id) FROM STDIN (FORMAT binary);'
+pv dumps/name_metadata.bin.gz | gzip -dc | psql $DB_URI -c 'COPY name_metadata (id, created, updated, pid, json, version_id) FROM STDIN (FORMAT binary);'
 pv dumps/funder_metadata.csv | psql $DB_URI -c 'COPY funder_metadata (id, pid, json, created, updated, version_id) FROM STDIN (FORMAT csv);'
-pv dumps/award_metadata.csv | psql $DB_URI -c 'COPY award_metadata (id, pid, json, created, updated, version_id) FROM STDIN (FORMAT csv);'
+pv dumps/award_metadata.csv.gz | gzip -dc | psql $DB_URI -c 'COPY award_metadata (id, pid, json, created, updated, version_id) FROM STDIN (FORMAT csv);'
 
 # OAuth
 pv dumps/oauthclient_remoteaccount.bin | psql $DB_URI -c "COPY oauthclient_remoteaccount (id, user_id, client_id, extra_data, created, updated) FROM STDIN (FORMAT binary);"
@@ -47,7 +51,7 @@ pv dumps/oauth2server_client.bin | psql $DB_URI -c "COPY oauth2server_client (na
 pv dumps/oauth2server_token.bin | psql $DB_URI -c "COPY oauth2server_token (id, client_id, user_id, access_token, refresh_token, expires, _scopes, token_type, is_personal, is_internal) FROM STDIN (FORMAT binary);"
 
 # GitHub-related
-pv dumps/webhooks_events.bin.gz | gzip -dc | psql $DB_URI -c "COPY webhooks_events (id, created, updated, receiver_id, user_id, payload, payload_headers, response, response_headers, response_code) FROM STDIN (FORMAT binary);"
+pv dumps/webhook_events.bin.gz | gzip -dc | psql $DB_URI -c "COPY webhooks_events (id, created, updated, receiver_id, user_id, payload, payload_headers, response, response_headers, response_code) FROM STDIN (FORMAT binary);"
 pv dumps/github_repositories.bin | psql $DB_URI -c "COPY github_repositories (id, created, updated, github_id, name, user_id, hook) FROM STDIN (FORMAT binary);"
 
 # Files
@@ -68,8 +72,11 @@ psql $DB_URI -f scripts/update_sequences.sql
 # Create missing DB indices to speed up records indexing
 psql $DB_URI -f scripts/create_missing_indices.sql
 
+### <<<< Inside OpenShift Debug Pod >>>> ###
+
 # Fixtures
 invenio rdm-records fixtures
+invenio rdm fixtures
 
 ###########################################################
 # Reindex records

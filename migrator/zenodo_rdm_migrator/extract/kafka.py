@@ -375,7 +375,8 @@ class KafkaExtract(Extract):
         last_yielded_tx = self._last_yielded_tx
         tx_count = len(self.tx_registry)
         incomplete_tx = len([t for t in self.tx_registry.values() if not t.complete])
-        self.logger.info(f"{last_yielded_tx=}, {tx_count=} ({incomplete_tx=})")
+        self.logger.info(f"Last yielded Tx: {last_yielded_tx=}")
+        self.logger.info(f"{tx_count=} ({incomplete_tx=})")
 
         lsn_sorted_tx = sorted(
             self.tx_registry.values(),
