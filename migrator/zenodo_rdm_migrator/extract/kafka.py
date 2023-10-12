@@ -367,7 +367,8 @@ class KafkaExtract(Extract):
             del self.tx_registry[tx.id]
             # Keep track of the last yielded transaction ID
             self._last_yielded_tx = tx
-            yield Tx(id=tx.id, commit_lsn=tx.commit_lsn, operations=list(tx.ops))
+            if tx.ops:
+                yield Tx(id=tx.id, commit_lsn=tx.commit_lsn, operations=list(tx.ops))
 
     def _log_stats(self):
         """Log extract stats."""
