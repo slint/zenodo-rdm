@@ -9,7 +9,7 @@
 
 import pytest
 
-from zenodo_rdm_migrator.actions.transform.ignored import GitHubSyncAction
+from zenodo_rdm_migrator.actions.transform.ignored import BucketNoop, GitHubSyncAction
 
 
 @pytest.fixture()
@@ -18,3 +18,11 @@ def test_github_sync(test_extract_cls, tx_transform, tx_files):
     tx = next(test_extract_cls(tx_files["repo_udpate"]).run())
     match = tx_transform._detect_action(tx)
     assert match == GitHubSyncAction
+
+
+@pytest.fixture()
+def test_bucket_noop(test_extract_cls, tx_transform, tx_files):
+    """Bucket no-op action match."""
+    tx = next(test_extract_cls(tx_files["bucket-noop"]).run())
+    match = tx_transform._detect_action(tx)
+    assert match == BucketNoop

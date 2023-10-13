@@ -137,10 +137,22 @@ class DataCiteDOIRegistration(IgnoredTransformAction):
             )
 
 
+class BucketNoop(IgnoredTransformAction):
+    """Bucket no-op update."""
+
+    name = "bucket-noop"
+
+    @classmethod
+    def matches_action(cls, tx):
+        """Single bucket update noop."""
+        ops = tx.as_ops_tuples()
+        return ops == ["files_bucket", OperationType.UPDATE]
+
+
 class MultiRecordNoOpUpdates(IgnoredTransformAction):
     """Multiple record no-op updates."""
 
-    name = "nulti-record-noop-updates"
+    name = "multi-record-noop-updates"
 
     @classmethod
     def matches_action(cls, tx):
@@ -166,4 +178,5 @@ IGNORED_ACTIONS = [
     OAuthReLoginAction,
     DataCiteDOIRegistration,
     MultiRecordNoOpUpdates,
+    BucketNoop,
 ]
