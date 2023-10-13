@@ -10,6 +10,7 @@
 from pathlib import Path
 
 import jsonlines
+import orjson
 import pytest
 from invenio_rdm_migrator.extract import Extract, Tx
 from invenio_rdm_migrator.load.postgresql.transactions import PostgreSQLTx
@@ -79,11 +80,19 @@ def test_extract_cls():
                     tx_path = Path(tx)
                     assert tx_path.exists()
                     with jsonlines.open(tx_path) as tx_ops:
-                        tx = {
-                            "operations": [
-                                {"key": op["key"], **op["value"]} for op in tx_ops
-                            ]
-                        }
+                        tx = {"operations": []}
+                        for op in tx_ops:
+                            if isinstance(op["key"], str):
+                                tx["operations"].append(
+                                    {
+                                        "key": orjson.loads(op["key"]),
+                                        **orjson.loads(op["payload"]),
+                                    }
+                                )
+                            else:
+                                tx["operations"].append(
+                                    {"key": op["key"], **op["value"]}
+                                )
                         # convert "op" to OperationType enum and pop Debezium internals
                         for op in tx["operations"]:
                             op["op"] = OperationType(op["op"].upper())

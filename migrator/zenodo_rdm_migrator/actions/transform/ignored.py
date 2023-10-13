@@ -146,7 +146,7 @@ class BucketNoop(IgnoredTransformAction):
     def matches_action(cls, tx):
         """Single bucket update noop."""
         ops = tx.as_ops_tuples()
-        return ops == ["files_bucket", OperationType.UPDATE]
+        return ops == [("files_bucket", OperationType.UPDATE)]
 
 
 class MultiRecordNoOpUpdates(IgnoredTransformAction):

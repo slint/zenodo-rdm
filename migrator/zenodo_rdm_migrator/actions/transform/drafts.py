@@ -111,8 +111,6 @@ class DraftEditAction(TransformAction, DraftTransformMixin):
         if len(ops) not in (1, 2):
             return False
 
-        ops = [(op["source"]["table"], op["op"]) for op in tx.operations]
-
         has_record_update = ops.count(("records_metadata", OperationType.UPDATE)) == 1
         has_bucket_update = ops.count(("files_bucket", OperationType.UPDATE)) == 1
         if len(ops) == 2:

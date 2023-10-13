@@ -7,20 +7,16 @@
 
 """Test ignored actions match."""
 
-import pytest
-
 from zenodo_rdm_migrator.actions.transform.ignored import BucketNoop, GitHubSyncAction
 
 
-@pytest.fixture()
 def test_github_sync(test_extract_cls, tx_transform, tx_files):
     """GitHub Sync action match."""
-    tx = next(test_extract_cls(tx_files["repo_udpate"]).run())
+    tx = next(test_extract_cls(tx_files["repo_update"]).run())
     match = tx_transform._detect_action(tx)
     assert match == GitHubSyncAction
 
 
-@pytest.fixture()
 def test_bucket_noop(test_extract_cls, tx_transform, tx_files):
     """Bucket no-op action match."""
     tx = next(test_extract_cls(tx_files["bucket-noop"]).run())
