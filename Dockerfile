@@ -30,9 +30,14 @@ RUN dnf install -y krb5-workstation krb5-libs krb5-devel
 COPY ./krb5.conf /etc/krb5.conf
 # /Kerberos
 
+RUN pip install uv
+
 COPY site ./site
 COPY legacy ./legacy
-COPY Pipfile Pipfile.lock ./
+COPY requirements.txt ./requirements.txt
+
+RUN uv pip install --system --no-cache -r requirements.txt
+
 RUN pipenv install --deploy --system
 # XRootD
 RUN pip install "requests-kerberos==0.14.0"

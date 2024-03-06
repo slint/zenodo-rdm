@@ -1,0 +1,10 @@
+invenio-app-rdm[opensearch2]~=12.0.0b3.dev3
+invenio-logging[sentry_sdk]~=2.0
+-e ./site
+-e ./legacy
+invenio-swh @ git+https://github.com/inveniosoftware/invenio-swh@v0.7.0
+jsonschema>=4.17.0,<4.18.0
+ipython!=8.1.0
+uwsgi>=2.0
+uwsgitop>=0.11
+uwsgi-tools>=1.1.1
