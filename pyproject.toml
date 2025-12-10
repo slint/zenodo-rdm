@@ -7,7 +7,7 @@ authors = [
 license = "GPL-3.0"
 requires-python = ">=3.9"
 dependencies = [
-    "invenio-app-rdm[opensearch2]==14.0.0b1.dev9",
+    "invenio-app-rdm[opensearch2]~=14.0.0b3.dev3",
     "zenodo-legacy",
     "zenodo-rdm",
     # "commonmeta-py==0.8.6",
@@ -23,14 +23,99 @@ dependencies = [
     "uwsgi-tools>=1.1.1",
     "invenio-records-resources",
     "invenio-previewer",
+
+    # open PR's
+
+    # utcnow
+    # branch: fix-utcnow-with-custom-type
+    "flask-iiif",
+    "flask-oauthlib-invenio",
+    "flask-kvsession-invenio",
+    "flask-security-invenio",
+    "invenio-admin",
+    "invenio-audit-logs",
+    "invenio-checks",
+    "invenio-collections",
+    "invenio-db",
+    "invenio-drafts-resources",
+    "invenio-formatter",
+    "invenio-jobs",
+    "invenio-oaiserver",
+    "invenio-oauth2server",
+    "invenio-oauthclient",
+    "invenio-records",
+    "invenio-stats",
+
+    # combined things
+    "invenio-accounts",  # needs invenio-admin
+    "invenio-banners",
+    "invenio-communities",
+    "invenio-files-rest",
+    "invenio-rdm-records",
+    "invenio-requests",
+    "invenio-rest",
+    "invenio-users-resources",
+    "marshmallow-utils",
+
+
+    # context
+    # branch: remove-context-usage
+    "flask-resources",
+
+    "counter-robots",
+    "invenio-queues",
+
+    # "orjson>=3.11.3",
+
+    "jsonresolver",  # optional, if you want to use the fix for refresolver too, below the invenio-records has to be changed too
+
 ]
 
 [tool.uv.sources]
 zenodo-rdm = { workspace = true }
 zenodo-legacy = { workspace = true }
 invenio-swh = { git = "https://github.com/inveniosoftware/invenio-swh", rev = "v0.13.4" }
+
 # User profile fixes
-invenio-records-resources = { git = "https://github.com/inveniosoftware/invenio-records-resources", branch = "fix-read-many" }
+invenio-records-resources = { git = "https://github.com/inveniosoftware/invenio-records-resources", branch = "fix-read-many-plus-context-plus-fs-plus-utc" }
+
+# Deprecation warnings
+flask-iiif = { git = "https://github.com/utnapischtim/flask-iiif", branch="fix-utcnow-with-custom-type"}
+flask-kvsession-invenio = { git = "https://github.com/utnapischtim/flask-kvsession", branch="fix-utcnow-with-custom-type"}
+flask-oauthlib-invenio = { git = "https://github.com/utnapischtim/flask-oauthlib-invenio", branch="fix-utcnow-with-custom-type"}
+flask-security-invenio = { git = "https://github.com/utnapischtim/flask-security-invenio", branch="fix-utcnow-with-custom-type"}
+flask-resources = { git = "https://github.com/utnapischtim/flask-resources", branch="remove-context-usage"}
+
+invenio-accounts = { git = "https://github.com/utnapischtim/invenio-accounts", branch="utc-plus-rollback"}
+invenio-admin = { git = "https://github.com/utnapischtim/invenio-admin", branch="fix-utcnow-with-custom-type"}
+invenio-audit-logs = { git = "https://github.com/utnapischtim/invenio-audit-logs", branch="fix-utcnow-with-custom-type"}
+invenio-banners = { git = "https://github.com/utnapischtim/invenio-banners", branch="utc-plus-314"}
+invenio-checks = { git = "https://github.com/utnapischtim/invenio-checks", branch="fix-utcnow-with-custom-type"}
+invenio-collections = { git = "https://github.com/utnapischtim/invenio-collections", branch="fix-utcnow-with-custom-type"}
+invenio-communities = { git = "https://github.com/utnapischtim/invenio-communities", branch="context-plus-utc"}
+invenio-db = { git = "https://github.com/utnapischtim/invenio-db", branch="add-utcdatetime-type"}
+invenio-drafts-resources = { git = "https://github.com/utnapischtim/invenio-drafts-resources", branch="fix-utcnow-with-custom-type"}
+invenio-files-rest = { git = "https://github.com/utnapischtim/invenio-files-rest", branch="utcnow-plus-fs-plus-context"}
+invenio-formatter = { git = "https://github.com/utnapischtim/invenio-formatter", branch="fix-utcnow-with-custom-type"}
+invenio-jobs = { git = "https://github.com/utnapischtim/invenio-jobs", branch="fix-utcnow-with-custom-type"}
+invenio-oaiserver = { git = "https://github.com/utnapischtim/invenio-oaiserver", branch="fix-utcnow-with-custom-type"}
+invenio-oauth2server = { git = "https://github.com/utnapischtim/invenio-oauth2server", branch="fix-utcnow-with-custom-type"}
+invenio-oauthclient = { git = "https://github.com/utnapischtim/invenio-oauthclient", branch="fix-utcnow-with-custom-type"}
+invenio-records = { git = "https://github.com/utnapischtim/invenio-records", branch="utc-plus-refresolver"} # only if jsonresolver is used too
+invenio-rdm-records = { git = "https://github.com/utnapischtim/invenio-rdm-records", branch="context-plus-utc"}
+invenio-requests = { git = "https://github.com/utnapischtim/invenio-requests", branch="context-plus-utc"}
+invenio-rest = { git = "https://github.com/utnapischtim/invenio-rest", branch="context-plus-utc-plus-webargs-minus-warnings"}
+invenio-stats = { git = "https://github.com/utnapischtim/invenio-stats", branch="fix-utcnow-with-custom-type"}
+invenio-users-resources = { git = "https://github.com/utnapischtim/invenio-users-resources", branch="context-plus-utc"}
+
+marshmallow-utils = { git = "https://github.com/utnapischtim/marshmallow-utils", branch="context-plus-utc"}
+
+jsonresolver = { git = "https://github.com/utnapischtim/jsonresolver", branch="fix-deprecation-warning-ref-resolver"}
+
+# they should be released soon, so can be ignored, probably
+counter-robots = { git = "https://github.com/inveniosoftware/counter-robots", branch="master" }
+invenio-queues = { git = "https://github.com/inveniosoftware/invenio-queues", branch="master" }
+
 
 [tool.uv.workspace]
 members = [

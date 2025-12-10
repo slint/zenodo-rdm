@@ -58,6 +58,10 @@ class LegacyFilesRESTSchema(Schema):
 class LegacyFileListSchema(Schema):
     """Files list schema."""
 
+    def __init__(self, object_schema_cls=None, **kwargs):
+        """Initialize the schema."""
+        super().__init__(**kwargs)
+
     entries = fields.List(fields.Nested(LegacyFileSchema), dump_only=True)
 
     @post_dump()
