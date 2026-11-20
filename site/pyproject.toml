@@ -56,6 +56,7 @@ zenodo_rdm_moderation = "zenodo_rdm.moderation.tasks"
 zenodo_stats = "zenodo_rdm.stats.tasks"
 zenodo_rdm_curation = "zenodo_rdm.curation.tasks"
 zenodo_rdm_theme = "zenodo_rdm.theme.tasks"
+zenodo_rdm_mini = "zenodo_rdm.mini.tasks"
 
 [project.entry-points."invenio_oauth2server.scopes"]
 deposit_write_scope = "zenodo_rdm.legacy.scopes:deposit_write_scope"

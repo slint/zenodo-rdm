@@ -1,0 +1,74 @@
+# Mini stack: Zenodo on Postgres (ParadeDB image) without Redis or RabbitMQ.
+#
+# For demos, development and PR previews only; production uses the full stack.
+# Postgres holds the cache, locks, sessions, rate limits, the Celery broker and
+# results, and the indexer/stats queues (see ZENODO_STACK in invenio.cfg).
+#
+#   docker compose -f docker-compose.mini.yml build
+#   docker compose -f docker-compose.mini.yml run --rm app ./wipe_recreate.sh
+#   docker compose -f docker-compose.mini.yml up -d
+#
+# then open http://127.0.0.1:5000.
+#
+# OpenSearch stays until the ParadeDB search backend for invenio-search lands;
+# it will then be configured through SEARCH_CLIENT_CONFIG and this service removed.
+x-app-env: &app-env
+  ZENODO_STACK: mini
+  INVENIO_SQLALCHEMY_DATABASE_URI: postgresql+psycopg2://zenodo:zenodo@db:5432/zenodo
+  INVENIO_SEARCH_HOSTS: "['search:9200']"
+  INVENIO_SECRET_KEY: CHANGE_ME
+  INVENIO_SITE_UI_URL: http://127.0.0.1:5000
+  INVENIO_SITE_API_URL: http://127.0.0.1:5000/api
+  # Plain HTTP on localhost, without nginx in front
+  INVENIO_SESSION_COOKIE_SECURE: "False"
+  INVENIO_APP_DEFAULT_SECURE_HEADERS: '{"force_https": False, "session_cookie_secure": False, "content_security_policy": {}}'
+
+services:
+  db:
+    image: paradedb/paradedb:latest
+    restart: "unless-stopped"
+    environment:
+      - "POSTGRES_USER=zenodo"
+      - "POSTGRES_PASSWORD=zenodo"
+      - "POSTGRES_DB=zenodo"
+    ports:
+      - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql
+  search:
+    image: opensearchproject/opensearch:3.9.0
+    restart: "unless-stopped"
+    environment:
+      - discovery.type=single-node
+      - DISABLE_SECURITY_PLUGIN=true
+      - DISABLE_INSTALL_DEMO_CONFIG=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+    mem_limit: 1g
+    ports:
+      - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:9200:9200"
+  # One container: web (UI and API in one uwsgi) next to a Celery worker with beat.
+  app:
+    build:
+      context: ./
+      args:
+        - ENVIRONMENT=DEV
+    image: zenodo
+    restart: "unless-stopped"
+    environment: *app-env
+    command:
+      - >-
+        celery -A invenio_app.celery worker --beat --loglevel=INFO
+        --concurrency=2 --queues=celery,low,indexing
+        --schedule=/opt/invenio/var/instance/data/celerybeat-schedule &
+        exec uwsgi --http 0.0.0.0:5000 --module invenio_app.wsgi:application
+        --master --processes 2 --threads 2 --die-on-term
+    ports:
+      - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:5000:5000"
+    volumes:
+      - uploaded_data:/opt/invenio/var/instance/data
+    depends_on:
+      - db
+      - search
+volumes:
+  db_data:
+  uploaded_data:

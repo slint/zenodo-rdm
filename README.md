@@ -29,6 +29,31 @@ invenio-cli services setup
 invenio-cli run
 ```
 
+### Mini stack
+
+For demos, development and PR previews,
+`ZENODO_STACK=mini` runs Zenodo without Redis or RabbitMQ:
+Postgres (the ParadeDB image) holds the cache, locks, sessions, rate limits,
+the Celery broker and results, and the indexing and stats queues.
+OpenSearch is still needed until the ParadeDB search backend lands.
+Production keeps the full stack.
+
+```bash
+docker compose -f docker-compose.mini.yml build
+docker compose -f docker-compose.mini.yml run --rm app ./wipe_recreate.sh
+docker compose -f docker-compose.mini.yml up -d  # http://127.0.0.1:5000
+```
+
+To develop against it with a local virtualenv,
+start only `db` and `search` from `docker-compose.mini.yml`,
+export `ZENODO_STACK=mini` and `INVENIO_SEARCH_HOSTS="['localhost:9200']"`,
+and run the web app and the worker:
+
+```bash
+uwsgi --http :5000 --module invenio_app.wsgi:application --master --processes 2
+celery -A invenio_app.celery worker --beat --loglevel=INFO
+```
+
 ### Update dependencies
 
 #### Python

@@ -14,7 +14,13 @@ else
   # Wipe
   # ----
 
-  invenio shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
+  if [ "${ZENODO_STACK:-}" == "mini" ]
+  then
+    # Postgres stands in for Redis: empty its cache, session and rate-limit tables
+    invenio shell --no-term-title -c "from invenio_db import db; from sqlalchemy import text; [db.session.execute(text(f'DELETE FROM zenodo_mini_{t}')) for t in ('cache', 'sessions', 'ratelimit')]; db.session.commit(); print('Cache cleared')"
+  else
+    invenio shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
+  fi
   # NOTE: db destroy is not needed since DB keeps being created
   #       Just need to drop all tables from it.
   invenio db drop --yes-i-know
