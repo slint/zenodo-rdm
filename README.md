@@ -34,7 +34,8 @@ invenio-cli run
 For demos, development and PR previews,
 `ZENODO_STACK=mini` runs Zenodo without Redis or RabbitMQ:
 Postgres (the ParadeDB image) holds the cache, locks, sessions, rate limits,
-the Celery broker and results, and the indexing and stats queues.
+the Celery broker and results, and the indexing and stats queues
+(on [PGMQ](https://github.com/pgmq/pgmq), installed as plain SQL by `wipe_recreate.sh`).
 OpenSearch is still needed until the ParadeDB search backend lands.
 Production keeps the full stack.
 
@@ -45,6 +46,7 @@ docker compose -f docker-compose.mini.yml up -d  # http://127.0.0.1:5000
 ```
 
 To develop against it with a local virtualenv,
+install the `mini` extra (`uv sync --extra mini`),
 start only `db` and `search` from `docker-compose.mini.yml`,
 export `ZENODO_STACK=mini` and `INVENIO_SEARCH_HOSTS="['localhost:9200']"`,
 and run the web app and the worker:

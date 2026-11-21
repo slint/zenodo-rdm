@@ -46,6 +46,10 @@ dev = [
 ]
 
 [project.optional-dependencies]
+# ZENODO_STACK=mini: Celery broker and invenio-queues on Postgres (PGMQ)
+mini = [
+    "kombu[pgmq]",
+]
 sentry = [
     "invenio-logging[sentry]",
 ]

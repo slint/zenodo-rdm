@@ -2,7 +2,7 @@
 #
 # For demos, development and PR previews only; production uses the full stack.
 # Postgres holds the cache, locks, sessions, rate limits, the Celery broker and
-# results, and the indexer/stats queues (see ZENODO_STACK in invenio.cfg).
+# results, and the indexer/stats queues on PGMQ (see ZENODO_STACK in invenio.cfg).
 #
 #   docker compose -f docker-compose.mini.yml build
 #   docker compose -f docker-compose.mini.yml run --rm app ./wipe_recreate.sh
@@ -52,6 +52,7 @@ services:
       context: ./
       args:
         - ENVIRONMENT=DEV
+        - BUILD_EXTRAS=--extra mini
     image: zenodo
     restart: "unless-stopped"
     environment: *app-env

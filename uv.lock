@@ -1,5 +1,5 @@
 version = 1
-revision = 5
+revision = 3
 requires-python = "==3.14.*"
 
 [manifest]
@@ -2694,6 +2694,11 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/84/20/f73d8e0bff9708b0f2337220be1b5d7ebd738bc3a89b63cf44d257157014/kombu-5.7.0-py3-none-any.whl", hash = "sha256:dede73bff4c89175be382c4203d2f167cf7017c384396ec75c36a1b5678f1587", size = 266635, upload-time = "2026-11-03T05:58:31.475Z" },
 ]
 
+[package.optional-dependencies]
+pgmq = [
+    { name = "pgmq" },
+]
+
 [[package]]
 name = "krb5"
 version = "0.10.0"
@@ -3262,6 +3267,19 @@ wheels = [
 ]
 
 [[package]]
+name = "pgmq"
+version = "1.1.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "orjson" },
+    { name = "psycopg", extra = ["binary", "pool"] },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/fc/5e/63d8ba7a6cdec6389d23e5372f2012f4d9d78db64849ed6762b238badbd6/pgmq-1.1.4.tar.gz", hash = "sha256:bbbe21ea69a7a574ed691f7dac62a485cad0e7e1c0dee6dc8daaf6e23cf3ada6", size = 61596, upload-time = "2026-09-20T17:42:14.336Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/54/ab/8a862610348af8a14a7b4238de233bb798eb6cc6d975f17297834c4eea31/pgmq-1.1.4-py3-none-any.whl", hash = "sha256:4d9e7aa517295669d46a11d3d13106efbdc738d0e127d84c567b6d4c936e7d1d", size = 73840, upload-time = "2026-09-20T17:42:13.199Z" },
+]
+
+[[package]]
 name = "pikepdf"
 version = "10.18.2"
 source = { registry = "https://pypi.org/simple" }
@@ -3403,6 +3421,9 @@ wheels = [
 binary = [
     { name = "psycopg-binary", marker = "implementation_name != 'pypy'" },
 ]
+pool = [
+    { name = "psycopg-pool" },
+]
 
 [[package]]
 name = "psycopg-binary"
@@ -3420,6 +3441,18 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/54/04/e91fedeeab7fe94df2364ad324c0de0e6ebd54b24f3dff396e24ffba9655/psycopg_binary-3.3.9-cp314-cp314-musllinux_1_2_riscv64.whl", hash = "sha256:e01a4f4fd0e4beee23af30517123bdde838d53c3ac0ae594da019e36b3adabda", size = 3314235, upload-time = "2026-11-12T09:02:47.199Z" },
     { url = "https://files.pythonhosted.org/packages/da/fc/e522309105d4c1b1f8bfa7e887355a414c1c84e94e32e532a6595c5ded13/psycopg_binary-3.3.9-cp314-cp314-musllinux_1_2_x86_64.whl", hash = "sha256:5117a4745b3b850872140d3a66a8d83c55801916ae6e3cf502af0a794f64f9b7", size = 3626367, upload-time = "2026-11-12T09:02:52.842Z" },
     { url = "https://files.pythonhosted.org/packages/4e/50/643d5f523fa77a3b808e982716e7aa76da788218e40942721939c5e08c11/psycopg_binary-3.3.9-cp314-cp314-win_amd64.whl", hash = "sha256:109c5df5b0e5117e01a42d3b56a2f4ccd5431bd54d25efdfc89df095ac9f9605", size = 3009572, upload-time = "2026-11-12T09:02:58.474Z" },
+]
+
+[[package]]
+name = "psycopg-pool"
+version = "3.3.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/74/5e/c0664b968b102ff68b811d999c728546c48d5c1eec03e3bbaf88c0cb4472/psycopg_pool-3.3.3.tar.gz", hash = "sha256:df87b5d9d0ad7db37f6cdad4fa8ce113d250f5997f6db38e9a99192fb67f9e1d", size = 32006, upload-time = "2026-09-22T15:53:24.947Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5d/b4/452c6607a0f479465cd8a9b0d9956919fcb150050c1f83f9f11e6b8ee8dc/psycopg_pool-3.3.3-py3-none-any.whl", hash = "sha256:9b9cd6a4fcec47a410f7e82d408540e7f77b478509e91b44c1a5457a13e5ff37", size = 40304, upload-time = "2026-09-22T15:53:23.712Z" },
 ]
 
 [[package]]
@@ -4874,6 +4907,9 @@ dependencies = [
 ]
 
 [package.optional-dependencies]
+mini = [
+    { name = "kombu", extra = ["pgmq"] },
+]
 sentry = [
     { name = "invenio-logging", extra = ["sentry"] },
 ]
@@ -4898,6 +4934,7 @@ requires-dist = [
     { name = "invenio-records-resources", git = "https://github.com/inveniosoftware/invenio-records-resources?branch=fix-read-many" },
     { name = "invenio-swh", git = "https://github.com/inveniosoftware/invenio-swh?rev=v0.13.5" },
     { name = "invenio-xrootd", marker = "extra == 'xrootd'", specifier = ">=3.0.0,<4.0.0" },
+    { name = "kombu", extras = ["pgmq"], marker = "extra == 'mini'" },
     { name = "pyvips", specifier = ">=2.2.2,<3.0.0" },
     { name = "requests-kerberos", marker = "extra == 'xrootd'", specifier = "==0.14.0" },
     { name = "uwsgi", specifier = ">=2.0" },
@@ -4908,7 +4945,7 @@ requires-dist = [
     { name = "zenodo-legacy", editable = "legacy" },
     { name = "zenodo-rdm", editable = "site" },
 ]
-provides-extras = ["sentry", "xrootd"]
+provides-extras = ["mini", "sentry", "xrootd"]
 
 [package.metadata.requires-dev]
 dev = [
