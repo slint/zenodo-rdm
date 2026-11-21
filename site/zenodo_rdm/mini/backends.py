@@ -156,9 +156,9 @@ class RateLimitStorage(Storage):
     def __init__(self, uri, wrap_exceptions=False, **options):
         """Initialize."""
         super().__init__(uri, wrap_exceptions=wrap_exceptions, **options)
-        self.engine = engine(uri.removeprefix("mini+"))
+        self.uri = uri.removeprefix("mini+")
         create_table(
-            self.engine,
+            engine(self.uri),
             "CREATE UNLOGGED TABLE IF NOT EXISTS zenodo_mini_ratelimit "
             "(key text PRIMARY KEY, count bigint NOT NULL, "
             "expires_at timestamptz NOT NULL)",
@@ -170,7 +170,7 @@ class RateLimitStorage(Storage):
         return exc.SQLAlchemyError
 
     def _run(self, sql, **params):
-        with self.engine.connect() as conn:
+        with engine(self.uri).connect() as conn:
             return conn.execute(text(sql), params)
 
     def incr(self, key, expiry, amount=1):

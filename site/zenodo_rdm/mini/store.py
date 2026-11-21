@@ -3,6 +3,7 @@
 
 """Postgres key-value tables standing in for Redis."""
 
+import os
 import pickle
 import random
 from functools import cache
@@ -10,13 +11,19 @@ from functools import cache
 from sqlalchemy import create_engine, exc, text
 
 
-@cache
 def engine(uri):
-    """Engine shared by the stores of one process.
+    """Engine shared by the stores of the current process.
 
     Autocommit, outside Flask-SQLAlchemy's session, so cache writes and locks don't
-    wait for (or roll back with) the request transaction.
+    wait for (or roll back with) the request transaction. Keyed by pid: Celery
+    forks its workers after the app has used the cache, and pooled connections
+    shared across processes mix up their replies.
     """
+    return _engine(uri, os.getpid())
+
+
+@cache
+def _engine(uri, pid):
     return create_engine(
         uri, isolation_level="AUTOCOMMIT", pool_pre_ping=True, pool_size=2
     )
@@ -36,16 +43,16 @@ class KV:
 
     def __init__(self, uri, table, unlogged=True):
         """Create the table if needed."""
-        self.engine = engine(uri)
+        self.uri = uri
         self.table = table
         create_table(
-            self.engine,
+            engine(uri),
             f"CREATE {'UNLOGGED ' if unlogged else ''}TABLE IF NOT EXISTS {table} "
             "(key text PRIMARY KEY, value bytea NOT NULL, expires_at timestamptz)",
         )
 
     def _run(self, sql, **params):
-        with self.engine.connect() as conn:
+        with engine(self.uri).connect() as conn:
             return conn.execute(text(sql.format(t=self.table)), params)
 
     _live = "(expires_at IS NULL OR expires_at > now())"
