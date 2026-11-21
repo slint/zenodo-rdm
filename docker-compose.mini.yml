@@ -52,7 +52,7 @@ services:
       context: ./
       args:
         - ENVIRONMENT=DEV
-        - BUILD_EXTRAS=--extra mini
+        - BUILD_EXTRAS=--extra sentry --extra xrootd --extra mini
     image: zenodo
     restart: "unless-stopped"
     environment: *app-env

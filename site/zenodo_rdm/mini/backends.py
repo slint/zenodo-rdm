@@ -3,10 +3,13 @@
 
 """Cache, session, identity-cache and rate-limit backends on Postgres."""
 
+import time
+
 from flask import current_app
 from flask_caching.backends.base import BaseCache
+from flask_oauthlib.contrib.cache import Cache as OAuthCache
 from invenio_communities.cache.cache import IdentityCache
-from limits.storage import Storage
+from limits.storage import MovingWindowSupport, Storage
 from simplekv import FOREVER, NOT_SET, KeyValueStore, TimeToLiveMixin
 from sqlalchemy import exc, text
 
@@ -130,10 +133,11 @@ def session_store_factory(app):
     return SessionStore(app.config["SQLALCHEMY_DATABASE_URI"])
 
 
-class RateLimitStorage(Storage):
-    """``limits`` storage for fixed-window rate limits.
+class RateLimitStorage(Storage, MovingWindowSupport):
+    """``limits`` storage with moving windows, the strategy production uses.
 
-    An expired window restarts in place on the next hit; rows are never deleted.
+    Fixed-window counters restart in place on the next hit. Moving-window hits are
+    rows with a timestamp, checked and added under a per-key advisory lock.
 
     Registered for URIs like ``mini+postgresql+psycopg2://...``.
     """
@@ -149,6 +153,16 @@ class RateLimitStorage(Storage):
             "CREATE UNLOGGED TABLE IF NOT EXISTS zenodo_mini_ratelimit "
             "(key text PRIMARY KEY, count bigint NOT NULL, "
             "expires_at timestamptz NOT NULL)",
+        )
+        create_table(
+            engine(self.uri),
+            "CREATE UNLOGGED TABLE IF NOT EXISTS zenodo_mini_ratelimit_hits "
+            "(key text NOT NULL, at timestamptz NOT NULL)",
+        )
+        create_table(
+            engine(self.uri),
+            "CREATE INDEX IF NOT EXISTS zenodo_mini_ratelimit_hits_key "
+            "ON zenodo_mini_ratelimit_hits (key, at)",
         )
 
     @property
@@ -196,6 +210,46 @@ class RateLimitStorage(Storage):
         ).scalar()
         return float(value)
 
+    def acquire_entry(self, key, limit, expiry, amount=1):
+        """Record a hit if fewer than ``limit`` happened in the last ``expiry`` s."""
+        if amount > limit:
+            return False
+        params = {"key": key, "expiry": expiry, "amount": amount}
+        with engine(self.uri).connect() as conn:
+
+            def run(sql):
+                return conn.execute(text(sql), params)
+
+            run("SELECT pg_advisory_lock(hashtext(:key))")
+            try:
+                run(
+                    "DELETE FROM zenodo_mini_ratelimit_hits WHERE key = :key "
+                    "AND at <= clock_timestamp() - make_interval(secs => :expiry)"
+                )
+                count = run(
+                    "SELECT count(*) FROM zenodo_mini_ratelimit_hits WHERE key = :key"
+                ).scalar()
+                if count + amount > limit:
+                    return False
+                run(
+                    "INSERT INTO zenodo_mini_ratelimit_hits "
+                    "SELECT :key, clock_timestamp() FROM generate_series(1, :amount)"
+                )
+                return True
+            finally:
+                run("SELECT pg_advisory_unlock(hashtext(:key))")
+
+    def get_moving_window(self, key, limit, expiry):
+        """Start of the window (oldest live hit) and the number of live hits."""
+        start, count = self._run(
+            "SELECT extract(epoch FROM min(at)), count(*) "
+            "FROM zenodo_mini_ratelimit_hits WHERE key = :key "
+            "AND at > clock_timestamp() - make_interval(secs => :expiry)",
+            key=key,
+            expiry=expiry,
+        ).first()
+        return (float(start), count) if count else (time.time(), 0)
+
     def check(self):
         """Whether the database answers."""
         try:
@@ -205,8 +259,23 @@ class RateLimitStorage(Storage):
 
     def reset(self):
         """Delete all counters."""
+        self._run("DELETE FROM zenodo_mini_ratelimit_hits")
         return self._run("DELETE FROM zenodo_mini_ratelimit").rowcount
 
     def clear(self, key):
         """Delete one counter."""
         self._run("DELETE FROM zenodo_mini_ratelimit WHERE key = :key", key=key)
+        self._run("DELETE FROM zenodo_mini_ratelimit_hits WHERE key = :key", key=key)
+
+
+def _oauth2_cache(self, **kwargs):
+    """``OAUTH2_CACHE_TYPE = "mini"``: OAuth2 grant codes in the Postgres cache.
+
+    Flask-OAuthlib picks its cache by method name and has no plug-in point, so the
+    method is added here; otherwise grant codes would live in one process only.
+    """
+    uri = self.config["SQLALCHEMY_DATABASE_URI"]
+    return PostgresCache(uri, key_prefix="oauth2:", **kwargs)
+
+
+OAuthCache._mini = _oauth2_cache

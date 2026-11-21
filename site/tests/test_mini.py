@@ -30,15 +30,20 @@ def test_cache_add_is_exclusive_until_expiry(app, db):
     assert not web.delete("lock")
 
 
-def test_rate_limit_counts_per_window(app, db):
+def test_rate_limit_moving_window(app, db):
     storage = RateLimitStorage("mini+" + app.config["SQLALCHEMY_DATABASE_URI"])
     storage.clear("k")
 
-    assert [storage.incr("k", 1) for _ in range(3)] == [1, 2, 3]
-    assert storage.get("k") == 3
-    time.sleep(1.1)
-    assert storage.get("k") == 0
-    assert storage.incr("k", 1) == 1
+    # 2 per second: hits at 0 s and 0.6 s, then at 1.1 s only the first has aged
+    # out, so one more is allowed. A fixed window would allow two.
+    assert storage.acquire_entry("k", 2, 1)
+    time.sleep(0.6)
+    assert storage.acquire_entry("k", 2, 1)
+    assert not storage.acquire_entry("k", 2, 1)
+    time.sleep(0.5)
+    assert storage.acquire_entry("k", 2, 1)
+    assert not storage.acquire_entry("k", 2, 1)
+    assert storage.get_moving_window("k", 2, 1)[1] == 2
 
 
 def test_queue_publish_reaches_queue_and_ack_deletes(app, db):
