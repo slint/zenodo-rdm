@@ -5,7 +5,6 @@
 
 import os
 import pickle
-import random
 from functools import cache
 
 from sqlalchemy import create_engine, exc, text
@@ -39,15 +38,19 @@ def create_table(eng, ddl):
 
 
 class KV:
-    """Bytes values with an optional expiry, in one Postgres table."""
+    """Bytes values with an optional expiry, in one unlogged Postgres table.
 
-    def __init__(self, uri, table, unlogged=True):
+    Expiry is lazy, as fits a demo instance: reads skip expired rows and writes
+    overwrite them, but nothing deletes them, so they take space until rewritten.
+    """
+
+    def __init__(self, uri, table):
         """Create the table if needed."""
         self.uri = uri
         self.table = table
         create_table(
             engine(uri),
-            f"CREATE {'UNLOGGED ' if unlogged else ''}TABLE IF NOT EXISTS {table} "
+            f"CREATE UNLOGGED TABLE IF NOT EXISTS {table} "
             "(key text PRIMARY KEY, value bytea NOT NULL, expires_at timestamptz)",
         )
 
@@ -66,8 +69,6 @@ class KV:
 
     def set(self, key, value, ttl=None):
         """Store a value; ttl in seconds, None or 0 for no expiry."""
-        if random.random() < 0.01:
-            self._run("DELETE FROM {t} WHERE expires_at <= now()")
         self._run(
             f"INSERT INTO {{t}} VALUES (:key, :value, {self._expiry}) "
             "ON CONFLICT (key) DO UPDATE "
@@ -104,14 +105,6 @@ class KV:
     def has(self, key):
         """Whether a live value exists."""
         return self.get(key) is not None
-
-    def keys(self, prefix=""):
-        """Live keys starting with prefix."""
-        rows = self._run(
-            f"SELECT key FROM {{t}} WHERE starts_with(key, :prefix) AND {self._live}",
-            prefix=prefix,
-        )
-        return [k for (k,) in rows]
 
     def clear(self, prefix=""):
         """Delete every key starting with prefix."""

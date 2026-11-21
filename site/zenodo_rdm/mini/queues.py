@@ -25,7 +25,6 @@ OPTIONS = {
     # more LISTEN connection per kombu connection, publishers included.
     "wait_time_seconds": 0,
     "polling_interval": 1,
-    "pool_size": 4,
 }
 
 _clients = {}

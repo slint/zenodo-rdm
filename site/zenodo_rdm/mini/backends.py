@@ -3,8 +3,6 @@
 
 """Cache, session, identity-cache and rate-limit backends on Postgres."""
 
-from io import BytesIO
-
 from flask import current_app
 from flask_caching.backends.base import BaseCache
 from invenio_communities.cache.cache import IdentityCache
@@ -100,14 +98,14 @@ class IdentityPostgresCache(IdentityCache):
 
 
 class SessionStore(TimeToLiveMixin, KeyValueStore):
-    """simplekv store for Flask-KVSession, in a logged table.
+    """simplekv store for Flask-KVSession: only what Flask-KVSession calls.
 
     simplekv's own ``SQLAlchemyStore`` uses the SQLAlchemy 1.x API and fails on 2.x.
     """
 
     def __init__(self, uri):
         """Initialize."""
-        self.kv = KV(uri, "zenodo_mini_sessions", unlogged=False)
+        self.kv = KV(uri, "zenodo_mini_sessions")
 
     def _has_key(self, key):
         return self.kv.has(key)
@@ -121,23 +119,10 @@ class SessionStore(TimeToLiveMixin, KeyValueStore):
             raise KeyError(key)
         return bytes(value)
 
-    def _get_file(self, key, file):
-        file.write(self._get(key))
-
-    def _open(self, key):
-        return BytesIO(self._get(key))
-
     def _put(self, key, data, ttl_secs=NOT_SET):
         ttl = None if ttl_secs in (NOT_SET, FOREVER) else ttl_secs
         self.kv.set(key, data, ttl)
         return key
-
-    def _put_file(self, key, file, ttl_secs=NOT_SET):
-        return self._put(key, file.read(), ttl_secs)
-
-    def iter_keys(self, prefix=""):
-        """Iterate over live keys."""
-        return iter(self.kv.keys(prefix))
 
 
 def session_store_factory(app):
@@ -147,6 +132,8 @@ def session_store_factory(app):
 
 class RateLimitStorage(Storage):
     """``limits`` storage for fixed-window rate limits.
+
+    An expired window restarts in place on the next hit; rows are never deleted.
 
     Registered for URIs like ``mini+postgresql+psycopg2://...``.
     """
