@@ -14,14 +14,14 @@ else
   # Wipe
   # ----
 
-  if [ "${ZENODO_STACK:-}" == "mini" ]
+  if [ "${ZENODO_STACK:-}" = "mini" ]
   then
     # Postgres stands in for Redis: empty its cache, session and rate-limit tables
     # Celery and invenio-queues use PGMQ in the same database
     invenio shell --no-term-title -c "from zenodo_rdm.mini.queues import install; print('PGMQ', install(app.config['SQLALCHEMY_DATABASE_URI']))"
     # Bind the stats queues now, so events before the first processing run are kept
     invenio queues declare
-    invenio shell --no-term-title -c "from invenio_db import db; from sqlalchemy import text; [db.session.execute(text(f'DELETE FROM zenodo_mini_{t}')) for t in ('cache', 'sessions', 'ratelimit')]; db.session.commit(); print('Cache cleared')"
+    invenio shell --no-term-title -c "from invenio_db import db; from sqlalchemy import text; [db.session.execute(text(f'TRUNCATE {t}')) for t in db.session.execute(text(\"select tablename from pg_tables where tablename like 'zenodo_mini_%'\")).scalars().all()]; db.session.commit(); print('Cache cleared')"
   else
     invenio shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
   fi
