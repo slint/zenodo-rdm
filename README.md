@@ -69,8 +69,9 @@ docker build -f docker/mini/Dockerfile -t zenodo-mini-all .
 docker run -p 5000:5000 -v zenodo-mini:/var/lib/postgresql zenodo-mini-all
 ```
 
-The first start creates the database and loads the demo fixtures;
-it fits in a 1.5 GB memory limit.
+The first start creates the database and loads the demo fixtures.
+It runs one web process and one worker child to fit in 1.25 GB of memory;
+set `WEB_PROCESSES` and `WORKER_CONCURRENCY` to use more.
 
 ### Update dependencies
 

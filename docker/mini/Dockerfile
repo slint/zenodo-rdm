@@ -11,7 +11,7 @@ FROM ${APP_IMAGE}
 
 ARG PG_SEARCH_VERSION=0.27.0
 # Search in Postgres through pg_search (SEARCH_HOSTS=paradedb://).
-ARG INVENIO_SEARCH_PARADEDB_REF=67c5611
+ARG INVENIO_SEARCH_PARADEDB_REF=0d1bc27
 USER root
 RUN uv pip install \
     "invenio-search-paradedb @ https://github.com/slint/invenio-search/archive/${INVENIO_SEARCH_PARADEDB_REF}.tar.gz"
