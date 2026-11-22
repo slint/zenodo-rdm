@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zenodo feature catalog</title>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --ink:#1d2330; --mute:#667085; --line:#e3e6eb; --blue:#1a6bc4;
+          --pass:#1f8a4c; --fail:#c62828; --unt:#8a8f98; --cant:#b26a00; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; color:var(--ink); background:var(--bg); }
+  header { background:#0b4f9c; color:#fff; padding:14px 24px; }
+  header h1 { margin:0; font-size:20px; }
+  header p { margin:4px 0 0; opacity:.85; font-size:13px; }
+  .stats { display:flex; flex-wrap:wrap; gap:8px; padding:12px 24px; background:#fff; border-bottom:1px solid var(--line); }
+  .stat { padding:6px 10px; border:1px solid var(--line); border-radius:6px; background:#fafbfc; }
+  .stat b { font-size:16px; margin-right:4px; }
+  .layout { display:grid; grid-template-columns:240px 1fr; gap:0; min-height:calc(100vh - 140px); }
+  nav { border-right:1px solid var(--line); background:#fff; padding:12px; position:sticky; top:0; align-self:start; max-height:100vh; overflow:auto; }
+  nav h3 { font-size:11px; text-transform:uppercase; color:var(--mute); margin:14px 0 6px; letter-spacing:.04em; }
+  nav button { display:flex; justify-content:space-between; width:100%; text-align:left; border:0; background:none; padding:5px 8px; border-radius:5px; cursor:pointer; font:inherit; color:inherit; }
+  nav button:hover { background:#eef3fa; }
+  nav button.on { background:#dbe8f7; font-weight:600; }
+  nav button span { color:var(--mute); font-weight:400; }
+  main { padding:16px 24px; }
+  .controls { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; align-items:center; }
+  .controls input { flex:1 1 100%; padding:7px 10px; border:1px solid var(--line); border-radius:6px; font:inherit; }
+  .chip { border:1px solid var(--line); background:#fff; border-radius:999px; padding:4px 10px; cursor:pointer; font:inherit; font-size:13px; }
+  .chip.on { background:var(--blue); border-color:var(--blue); color:#fff; }
+  .count { color:var(--mute); font-size:13px; margin-bottom:8px; }
+  .feat { background:var(--card); border:1px solid var(--line); border-radius:8px; margin-bottom:8px; }
+  .feat > summary { list-style:none; cursor:pointer; padding:10px 14px; display:grid; grid-template-columns:auto 1fr auto auto; gap:10px; align-items:center; }
+  .feat > summary::-webkit-details-marker { display:none; }
+  .feat[open] > summary { border-bottom:1px solid var(--line); }
+  .id { font-family:ui-monospace, monospace; font-size:12px; color:var(--mute); }
+  .what { font-weight:500; }
+  .badge { font-size:11px; padding:2px 8px; border-radius:999px; color:#fff; white-space:nowrap; }
+  .s-passing { background:var(--pass); } .s-failing { background:var(--fail); } .s-untested { background:var(--unt); } .s-cant-run { background:var(--cant); }
+  .d { font-size:11px; padding:2px 8px; border-radius:999px; border:1px solid var(--line); white-space:nowrap; }
+  .d-none { border-color:var(--fail); color:var(--fail); } .d-both { border-color:var(--pass); color:var(--pass); }
+  .d-help, .d-developers { border-color:var(--blue); color:var(--blue); } .d-internal { color:var(--mute); }
+  .body { padding:12px 14px; display:grid; grid-template-columns:1fr 320px; gap:18px; }
+  .body h4 { margin:0 0 6px; font-size:12px; text-transform:uppercase; color:var(--mute); letter-spacing:.04em; }
+  dl { display:grid; grid-template-columns:110px 1fr; gap:4px 10px; margin:0 0 12px; }
+  dt { color:var(--mute); } dd { margin:0; }
+  code { font-family:ui-monospace, monospace; font-size:12px; background:#f0f2f5; padding:1px 4px; border-radius:3px; }
+  ol.steps { margin:0; padding-left:20px; }
+  ol.steps li { margin-bottom:12px; }
+  ol.steps img { display:block; max-width:100%; border:1px solid var(--line); border-radius:6px; margin-top:4px; cursor:zoom-in; }
+  .test { font-size:13px; margin:2px 0; } .test .ok { color:var(--pass); } .test .ko { color:var(--fail); }
+  .err { color:var(--fail); font-size:12px; font-family:ui-monospace, monospace; }
+  .docs a { display:block; color:var(--blue); text-decoration:none; margin-bottom:3px; }
+  .docs a:hover { text-decoration:underline; }
+  .note { background:#fff8e6; border:1px solid #f0d58a; border-radius:6px; padding:6px 8px; font-size:13px; margin-top:6px; }
+  .empty { color:var(--mute); font-style:italic; }
+  table.list { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  table.list th, table.list td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  table.list th { background:#fafbfc; font-size:12px; color:var(--mute); text-transform:uppercase; }
+  table.list a { color:var(--blue); }
+  #zoom { position:fixed; inset:0; background:rgba(0,0,0,.8); display:none; align-items:center; justify-content:center; z-index:9; cursor:zoom-out; }
+  #zoom img { max-width:95vw; max-height:95vh; }
+  @media (max-width: 900px) { .layout { grid-template-columns:1fr; } nav { position:static; max-height:none; } .body { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Zenodo feature catalog</h1>
+  <p id="sub"></p>
+</header>
+<div class="stats" id="stats"></div>
+<div class="layout">
+  <nav id="nav"></nav>
+  <main>
+    <div class="controls" id="controls">
+      <input id="q" type="search" placeholder="Search features, entry points, docs…">
+    </div>
+    <div class="count" id="count"></div>
+    <div id="list"></div>
+  </main>
+</div>
+<div id="zoom"><img alt=""></div>
+<script>
+/*DATA*/
+const S = DATA.summary;
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+// Catalog cells are Markdown: render inline code only.
+const md = (s) => esc(s).replace(/`([^`]+)`/g, "<code>$1</code>");
+const STATUS = { passing:"passing", failing:"failing", untested:"untested", "cant-run":"can't run on mini" };
+const DOCS = { both:"help + developers", help:"help only", developers:"developers only", none:"undocumented", internal:"internal (staff/operator)" };
+
+document.getElementById("sub").textContent =
+  `${S.features} features · test run ${S.run ? new Date(S.run).toLocaleString() : "none"} · docs crawled: ${S.helpPages} help pages, ${S.devSections} developers sections`;
+document.getElementById("stats").innerHTML = [
+  [S.passing, "passing"], [S.failing, "failing"], [S.untested, "untested"], [S.cantRun, "can't run on mini"],
+  [S.docsBoth, "documented in both"], [S.docsHelp, "help only"], [S.docsDev, "developers only"],
+  [S.docsNone, `public features undocumented (of ${S.public})`], [S.internal, "internal"],
+  [S.docsOnly, "docs topics not in catalog"], [S.issues, "docs issues"],
+].map(([n, l]) => `<div class="stat"><b>${n}</b>${l}</div>`).join("");
+
+const areas = [...new Set(DATA.features.map((f) => f.area))];
+const state = { view: "features", area: null, filter: null, q: "" };
+const FILTERS = [
+  ["failing", "Failing", (f) => f.status === "failing"],
+  ["passing", "Passing", (f) => f.status === "passing"],
+  ["untested", "Untested", (f) => f.status === "untested"],
+  ["cant-run", "Can't run on mini", (f) => f.status === "cant-run"],
+  ["undocumented", "Undocumented", (f) => f.docs === "none"],
+  ["help", "Help docs", (f) => f.docs === "help" || f.docs === "both"],
+  ["developers", "Developer docs", (f) => f.docs === "developers" || f.docs === "both"],
+  ["screens", "Has screenshots", (f) => f.tests.some((t) => t.shots.length)],
+];
+
+function nav() {
+  const btn = (label, n, on, attrs) => `<button class="${on ? "on" : ""}" ${attrs}>${esc(label)}<span>${n}</span></button>`;
+  document.getElementById("nav").innerHTML =
+    `<h3>Features by area</h3>` +
+    btn("All areas", DATA.features.length, state.view === "features" && !state.area, `data-area=""`) +
+    areas.map((a) => btn(a, DATA.features.filter((f) => f.area === a).length, state.view === "features" && state.area === a, `data-area="${esc(a)}"`)).join("") +
+    `<h3>Docs comparison</h3>` +
+    btn("Docs not in catalog", DATA.docsOnly.length + DATA.unmapped.length, state.view === "docsonly", `data-view="docsonly"`) +
+    btn("Outdated or wrong docs", DATA.issues.length, state.view === "issues", `data-view="issues"`);
+  document.querySelectorAll("nav button").forEach((b) => b.onclick = () => {
+    if (b.dataset.view) { state.view = b.dataset.view; } else { state.view = "features"; state.area = b.dataset.area || null; }
+    render();
+  });
+}
+
+function controls() {
+  const c = document.getElementById("controls");
+  c.querySelectorAll(".chip").forEach((e) => e.remove());
+  FILTERS.forEach(([k, label]) => {
+    const b = document.createElement("button");
+    b.className = "chip" + (state.filter === k ? " on" : "");
+    b.textContent = label;
+    b.onclick = () => { state.filter = state.filter === k ? null : k; render(); };
+    c.appendChild(b);
+  });
+  c.style.display = state.view === "features" ? "flex" : "none";
+}
+
+function playbook(f) {
+  const shots = f.tests.flatMap((t) => t.shots);
+  if (shots.length) {
+    return `<ol class="steps">${shots.map((s) => `<li>${esc(s.label)}<img loading="lazy" src="${esc(s.file)}" alt="${esc(s.label)}"></li>`).join("")}</ol>`;
+  }
+  const steps = [];
+  if (f.entry) steps.push(`Go to ${md(f.entry)}`);
+  if (f.doesWhat) steps.push(md(f.doesWhat));
+  if (f.check && f.check !== "—") steps.push(`Check: ${md(f.check)}`);
+  return `<p class="empty">No screenshots: ${f.tests.length ? "this check is API-only" : "no automated check yet"}. Steps:</p>` +
+    `<ol class="steps">${steps.map((s) => `<li>${s}</li>`).join("")}</ol>`;
+}
+
+function card(f) {
+  const tests = f.tests.length
+    ? f.tests.map((t) => `<div class="test"><span class="${t.status === "passed" ? "ok" : "ko"}">${t.status === "passed" ? "✓" : "✘"}</span> ${esc(t.suite ? t.suite + " › " : "")}${esc(t.title)} <span class="id">${esc(t.file)}:${t.line}</span>${t.error ? `<div class="err">${esc(t.error)}</div>` : ""}</div>`).join("")
+    : `<p class="empty">No automated test. Catalog status: ${md(f.catalogStatus || "untested")}</p>`;
+  const links = (arr, site) => arr.map((l) => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${site}: ${esc(l.title)}</a>`).join("");
+  const docs = f.help.length || f.dev.length
+    ? links(f.help, "help") + links(f.dev, "developers")
+    : `<p class="empty">${f.docs === "internal" ? `Not in public docs (${esc(f.audience)} feature).` : "Not documented on help.zenodo.org or developers.zenodo.org."}</p>`;
+  return `<details class="feat" id="${esc(f.id)}">
+    <summary><span class="id">${esc(f.id)}</span><span class="what">${md(f.what)}</span>
+      <span class="d d-${f.docs}">${DOCS[f.docs]}</span><span class="badge s-${f.status}">${STATUS[f.status]}</span></summary>
+    <div class="body">
+      <div>
+        <dl><dt>Area</dt><dd>${esc(f.area)}</dd>
+          ${f.entry ? `<dt>Entry point</dt><dd>${md(f.entry)}</dd>` : ""}
+          ${f.who ? `<dt>Who</dt><dd>${md(f.who)}</dd>` : ""}
+          ${f.check ? `<dt>How to check</dt><dd>${md(f.check)}</dd>` : ""}
+          <dt>Catalog status</dt><dd>${md(f.catalogStatus)}</dd></dl>
+        <h4>Playbook</h4>${playbook(f)}
+      </div>
+      <div>
+        <h4>Tests</h4>${tests}
+        <h4 style="margin-top:14px">Public docs</h4><div class="docs">${docs}</div>
+        ${f.docsNote ? `<div class="note">${esc(f.docsNote)}</div>` : ""}
+      </div>
+    </div></details>`;
+}
+
+const docUrl = (u) => u.startsWith("dev:") ? DATA.DEV + u.slice(4) : u.startsWith("/") ? DATA.HELP + u : u.startsWith("http") ? u : null;
+const docLink = (u) => { const h = docUrl(u); return h ? `<a href="${esc(h)}" target="_blank" rel="noopener">${esc(u)}</a>` : esc(u); };
+
+function render() {
+  nav(); controls();
+  const list = document.getElementById("list"), count = document.getElementById("count");
+  if (state.view === "docsonly") {
+    count.textContent = "Docs pages describing things the catalog has no row for, plus crawled help pages no feature links to.";
+    list.innerHTML = `<table class="list"><tr><th>Docs page</th><th>What it covers</th></tr>` +
+      DATA.docsOnly.map((d) => `<tr><td>${docLink(d.url)}</td><td>${esc(d.what)}</td></tr>`).join("") +
+      DATA.unmapped.map((d) => `<tr><td>${docLink(d.url)}</td><td>${esc(d.title)}: ${esc(d.headings.join(" · "))} <i>(no catalog feature links here)</i></td></tr>`).join("") + `</table>`;
+    return;
+  }
+  if (state.view === "issues") {
+    count.textContent = "Docs that disagree with the code or the running image, or are broken.";
+    list.innerHTML = `<table class="list"><tr><th>Where</th><th>Kind</th><th>What</th></tr>` +
+      DATA.issues.map((d) => `<tr><td>${docLink(d.where)}</td><td>${esc(d.kind)}</td><td>${esc(d.what)}</td></tr>`).join("") + `</table>`;
+    return;
+  }
+  const flt = FILTERS.find(([k]) => k === state.filter)?.[2] ?? (() => true);
+  const q = state.q.toLowerCase();
+  const shown = DATA.features.filter((f) => (!state.area || f.area === state.area) && flt(f) &&
+    (!q || JSON.stringify([f.id, f.what, f.entry, f.who, f.check, f.help, f.dev]).toLowerCase().includes(q)));
+  count.textContent = `${shown.length} feature${shown.length === 1 ? "" : "s"}`;
+  let html = "", last = null;
+  for (const f of shown) {
+    if (!state.area && f.area !== last) { html += `<h2 style="font-size:15px;margin:18px 0 8px">${esc(f.area)}</h2>`; last = f.area; }
+    html += card(f);
+  }
+  list.innerHTML = html || `<p class="empty">No features match.</p>`;
+  if (location.hash) document.getElementById(decodeURIComponent(location.hash.slice(1)))?.setAttribute("open", "");
+}
+
+document.getElementById("q").oninput = (e) => { state.q = e.target.value; render(); };
+document.addEventListener("click", (e) => {
+  const z = document.getElementById("zoom");
+  if (e.target.matches("ol.steps img")) { z.querySelector("img").src = e.target.src; z.style.display = "flex"; }
+  else if (e.target.closest("#zoom")) z.style.display = "none";
+});
+render();
+</script>
+</body>
+</html>

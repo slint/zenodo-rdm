@@ -1,6 +1,7 @@
 import { test as setup, expect } from "@playwright/test";
 import { writeFileSync, mkdirSync } from "node:fs";
 import { users } from "../lib/users";
+import { shot } from "../lib/shot";
 
 // Logs each fixture user in through the UI, saves the session for UI checks
 // and creates a personal access token for API checks.
@@ -25,8 +26,10 @@ for (const [role, user] of Object.entries(users)) {
     await page.goto("/login/");
     await page.fill('input[name="email"]', user.email);
     await page.fill('input[name="password"]', user.password);
+    await shot(page, `Fill in the login form as ${role}`);
     await page.click('form[name="login_user_form"] button[type="submit"]');
     await expect(page).not.toHaveURL(/\/login/);
+    await shot(page, "Logged in: back on the site with the user menu");
 
     await page.goto("/account/settings/applications/tokens/new/");
     await page.fill('input[name="name"]', `e2e-${Date.now()}`);
@@ -34,6 +37,8 @@ for (const [role, user] of Object.entries(users)) {
     await page.click('form button[type="submit"].primary');
     const token = (await page.locator("code.word-break-all").innerText()).trim();
     expect(token).toMatch(/^\w{20,}$/);
+    await page.locator("code.word-break-all").evaluate((e) => (e.textContent = "<token hidden>"));
+    await shot(page, "Create a personal access token with all scopes");
 
     await page.context().storageState({ path: `.auth/${role}.json` });
     writeFileSync(`.auth/${role}.token`, token);

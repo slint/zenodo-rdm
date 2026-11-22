@@ -1,0 +1,1475 @@
+[
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/",
+  "title": "Help | Zenodo",
+  "headings": [
+   "Frequently Asked Questions",
+   "Docs",
+   "Guides"
+  ],
+  "summary": "Search widget General Account Upload/Deposit Collaborate and share Communities Usage statistics Citations Content GitHub integration Policies Data Privacy API Get started Quick start Create an account Logging in and logging out Navigating Zenodo Deposit About records Create new upload Describe records Manage files Manage storage quota Manage records Manage versions Collaborate and share About collaboration and sharing User sharing Link sharing Access requests Submit for review Submit to community Manage your submissions Membership invitations Communities About communities Create new community "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/deposit/",
+  "broken": "HTTP Error 404: Not Found",
+  "linked_from": [
+   "https://help.zenodo.org/docs/about/whats-changed/"
+  ]
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/",
+  "title": "Docs | Zenodo",
+  "headings": [
+   "Docs"
+  ],
+  "summary": "Help FAQ Docs Guides Search widget Get started Quick start Create an account Logging in and logging out Navigating Zenodo Deposit About records Create new upload Describe records Manage files Manage storage quota Manage records Manage versions Collaborate and share About collaboration and sharing User sharing Link sharing Access requests Submit for review Submit to community Manage your submissions Membership invitations Communities About communities Create new community View my communities Manage community settings Manage members Review submissions Curate records Profile Edit profile Change p"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/about/",
+  "title": "About | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides About What's new? What's changed? Docs About To learn more about Zenodo refer to our full About page What's new? What's changed? Couldn't find the answer to your question? Contact us . This site uses cookies. Find out more on how we use cookies Accept all cookies Accept only essential cookies"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/about/about.zenodo.org",
+  "broken": "HTTP Error 404: Not Found",
+  "linked_from": [
+   "https://help.zenodo.org/docs/about/"
+  ]
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/about/whats-changed/",
+  "title": "What's changed? | Zenodo",
+  "headings": [
+   "Navigation: Uploads to My dashboard",
+   "Deposit: Access rights to visibility",
+   "Deposit: File upload",
+   "Deposit: Field changes",
+   "Deposit: Files in new versions",
+   "Deposit: Community selection",
+   "Communities: Records are published after review",
+   "Communities: Submit to multiple communities",
+   "Communities: Curators can edit metadata",
+   "Communities: Members can view restricted files in records",
+   "Usage statistics: Unique/Total views",
+   "Records: Manage communities",
+   "Records: Fewer citation styles",
+   "Access requests: Shared links"
+  ],
+  "summary": "Help FAQ Docs Guides About What's new? What's changed? Docs About What's changed? These sections provides a comprehensive overview over changes launched on October 13th, 2023 to existing features in Zenodo. In addition to the changes, we also launched many new features described under What's new . Heads up: We have made significant changes in the capabilities of community curators as well as the submission workflow to communities. See details on this page. Overview of the changes: Navigation: Uploads to My dashboard Deposit: Access rights to visibility Deposit: File upload Deposit: Field chang"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/about/whats-new/",
+  "title": "What's new? | Zenodo",
+  "headings": [
+   "Communities: Members",
+   "Communities: Reviews",
+   "Communities: Curation",
+   "Communities: Branding",
+   "Communities: Profile",
+   "Deposit: Preview",
+   "Deposit: Visibility",
+   "Deposit: Creators/affiliations auto-completion from ORCID and ROR",
+   "Deposit: License selector",
+   "Deposit: Funding selector",
+   "Deposit: Default file preview",
+   "Deposit: Imprecise dates",
+   "Deposit: Subjects",
+   "Sharing: Get a link",
+   "User profiles",
+   "Minor features"
+  ],
+  "summary": "Help FAQ Docs Guides About What's new? What's changed? Docs About What's new? This section provides a comprehensive overview over new features launched on October 13th, 2023 with links to user documentation on how to use these new features. See what's changed for important details on changes to existing features . Communities: Members Communities: Reviews Communities: Curation Communities: Branding Communities: Profile Deposit: Preview Deposit: Visibility Deposit: Creators/affiliations auto-completion from ORCID and ROR Deposit: License selector Deposit: Funding selector Deposit: Default file "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/",
+  "title": "Communities | Zenodo",
+  "headings": [
+   "Overview"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Manage members Review submissions Curate records Docs Communities Want to test Zenodo? Use our sandbox environment on https://sandbox.zenodo.org to play. Communities are shared areas on Zenodo where projects, institutions, domains, and conferences can curate and manage their research outputs. Communities provides features for managing members, reviewing submissions and curating content in the community. In this section, learn about the following topics: About communities \u2014 Lear"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/about-communities/",
+  "title": "About communities | Zenodo",
+  "headings": [
+   "Communities are shared areas on Zenodo where projects, institutions, domains, and conferences can curate and manage their research outputs.",
+   "About communities"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Manage members Review submissions Curate records Docs Communities About communities Your project, institution, department, domain or conference can collaborate on Zenodo using our communities feature, which serves as an shared area curated and managed by your team. Each person always login on Zenodo using their personal account. A person can create a new community. Once the community is created, you can invite an unlimited number of people to your community. Each person is give"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/creating-a-community/",
+  "title": "Create new community | Zenodo",
+  "headings": [
+   "Creating a community"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Manage members Review submissions Curate records Docs Communities Create new community Learn more about what you can use communities for on the about communities page. 1 Click on the plus icon and select \"New community\" 2 Enter your community name and identifier . 3 Your new community has been created. Couldn't find the answer to your question? Contact us . This site uses cookies. Find out more on how we use cookies Accept all cookies Accept only essential cookies"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/curate/",
+  "title": "Curate records | Zenodo",
+  "headings": [
+   "Edit metadata",
+   "Remove a record",
+   "Set/remove branded community"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Manage members Review submissions Curate records Docs Communities Curate records Community owners, managers and curators have the capability to curate records in their community. See about communities for details. Branding A record is branded in the header with the community it belongs to. If a record is part of multiple communities, only one community can be branded. It is also possible to remove the branding. All community curators from all communities as well as the uploader"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/manage-community-settings/",
+  "title": "Manage community settings | Zenodo",
+  "headings": [
+   "Overview",
+   "Access community settings"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Set submission policy Edit community profile Add about/curation policy pages Delete community Manage members Review submissions Curate records Docs Communities Manage community settings You manage community settings from the Settings tab on the community (see below ). The settings allow you to edit the profile, provide a logo, set the review policy, provide about/curation policy pages and delete the community. Set submission policy \u2014 Modify how submissions from community owners"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/manage-community-settings/add-pages/",
+  "title": "Add about/curation policy pages | Zenodo",
+  "headings": [
+   "Add an about page",
+   "Add a curation policy page",
+   "Remove a page"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Set submission policy Edit community profile Add about/curation policy pages Delete community Manage members Review submissions Curate records Docs Communities Manage community settings Add about/curation policy pages A community can provide two text pages which will be linked in the community tab menu: Curation policy About In this section you can learn about: Add an about page Add a curation policy page Remove a page You can use the about page to provide more extensive inform"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/manage-community-settings/delete-community/",
+  "title": "Delete community | Zenodo",
+  "headings": [
+   "Delete a community"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Set submission policy Edit community profile Add about/curation policy pages Delete community Manage members Review submissions Curate records Docs Communities Manage community settings Delete community TL;DR : Deleting a community CANNOT BE UNDONE and the identifier CANNOT BE REUSED . Instead of deleting a community you can transfer ownership of the community to another person. See how you manage members to invite a person and change their role to owner. 1 Go to your community"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/manage-community-settings/edit-profile/",
+  "title": "Edit community profile | Zenodo",
+  "headings": [
+   "Edit basic/funding information",
+   "Add a logo",
+   "Remove a logo"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Set submission policy Edit community profile Add about/curation policy pages Delete community Manage members Review submissions Curate records Docs Communities Manage community settings Edit community profile The community profile enables you to clearly describe your community and set logo for your community. Edit basic/funding information Add a logo Remove a logo 1 Go to your community settings . By default the profile is now shown: 2 Edit the basic information and funding inf"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/manage-community-settings/review-policy/",
+  "title": "Set submission policy | Zenodo",
+  "headings": [
+   "Set submission policy"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Set submission policy Edit community profile Add about/curation policy pages Delete community Manage members Review submissions Curate records Docs Communities Manage community settings Set submission policy The review policy enables communities to set how submissions from community owners/managers/curators are handled, based on the following options of the Review policy : Review all submissions: All submissions go through a review by community curators. Allow curators, manager"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/manage-members/",
+  "title": "Manage members | Zenodo",
+  "headings": [
+   "Overview",
+   "Manage members of your community"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Manage members Invite member View invitations Cancel/edit invitations Remove member Leave community Change member role Set membership visibility Transfer ownership Review submissions Curate records Docs Communities Manage members Community members allow you to grant access to multiple people in your community and given them different permissions via four roles: readers, curators, managers and owners. Roles and permissions See about communities for an overview which permissions "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/manage-members/cancel-invite/",
+  "title": "Cancel/edit invitations | Zenodo",
+  "headings": [
+   "Cancel an invitation",
+   "Edit an invitation"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Manage members Invite member View invitations Cancel/edit invitations Remove member Leave community Change member role Set membership visibility Transfer ownership Review submissions Curate records Docs Communities Manage members Cancel/edit invitations Cancel an invitation Edit an invitation 1 View the invitation you would like to cancel. 2 Click the Cancel button in the top right corner. 1 View the invitation you would like to cancel. 3 Click the dropdown menu in the Role col"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/manage-members/change-role/",
+  "title": "Change member role | Zenodo",
+  "headings": [
+   "Change a member's role"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Manage members Invite member View invitations Cancel/edit invitations Remove member Leave community Change member role Set membership visibility Transfer ownership Review submissions Curate records Docs Communities Manage members Change member role A member in a community always has a role as either reader, curator, manager or owner. See about communities for details on roles and their permissions. Only community managers and owners can change roles of other members, and only o"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/manage-members/change-visibility/",
+  "title": "Set membership visibility | Zenodo",
+  "headings": [
+   "Set membership visibility"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Manage members Invite member View invitations Cancel/edit invitations Remove member Leave community Change member role Set membership visibility Transfer ownership Review submissions Curate records Docs Communities Manage members Set membership visibility Each community has a public page that displays the members of the community. A member is displayed on the page if their membership visibility is to public . Only members themselves can set public visibility A member's visibili"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/manage-members/invite-member/",
+  "title": "Invite member | Zenodo",
+  "headings": [
+   "Invite a member"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Manage members Invite member View invitations Cancel/edit invitations Remove member Leave community Change member role Set membership visibility Transfer ownership Review submissions Curate records Docs Communities Manage members Invite member You can invite existing Zenodo users to become a member of your community. Invitations must be accepted by the invited user, and an invitation automatically expire after 30 days. 1 Go to Members tab in your community and, click on the gre"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/manage-members/leave-community/",
+  "title": "Leave community | Zenodo",
+  "headings": [
+   "Leave a community"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Manage members Invite member View invitations Cancel/edit invitations Remove member Leave community Change member role Set membership visibility Transfer ownership Review submissions Curate records Docs Communities Manage members Leave community As a member of a community, you can leave the community if you no longer wants to be a member. At least one owner A community must have at least one owner. If you are the last owner, you will not be able to leave the community. See how "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/manage-members/remove-member/",
+  "title": "Remove member | Zenodo",
+  "headings": [
+   "Remove a member"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Manage members Invite member View invitations Cancel/edit invitations Remove member Leave community Change member role Set membership visibility Transfer ownership Review submissions Curate records Docs Communities Manage members Remove member As a community owner and manager you can remove members from your community. To remove a community owner, you must yourself be a community owner (i.e. a manager cannot remove an owner). 1 Go to Members tab in your community. 2 Find the me"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/manage-members/transfer-ownership/",
+  "title": "Transfer ownership | Zenodo",
+  "headings": [
+   "Transfer ownership of community"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Manage members Invite member View invitations Cancel/edit invitations Remove member Leave community Change member role Set membership visibility Transfer ownership Review submissions Curate records Docs Communities Manage members Transfer ownership A community can have many owners, and must always at least one owner. Thus, if you're the only community owner you will not be able to leave the community. Below steps explains how you can transfer ownership to another person. Only c"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/manage-members/view-invitations/",
+  "title": "View invitations | Zenodo",
+  "headings": [
+   "View invitations"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Manage members Invite member View invitations Cancel/edit invitations Remove member Leave community Change member role Set membership visibility Transfer ownership Review submissions Curate records Docs Communities Manage members View invitations The following steps describe how you as a community manager can view invitations you have sent. 1 Go to Members tab in your community and, click on Invitations in the left menu. 2 You can toggle between open and closed (i.e. accepted/d"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/review-submissions/",
+  "title": "Review submissions | Zenodo",
+  "headings": [
+   "View submissions to community",
+   "Review a submission",
+   "Comment on a submission",
+   "Accept a submission",
+   "Decline a submission"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Manage members Review submissions Curate records Docs Communities Review submissions Any Zenodo user can submit records to your community via two different methods: Submit for review for unpublished records. Submit to community for published records. The following sections explain how you as a community curator review these submissions. Submission policy Community owners can set the submission policy to allow curators, managers and owners to submit without review. They can also"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/communities/view-my-communities/",
+  "title": "View my communities | Zenodo",
+  "headings": [
+   "View my communities"
+  ],
+  "summary": "Help FAQ Docs Guides Communities About communities Create new community View my communities Manage community settings Manage members Review submissions Curate records Docs Communities View my communities The following section describes how to browse all the communities of which you are an owner or a member. 1 Click My dashboard menu item in the header. 2 Click Communities in the tab. All communities of which you are an owner or a member will be shown the list. Couldn't find the answer to your question? Contact us . This site uses cookies. Find out more on how we use cookies Accept all cookies "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/",
+  "title": "Deposit | Zenodo",
+  "headings": [
+   "Overview"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Manage files Manage storage quota Manage records Manage versions Docs Deposit Want to test Zenodo? Use our sandbox environment on https://sandbox.zenodo.org to play. This section provides a comprehensive documentation on how you upload your research on Zenodo. See the quick start guide for short introduction to publishing your upload in 3 simple steps. In this section, learn about the following topics: About records \u2014 General information about records. Create new upload \u2014 Overview of how to create a new upload, add/r"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/about-records/",
+  "title": "About records | Zenodo",
+  "headings": [
+   "Records are the basic entities used to share and preserve a digital research object (datasets, publications, software, poster, presentations etc) on Zenodo. Any user on Zenodo can create a new record.",
+   "Life cycle",
+   "Access"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Manage files Manage storage quota Manage records Manage versions Docs Deposit About records When you share and preserve research on Zenodo, you do so by creating a new record. Any user on Zenodo can create a new record. A record consists of: Metadata: Information about title, publication date, creators, description, etc. Files: The actual data for the digital research object. Persistent identifier: A globally unique persistent identifier (in our case a Digital Object Identifier ) used for identification of the record"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/create-new-upload/",
+  "title": "Create new upload | Zenodo",
+  "headings": [
+   "Create a new upload",
+   "Add/remove files",
+   "Fill in metadata",
+   "Save for later",
+   "Set visibility",
+   "Apply an embargo",
+   "Preview before publishing",
+   "Publish",
+   "Delete a  draft"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Manage files Manage storage quota Manage records Manage versions Docs Deposit Create new upload Want to test Zenodo? Use our sandbox environment on https://sandbox.zenodo.org to try out our features. See the quick start guide for a short introduction to publishing an upload in 3 simple steps. This guide goes in further detail about how to create a new record, and subsequent sections cover each part in detail. Create a new upload Add/remove files Fill in metadata Save for later Set visibility Apply an embargo Preview "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/describe-records/",
+  "title": "Describe records | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Digital Object Identifier (DOI) Resource types Titles Publication date Creators Descriptions Licenses and rights Contributors Keywords and subjects Publisher Funding information Manage files Manage storage quota Manage records Manage versions Docs Deposit Describe records See the Create new upload for an overview of creating a new upload. This section provides a detailed description of each field available in the deposit form: Digital Object Identifier (DOI) \u2014 How to reserve a DOI for inclusion in files before public"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/describe-records/contributors/",
+  "title": "Contributors | Zenodo",
+  "headings": [
+   "Add a contributor"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Digital Object Identifier (DOI) Resource types Titles Publication date Creators Descriptions Licenses and rights Contributors Keywords and subjects Publisher Funding information Manage files Manage storage quota Manage records Manage versions Docs Deposit Describe records Contributors The contributors field is a recommended field. Use contributors to provide information about persons or organisations that have contributed to the record such as supervisors, contact persons, sponsors etc. Contributors are not included "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/describe-records/creators/",
+  "title": "Creators | Zenodo",
+  "headings": [
+   "Add a creator",
+   "Edit a creator",
+   "Remove a creator",
+   "Reorder creators"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Digital Object Identifier (DOI) Resource types Titles Publication date Creators Descriptions Licenses and rights Contributors Keywords and subjects Publisher Funding information Manage files Manage storage quota Manage records Manage versions Docs Deposit Describe records Creators The creators field is a required field. Creators are the persons or organisations that have created the resource being uploaded (e.g. the authors in case of papers). Creators are listed in the academic citation. A creator can be either a: P"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/describe-records/descriptions/",
+  "title": "Descriptions | Zenodo",
+  "headings": [
+   "Add a description",
+   "Add an additional description (note, methods, ...)"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Digital Object Identifier (DOI) Resource types Titles Publication date Creators Descriptions Licenses and rights Contributors Keywords and subjects Publisher Funding information Manage files Manage storage quota Manage records Manage versions Docs Deposit Describe records Descriptions Description is a recommended field. You will usually use it to provide an abstract of your record. In addition you can add additional descriptions such as methods, technical information and notes. 1 Enter an abstract for your record. Yo"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/describe-records/funding/",
+  "title": "Funding information | Zenodo",
+  "headings": [
+   "Add an award/grant",
+   "Add a custom award/grant",
+   "Remove an award/grant",
+   "Reorder an award/grant"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Digital Object Identifier (DOI) Resource types Titles Publication date Creators Descriptions Licenses and rights Contributors Keywords and subjects Publisher Funding information Manage files Manage storage quota Manage records Manage versions Docs Deposit Describe records Funding information The funding field is a recommended field. Use funding to provide information about the awards or grants which funded the research output published in the record. A funding can be either a: Standard award/grant Custom award/grant "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/describe-records/keywords-and-subjects/",
+  "title": "Keywords and subjects | Zenodo",
+  "headings": [
+   "Add a controlled vocabulary term",
+   "Add a custom keyword/subject",
+   "Remove a keyword/subject"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Digital Object Identifier (DOI) Resource types Titles Publication date Creators Descriptions Licenses and rights Contributors Keywords and subjects Publisher Funding information Manage files Manage storage quota Manage records Manage versions Docs Deposit Describe records Keywords and subjects The keywords and subjects field can be used to associate a record to custom tags or to controlled vocabularies. Providing such information helps making records more discoverable. A keyword/subject can be either a: Controlled vo"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/describe-records/licenses/",
+  "title": "Licenses and rights | Zenodo",
+  "headings": [
+   "Change a standard license",
+   "Add a custom license",
+   "Mixed license uploads"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Digital Object Identifier (DOI) Resource types Titles Publication date Creators Descriptions Licenses and rights Contributors Keywords and subjects Publisher Funding information Manage files Manage storage quota Manage records Manage versions Docs Deposit Describe records Licenses and rights The license field is a required field. Providing the license for your record is important for other users to be able to reuse your upload. Zenodo defaults to the Creative Commons Attribution 4.0 International (CC-BY) license. We "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/describe-records/publication-date/",
+  "title": "Publication date | Zenodo",
+  "headings": [
+   "Imprecise dates (EDTF)"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Digital Object Identifier (DOI) Resource types Titles Publication date Creators Descriptions Licenses and rights Contributors Keywords and subjects Publisher Funding information Manage files Manage storage quota Manage records Manage versions Docs Deposit Describe records Publication date The publication date field is a required field. By default, it is set to the date the draft was created. If your upload was previously published somewhere else (e.g. a journal article), please use the date of the first publication. "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/describe-records/publisher/",
+  "title": "Publisher | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Digital Object Identifier (DOI) Resource types Titles Publication date Creators Descriptions Licenses and rights Contributors Keywords and subjects Publisher Funding information Manage files Manage storage quota Manage records Manage versions Docs Deposit Describe records Publisher The publisher field is a required field as it is needed to generate the citation. By default, it is set to \"Zenodo\". If your upload was previously published somewhere else (e.g. a journal article), please use the name of the original publi"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/describe-records/reserve-doi/",
+  "title": "Digital Object Identifier (DOI) | Zenodo",
+  "headings": [
+   "Reserve a DOI",
+   "Use an existing DOI"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Digital Object Identifier (DOI) Resource types Titles Publication date Creators Descriptions Licenses and rights Contributors Keywords and subjects Publisher Funding information Manage files Manage storage quota Manage records Manage versions Docs Deposit Describe records Digital Object Identifier (DOI) A Digital Object Identifier (DOI) is a globally unique persistent identifier for your record. The DOI is important because: it provides a permanent link to your upload so readers can always reliably locate your conten"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/describe-records/resource-type/",
+  "title": "Resource types | Zenodo",
+  "headings": [
+   "Selecting a resource type",
+   "Mixed resource types"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Digital Object Identifier (DOI) Resource types Titles Publication date Creators Descriptions Licenses and rights Contributors Keywords and subjects Publisher Funding information Manage files Manage storage quota Manage records Manage versions Docs Deposit Describe records Resource types The resource type field is a required field in the deposit form. The resource type is used to describe the nature of the files being shared and is important for discoverability of your record. The selected resource type is important f"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/describe-records/titles/",
+  "title": "Titles | Zenodo",
+  "headings": [
+   "Add an additional title"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Digital Object Identifier (DOI) Resource types Titles Publication date Creators Descriptions Licenses and rights Contributors Keywords and subjects Publisher Funding information Manage files Manage storage quota Manage records Manage versions Docs Deposit Describe records Titles The title field is a required field in the deposit form. The title is important for readers to discover your research, and it is used in e.g. the citation and when records are displayed anywhere on the repository. You may optionally add addit"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/manage-files/",
+  "title": "Manage files | Zenodo",
+  "headings": [
+   "Prepare files",
+   "Add files",
+   "Remove files",
+   "Set the default preview",
+   "Pending state",
+   "Set the files' visibility",
+   "Modify files after publication"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Manage files Manage storage quota Manage records Manage versions Docs Deposit Manage files The following sections document how to manage files for a draft and record. You can upload up to a 100 files and a total volume of 50GB (50,000,000,000 bytes). Prepare files Add files Remove files Set the default preview Pending state Set the files' visibility Modify files after publication We support file uploads up 50GB (= 50,000 MB) and max 100 files. If you would like to upload up to 200GB of data, please see Manage storage"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/manage-quota/",
+  "title": "Manage storage quota | Zenodo",
+  "headings": [
+   "Add storage quota to a draft",
+   "Storage quota overview"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Manage files Manage storage quota Manage records Manage versions Docs Deposit Manage storage quota Each record comes with a default storage quota of 50GB and you can upload an unlimited number of records under 50GB. For larger files, you also have an additional allowance of up to 150GB that can be distributed across your uploads as needed. You can view detailed information about your quota usage in your storage settings . 1 Visit the draft, and click on the Manage storage button at the top-right of the Files section."
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/manage-quota/",
+  "title": "Manage storage quota | Zenodo",
+  "headings": [
+   "Add storage quota to a draft",
+   "Storage quota overview"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Manage files Manage storage quota Manage records Manage versions Docs Deposit Manage storage quota Each record comes with a default storage quota of 50GB and you can upload an unlimited number of records under 50GB. For larger files, you also have an additional allowance of up to 150GB that can be distributed across your uploads as needed. You can view detailed information about your quota usage in your storage settings . 1 Visit the draft, and click on the Manage storage button at the top-right of the Files section."
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/manage-records/",
+  "title": "Manage records | Zenodo",
+  "headings": [
+   "Browse your records",
+   "Edit published records",
+   "Delete records"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Manage files Manage storage quota Manage records Manage versions Docs Deposit Manage records This following sections describe how you can browse your records, edit the metadata and request deletion of them. Browse your records Edit published records Delete records 1 To browse your uploads, click the My dashboard header menu. This will by default take you to the list of records you have uploaded. 2 From My Uploads tab you are able to see all your published as well as unpublished records (drafts). 3 You can view or edi"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/deposit/manage-versions/",
+  "title": "Manage versions | Zenodo",
+  "headings": [
+   "Create a new version",
+   "Import files from previous version",
+   "Browse versions",
+   "Edit metadata of previous version"
+  ],
+  "summary": "Help FAQ Docs Guides Deposit About records Create new upload Describe records Manage files Manage storage quota Manage records Manage versions Docs Deposit Manage versions The following sections describe how you can create a new version of record, import files from previous version, browse versions, and edit previous versions. When to use versioning? Versioning is used when you have updated the files of your published record. If you just need to edit metadata (title, creators, description etc) then see Edit published records , and if you want to correct minor errors then see Modify files . Thi"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/get-started/",
+  "title": "Get started | Zenodo",
+  "headings": [
+   "Overview"
+  ],
+  "summary": "Help FAQ Docs Guides Get started Quick start Create an account Logging in and logging out Navigating Zenodo Docs Get started Want to test Zenodo? Use our sandbox environment on https://sandbox.zenodo.org to play. Zenodo enables you to share and preserve your digital research objects (publications, data, software, presentations, etc.). Zenodo is a general-purpose research repository where any research output can be shared by its users. Zenodo provides a home for research outputs that doesn't fit into discipline-specific repositories, or where no existing infrastructure exists. Consider discipli"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/get-started/create-an-account/",
+  "title": "Create an account | Zenodo",
+  "headings": [
+   "Sign up with ORCID",
+   "Sign up with GitHub",
+   "Sign up with local account"
+  ],
+  "summary": "Help FAQ Docs Guides Get started Quick start Create an account Logging in and logging out Navigating Zenodo Docs Get started Create an account Want to test Zenodo? Use our sandbox environment on https://sandbox.zenodo.org to play. You can create an account in several ways. If you already have an ORCID or GitHub account we recommend the following options: Sign up with ORCID : Use your ORCID account to quickly create an account. Sign up with GitHub : Use your GitHub account to quickly create an account. If not, you can create an account directly on Zenodo: Sign up with local account : Create a l"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/get-started/logging-in/",
+  "title": "Logging in and logging out | Zenodo",
+  "headings": [
+   "Log in",
+   "Log out"
+  ],
+  "summary": "Help FAQ Docs Guides Get started Quick start Create an account Logging in and logging out Navigating Zenodo Docs Get started Logging in and logging out Want to test Zenodo? Use our sandbox environment on https://sandbox.zenodo.org to play. 1 Click the white Log in button in the header. 1 If the Log in button is not visible, tap on the three lines in the top right to open the menu 2 Choose your preferred method to log in depending on how you created your account 1 Click the down-arrow button on your username in the header to open the drop-down menu. 2 Click Log out to log out of Zenodo. 3 You w"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/get-started/navigating-zenodo/",
+  "title": "Navigating Zenodo | Zenodo",
+  "headings": [
+   "Header",
+   "Search",
+   "Communities",
+   "Dashboard",
+   "Quick actions",
+   "Profile",
+   "Footer"
+  ],
+  "summary": "Help FAQ Docs Guides Get started Quick start Create an account Logging in and logging out Navigating Zenodo Docs Get started Navigating Zenodo The following section gives a basic overview how to navigate Zenodo's user interface. Header Search Communities Dashboard Quick actions Profile Footer From the header (see screenshot above) you can: Search : Search for records in all of Zenodo. The search field is contextualised, so if you're browsing a community you can choose between searching only the community or all of Zenodo. Communities : Browse and search for communities in Zenodo. A community i"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/get-started/quickstart/",
+  "title": "Quick start | Zenodo",
+  "headings": [
+   "Step 1: Upload",
+   "Step 2: Describe",
+   "Step 3: Publish"
+  ],
+  "summary": "Help FAQ Docs Guides Get started Quick start Create an account Logging in and logging out Navigating Zenodo Docs Get started Quick start Want to test Zenodo? Use our sandbox environment on https://sandbox.zenodo.org to play. Zenodo enables to share and preserve your digital research objects (publications, data, software, presentations, etc.) in three simple steps: Upload : Upload the files you want to share. Describe : Describe the files with minimal metadata such as title and creators. Publish : When ready, hit the publish button to share your research. Once you publish, we will automatically"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/github/",
+  "title": "GitHub and Software | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides GitHub and Software Enable a repository Describe software Archive software Docs GitHub and Software This section covers the Zenodo/GitHub integration and provides details on how software records are archived in Software Heritage . Enable a repository Describe software CITATION.cff file Zenodo JSON file Archive software Archive a release from GitHub Upload software manually Couldn't find the answer to your question? Contact us . This site uses cookies. Find out more on how we use cookies Accept all cookies Accept only essential cookies"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/github/archive-software/",
+  "title": "Archive software | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides GitHub and Software Enable a repository Describe software Archive software Archive a release from GitHub Upload software manually Docs GitHub and Software Archive software This section explains how to archive software records in Software Heritage through Zenodo. All the software records with a single compressed file are considered for archival, this guide covers the following methods: Archive a release from GitHub Upload software manually Couldn't find the answer to your question? Contact us . This site uses cookies. Find out more on how we use cookies Accept all cookies A"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/github/archive-software/github-upload/",
+  "title": "Archive a release from GitHub | Zenodo",
+  "headings": [
+   "Create a release",
+   "Debug a failed release"
+  ],
+  "summary": "Help FAQ Docs Guides GitHub and Software Enable a repository Describe software Archive software Archive a release from GitHub Upload software manually Docs GitHub and Software Archive software Archive a release from GitHub This guide will help you create a Software record to be archived in Software Heritage . It assumes you have already enabled a repository. If you need help to enable a repository, read the following guide: Enable a repository 1 Open the profile menu and click GitHub 2 Select the repository 3 Click the Create release button 4 Create a release in GitHub.  Find more information "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/github/archive-software/github-upload/",
+  "title": "Archive a release from GitHub | Zenodo",
+  "headings": [
+   "Create a release",
+   "Debug a failed release"
+  ],
+  "summary": "Help FAQ Docs Guides GitHub and Software Enable a repository Describe software Archive software Archive a release from GitHub Upload software manually Docs GitHub and Software Archive software Archive a release from GitHub This guide will help you create a Software record to be archived in Software Heritage . It assumes you have already enabled a repository. If you need help to enable a repository, read the following guide: Enable a repository 1 Open the profile menu and click GitHub 2 Select the repository 3 Click the Create release button 4 Create a release in GitHub.  Find more information "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/github/archive-software/manual-upload/",
+  "title": "Upload software manually | Zenodo",
+  "headings": [
+   "Create a software deposit"
+  ],
+  "summary": "Help FAQ Docs Guides GitHub and Software Enable a repository Describe software Archive software Archive a release from GitHub Upload software manually Docs GitHub and Software Archive software Upload software manually This guide will help you create a Software record to be archived in Software Heritage . It assumes you have already created (but not published) a new upload. If you need help starting a new upload, read the following guide: Create a new upload 1 In the deposit form of your upload, add a single ZIP file that contains your software's source code NOTE : It is mandatory that only one"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/github/describe-software/",
+  "title": "Describe software | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides GitHub and Software Enable a repository Describe software CITATION.cff file Zenodo JSON file Archive software Docs GitHub and Software Describe software The metadata schema used by Zenodo was extended with fields based on the CodeMeta standard, providing support for software-specific metadata. Moreover, Zenodo supports CITATION.cff and .zenodo.json files for software releases originating from GitHub, enhancing the integration and making the content easier to cite. Important: If both files are present in your repository, only the .zenodo.json metadata will be used for the G"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/github/describe-software/citation-file/",
+  "title": "CITATION.cff file | Zenodo",
+  "headings": [
+   "Create a CITATION.cff file",
+   "Validate a CITATION.cff file"
+  ],
+  "summary": "Help FAQ Docs Guides GitHub and Software Enable a repository Describe software CITATION.cff file Zenodo JSON file Archive software Docs GitHub and Software Describe software CITATION.cff file A CITATION.cff file can be added to your GitHub repository to describe the software after it is preserved in Zenodo. Note: If your repository also contains a .zenodo.json file, Zenodo will only use the .zenodo.json metadata and ignore the CITATION.cff entirely. However, we still recommend having a CITATION.cff file because GitHub uses it to display a citation suggestion on your repository page, making it "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/github/describe-software/zenodo-json/",
+  "title": "Zenodo JSON file | Zenodo",
+  "headings": [
+   "Create a .zenodo.json file"
+  ],
+  "summary": "Help FAQ Docs Guides GitHub and Software Enable a repository Describe software CITATION.cff file Zenodo JSON file Archive software Docs GitHub and Software Describe software Zenodo JSON file A .zenodo.json file can be added to your GitHub repository to describe the software after it is preserved in Zenodo. Note: If your repository contains both a .zenodo.json and a CITATION.cff file, Zenodo will only use the .zenodo.json metadata. The CITATION.cff will be completely ignored for the GitHub release archiving. Why use .zenodo.json? The .zenodo.json format supports Zenodo-specific metadata that CI"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/github/enable-repository/",
+  "title": "Enable a repository | Zenodo",
+  "headings": [
+   "Enable a repository"
+  ],
+  "summary": "Help FAQ Docs Guides GitHub and Software Enable a repository Describe software Archive software Docs GitHub and Software Enable a repository This guide will walk you through the steps to enable a GitHub repository for integration, ensuring it is properly linked. Once connected, new releases from the repository will be automatically ingested and archived. As a prerequisite, make sure you have a connected GitHub account. Learn here how to connect your account here: Linking your GitHub/ORCID/OpenAIRE account 1 Click the profile menu in the header and click GitHub 2 Click Sync now in the header 3 "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/profile/",
+  "title": "Profile | Zenodo",
+  "headings": [
+   "Access your profile"
+  ],
+  "summary": "Help FAQ Docs Guides Profile Edit profile Change password Reset password Change profile visibility Linking your GitHub/ORCID/OpenAIRE account Manage notification preferences Manage multiple accounts View logged in devices Docs Profile The profile allows you to manage your account and settings. Edit profile \u2014 Modify your username, full name, affiliations and/or email address. Change password \u2014 Explains how to modify your password. Reset password \u2014 Forgot your password? Change profile visibility \u2014 Ensure other users can find you on Zenodo. Linking your GitHub/ORCID/OpenAIRE account \u2014 Manage whic"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/profile/change-password/",
+  "title": "Change password | Zenodo",
+  "headings": [
+   "Change your password"
+  ],
+  "summary": "Help FAQ Docs Guides Profile Edit profile Change password Reset password Change profile visibility Linking your GitHub/ORCID/OpenAIRE account Manage notification preferences Manage multiple accounts View logged in devices Docs Profile Change password If you don't remember your current password, or e.g. logged in with GitHub/ORCID and thus don't have a password set for the account, please use the reset password method to change your password. 1 Click the profile menu in the header and select Change password . 2 Enter your current password, the new password and your new password to confirm. 3 Cl"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/profile/changing-profile-visibility/",
+  "title": "Change profile visibility | Zenodo",
+  "headings": [
+   "Change your profile visibility"
+  ],
+  "summary": "Help FAQ Docs Guides Profile Edit profile Change password Reset password Change profile visibility Linking your GitHub/ORCID/OpenAIRE account Manage notification preferences Manage multiple accounts View logged in devices Docs Profile Change profile visibility Your profile visibility controls who can find you on Zenodo. You can set the visibility of: Profile : Public profiles can be found by other users via searches on username, full name and affiliation. Hidden profiles cannot be found by other users. Email : Public email visibility enables your profile to be found by your email address. By d"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/profile/editing-your-profile/",
+  "title": "Edit profile | Zenodo",
+  "headings": [
+   "Edit your profile",
+   "Viewing your profile",
+   "Change avatar",
+   "Manage who can see my profile"
+  ],
+  "summary": "Help FAQ Docs Guides Profile Edit profile Change password Reset password Change profile visibility Linking your GitHub/ORCID/OpenAIRE account Manage notification preferences Manage multiple accounts View logged in devices Docs Profile Edit profile You can manage your username (used for login), full name and affiliations from the profile page. You can also modify the email address which you've registered. Edit your profile Viewing your profile Change avatar Manage who can see my profile 1 Click the Profile menu item in the header or access the page directly . 2 Edit your username, full name or "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/profile/linking-accounts/",
+  "title": "Linking your GitHub/ORCID/OpenAIRE account | Zenodo",
+  "headings": [
+   "Connect an external account",
+   "Disconnect an external account"
+  ],
+  "summary": "Help FAQ Docs Guides Profile Edit profile Change password Reset password Change profile visibility Linking your GitHub/ORCID/OpenAIRE account Manage notification preferences Manage multiple accounts View logged in devices Docs Profile Linking your GitHub/ORCID/OpenAIRE account If you don't already have an account, see the section create an account on how to sign up with GitHub, ORCID or OpenAIRE. The signup process will automatically link the external account. Zenodo enables you to login with your an external account. The following authentication providers are supported: GitHub : Linking your "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/profile/manage-multiple-accounts/",
+  "title": "Manage multiple accounts | Zenodo",
+  "headings": [
+   "Merging accounts"
+  ],
+  "summary": "Help FAQ Docs Guides Profile Edit profile Change password Reset password Change profile visibility Linking your GitHub/ORCID/OpenAIRE account Manage notification preferences Manage multiple accounts View logged in devices Docs Profile Manage multiple accounts If you have more than one Zenodo account, for example if you signed up with ORCID and then later sign up again with GitHub, follow the steps below to move your external accounts and delete the one you do not wish to keep 1 Choose which Zenodo account you would like to keep (in most cases the one in which you have uploaded more records). 2"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/profile/managing-notifications/",
+  "title": "Manage notification preferences | Zenodo",
+  "headings": [
+   "Change notification preferences"
+  ],
+  "summary": "Help FAQ Docs Guides Profile Edit profile Change password Reset password Change profile visibility Linking your GitHub/ORCID/OpenAIRE account Manage notification preferences Manage multiple accounts View logged in devices Docs Profile Manage notification preferences Zenodo will send notification emails e.g. when a record is submitted to your community, or if you're invited to a community. You can switch on/off this notification emails if you do not wish to receive them using below method. The emails are sent to the email address with which you are registered at Zenodo. See edit your profile fo"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/profile/reset-password/",
+  "title": "Reset password | Zenodo",
+  "headings": [
+   "Reset your password"
+  ],
+  "summary": "Help FAQ Docs Guides Profile Edit profile Change password Reset password Change profile visibility Linking your GitHub/ORCID/OpenAIRE account Manage notification preferences Manage multiple accounts View logged in devices Docs Profile Reset password If you have forgotten your password, or if you logged in with e.g. GitHub or ORCID and never set a password you can use this method to reset and create a new password for your account. 1 First, ensure you have logged out . 2 Click Login in the header. 3 Click Forgot password? in the bottom of the login page. 4 Enter the email address with which you"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/profile/viewing-devices/",
+  "title": "View logged in devices | Zenodo",
+  "headings": [
+   "Viewing logged in devices",
+   "Logout from another device"
+  ],
+  "summary": "Help FAQ Docs Guides Profile Edit profile Change password Reset password Change profile visibility Linking your GitHub/ORCID/OpenAIRE account Manage notification preferences Manage multiple accounts View logged in devices Docs Profile View logged in devices If you think your account may have been compromised, please contact us immediately. If you authenticate from multiple devices to your Zenodo account, you'll be able to see all the devices that are logged into your account. The information you see in the overview such as IP address, login date, browser and operating system is only stored whi"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/share/",
+  "title": "Collaborate and share | Zenodo",
+  "headings": [
+   "Overview"
+  ],
+  "summary": "Help FAQ Docs Guides Collaborate and share About collaboration and sharing User sharing Link sharing Access requests Submit for review Submit to community Manage your submissions Membership invitations Docs Collaborate and share Want to test Zenodo? Use our sandbox environment on https://sandbox.zenodo.org to play. Zenodo's collaboration and sharing features allow you to share individual records/drafts with other users and communities. In this section, learn about the following topics: About collaboration and sharing \u2014 Overview of the collaborate and share features User sharing \u2014 Enables you t"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/share/about/",
+  "title": "About collaboration and sharing | Zenodo",
+  "headings": [
+   "Zenodo's collaboration and sharing features allow you to share individual records/drafts with other users and communities.",
+   "Individual records/drafts",
+   "Collection of records"
+  ],
+  "summary": "Help FAQ Docs Guides Collaborate and share About collaboration and sharing User sharing Link sharing Access requests Submit for review Submit to community Manage your submissions Membership invitations Docs Collaborate and share About collaboration and sharing From a high-level point of view Zenodo's features allow you to: Share individual records and drafts with specific users, via links as well as allow guests/users to request access. Share collection of records via communities. Individual records/drafts can be shared in different ways depending with who and how you want to share: User shari"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/share/access-requests/",
+  "title": "Access requests | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides Collaborate and share About collaboration and sharing User sharing Link sharing Access requests Request access Allow access requests Submit for review Submit to community Manage your submissions Membership invitations Docs Collaborate and share Access requests Access requests enables other users and guests to request access to view restricted files in your published record (e.g. anonymised clinical trial data that can only be shared with medical professionals). Request access Allow access requests Couldn't find the answer to your question? Contact us . This site uses cooki"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/share/access-requests/",
+  "title": "Access requests | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides Collaborate and share About collaboration and sharing User sharing Link sharing Access requests Request access Allow access requests Submit for review Submit to community Manage your submissions Membership invitations Docs Collaborate and share Access requests Access requests enables other users and guests to request access to view restricted files in your published record (e.g. anonymised clinical trial data that can only be shared with medical professionals). Request access Allow access requests Couldn't find the answer to your question? Contact us . This site uses cooki"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/share/access-requests/allow-requests/",
+  "title": "Allow access requests | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides Collaborate and share About collaboration and sharing User sharing Link sharing Access requests Request access Allow access requests Submit for review Submit to community Manage your submissions Membership invitations Docs Collaborate and share Access requests Allow access requests 1 Go to the record you would like to share, and click the blue Share button. 2 In the Share access dialog, click the Access requests tab. 3 Tick the checkboxes to: Allow authenticated users access Allow guests to request access Optionally, provide conditions on which you approve/decline access. "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/share/access-requests/request-access/",
+  "title": "Request access | Zenodo",
+  "headings": [
+   "Request access as guest",
+   "Request access as authenticated user",
+   "View my access requests"
+  ],
+  "summary": "Help FAQ Docs Guides Collaborate and share About collaboration and sharing User sharing Link sharing Access requests Request access Allow access requests Submit for review Submit to community Manage your submissions Membership invitations Docs Collaborate and share Access requests Request access The following sections explain how to request access to restricted files in a record. The owner of the record can choose who is able to request access (one or both of): Guests - will be granted access via a secret link that expires after a duration defined by the owner. Users - will be granted permanen"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/share/link-sharing/",
+  "title": "Link sharing | Zenodo",
+  "headings": [
+   "Get a link",
+   "Delete a link"
+  ],
+  "summary": "Help FAQ Docs Guides Collaborate and share About collaboration and sharing User sharing Link sharing Access requests Submit for review Submit to community Manage your submissions Membership invitations Docs Collaborate and share Link sharing Link sharing enables you to create a secret link which provides access to your record. The link can also have an expiry date. If the person you want to share a record with already have a Zenodo account, you can also use user sharing . Permissions You can give the secret link one of the following three permissions: Can view : Grants access to view restricte"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/share/manage-submissions/",
+  "title": "Manage your submissions | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides Collaborate and share About collaboration and sharing User sharing Link sharing Access requests Submit for review Submit to community Manage your submissions View submissions Cancel/withdraw submission Reply/edit/delete comments Membership invitations Docs Collaborate and share Manage your submissions The following sections explains how you can manage your submissions, in particular: View submissions \u2014 Learn how to view records in review and find their associated review request. Cancel/withdraw submission \u2014 Learn how to withdraw a record which was submitted for review to a"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/share/manage-submissions/cancel-submissions/",
+  "title": "Cancel/withdraw submission | Zenodo",
+  "headings": [
+   "Cancel a submission (withdraw)"
+  ],
+  "summary": "Help FAQ Docs Guides Collaborate and share About collaboration and sharing User sharing Link sharing Access requests Submit for review Submit to community Manage your submissions View submissions Cancel/withdraw submission Reply/edit/delete comments Membership invitations Docs Collaborate and share Manage your submissions Cancel/withdraw submission You can cancel a review request at any point in the review process. 1 Go to the review request (see view submissions ) 2 Click the Cancel button in the top right corner. 3 Leave an optional message to the curators, and confirm you want to cancel the"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/share/manage-submissions/reply-comments/",
+  "title": "Reply/edit/delete comments | Zenodo",
+  "headings": [
+   "Reply a comment",
+   "Edit a comment",
+   "Delete a comment"
+  ],
+  "summary": "Help FAQ Docs Guides Collaborate and share About collaboration and sharing User sharing Link sharing Access requests Submit for review Submit to community Manage your submissions View submissions Cancel/withdraw submission Reply/edit/delete comments Membership invitations Docs Collaborate and share Manage your submissions Reply/edit/delete comments A review request allows you to have a conversation between the uploader and community curators. You'll be notified of new comments by email if you have enabled notifications . Learn in the following sections to: Reply a comment Edit a comment Delete"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/share/manage-submissions/view-submissions/",
+  "title": "View submissions | Zenodo",
+  "headings": [
+   "View records in review",
+   "View review requests"
+  ],
+  "summary": "Help FAQ Docs Guides Collaborate and share About collaboration and sharing User sharing Link sharing Access requests Submit for review Submit to community Manage your submissions View submissions Cancel/withdraw submission Reply/edit/delete comments Membership invitations Docs Collaborate and share Manage your submissions View submissions A review request enables you to have a conversation with curators of the community as well as follow the status of the review. You can edit records in review at any time during the review process. Following section explains how to view your records in review "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/share/membership-invitations/",
+  "title": "Membership invitations | Zenodo",
+  "headings": [
+   "Accept/decline an invitation"
+  ],
+  "summary": "Help FAQ Docs Guides Collaborate and share About collaboration and sharing User sharing Link sharing Access requests Submit for review Submit to community Manage your submissions Membership invitations Docs Collaborate and share Membership invitations Community managers can invite you to join a community as a member. It is not yet possible for you to request to join a community. 1 Go to My requests where you will find the invitation (click My dashboard in the header, and afterwards My requests in the tab-menu). 2 Click Accept or Decline directly on the invitation, and confirm in the dialog you"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/share/submit-for-review/",
+  "title": "Submit for review | Zenodo",
+  "headings": [
+   "Step 1: Find a community",
+   "Step 2: Submit for review",
+   "Step 3: Manage submission"
+  ],
+  "summary": "Help FAQ Docs Guides Collaborate and share About collaboration and sharing User sharing Link sharing Access requests Submit for review Submit to community Manage your submissions Membership invitations Docs Collaborate and share Submit for review Want to test Zenodo? Use our sandbox environment on https://sandbox.zenodo.org to play. The following section explains how you submit an unpublished record to a community for review. Only drafts You can only submit drafts (i.e. unpublished records) to a community (see submit to community for submitting published records). Both uploader and curators ca"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/share/submit-to-community/",
+  "title": "Submit to community | Zenodo",
+  "headings": [
+   "Submit to community",
+   "View pending submission"
+  ],
+  "summary": "Help FAQ Docs Guides Collaborate and share About collaboration and sharing User sharing Link sharing Access requests Submit for review Submit to community Manage your submissions Membership invitations Docs Collaborate and share Submit to community Want to test Zenodo? Use our sandbox environment on https://sandbox.zenodo.org to play. The following section explains how you submit a published record to a community for inclusion. Only published records You can only submit published records for inclusion in a community (see submit for review for submitting an unpublished record to a community). B"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/docs/share/user-sharing/",
+  "title": "User sharing | Zenodo",
+  "headings": [
+   "Overview",
+   "Share a record",
+   "Share a draft",
+   "Change permission for a user",
+   "Remove a user"
+  ],
+  "summary": "Help FAQ Docs Guides Collaborate and share About collaboration and sharing User sharing Link sharing Access requests Submit for review Submit to community Manage your submissions Membership invitations Docs Collaborate and share User sharing Users sharing enables you to share a draft or record with another Zenodo user. If the person you want to share a record with does not have a Zenodo account, you can instead use link sharing . Permissions You can grant one more users one of the following four permissions: Can view : Grants access to view restricted/embargoed files of all current and future "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/faq/",
+  "title": "FAQ | Zenodo",
+  "headings": [
+   "Frequently Asked Questions"
+  ],
+  "summary": "Help FAQ Docs Guides Search widget General Account Upload/Deposit Collaborate and share Communities Usage statistics Citations Content GitHub integration Policies API Couldn't find the answer to your question? Contact us . This site uses cookies. Find out more on how we use cookies Accept all cookies Accept only essential cookies"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/",
+  "title": "Guides | Zenodo",
+  "headings": [
+   "Guides"
+  ],
+  "summary": "Help FAQ Docs Guides Search widget Tip : OpenAIRE provides general guides/training on open science, Horizon Europe, research data management (RDM) and legal issues for researchers: Guides Webinars Open science in Europe Search guide Horizon Europe Guidance About EU Open Research Repository Navigating EU Open Research Repository Use your EU Project Community Request an EU Project Community Browse collections Submitting content NIH Data Management and Sharing Plan Guidance Element 1: Maximum Appropriate Data Sharing Element 2: Deadline for Data Sharing Element 3: How Long will Data be Made Avail"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/eu/",
+  "title": "Horizon Europe Guidance | Zenodo",
+  "headings": [
+   "Overview"
+  ],
+  "summary": "Help FAQ Docs Guides Horizon Europe Guidance About EU Open Research Repository Navigating EU Open Research Repository Use your EU Project Community Request an EU Project Community Browse collections Submitting content Docs This guide is for beneficiaries of one EU's research and innovation funding programmes such as Horizon Europe (including ERC and MCSA) or Euratom. The EU Open Research Repository is a trusted repository managed by CERN on behalf of the European Commission that supports beneficiaries of research funding from e.g. Horizon Europe to comply with the related open science requirem"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/eu/about-eu-open-research-repository/",
+  "title": "About EU Open Research Repository | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides Horizon Europe Guidance About EU Open Research Repository Navigating EU Open Research Repository Use your EU Project Community Request an EU Project Community Browse collections Submitting content Docs The EU Open Research Repository (a Zenodo-community) is a trusted repository for sharing research outputs funded by the European Union. It is designed to help researchers meet the Horizon Europe open science requirements, while ensuring long-term preservation and discoverability of their work. The repository provides a free and trusted service for publishing digital research"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/eu/browse/",
+  "title": "Browse collections | Zenodo",
+  "headings": [
+   "Browsing overview",
+   "Browse by funding programme",
+   "Browse by subject",
+   "Browse by projects",
+   "Search in a collection"
+  ],
+  "summary": "Help FAQ Docs Guides Horizon Europe Guidance About EU Open Research Repository Navigating EU Open Research Repository Use your EU Project Community Request an EU Project Community Browse collections Submitting content Docs The EU Open Research Repository allows you to browse collections of content of the repository.\nThe collections are managed automatically based on the metadata in the records. Each section below details how the specific collection is being managed. This guide covers: Browsing overview Browse by funding programme Browse by subject Browse by projects Search in a collection 1 Cl"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/eu/navigation/",
+  "title": "Navigating EU Open Research Repository | Zenodo",
+  "headings": [
+   "Frontpage",
+   "Records/Search",
+   "Browse",
+   "Submit / How to submit",
+   "Join",
+   "Curation policy",
+   "About",
+   "Footer"
+  ],
+  "summary": "Help FAQ Docs Guides Horizon Europe Guidance About EU Open Research Repository Navigating EU Open Research Repository Use your EU Project Community Request an EU Project Community Browse collections Submitting content Docs You access the EU Open Research Repository on the following link: https://zenodo.org/communities/eu/ The following section gives a basic overview how to navigate EU Open Research Repository's user interface. The EU Open Research Repository features a branded community portal with the following elements: Frontpage Records/Search Browse Submit / How to submit Join Curation pol"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/eu/requesting-a-community/",
+  "title": "Request an EU Project Community | Zenodo",
+  "headings": [
+   "Requesting an EU Project Community"
+  ],
+  "summary": "Help FAQ Docs Guides Horizon Europe Guidance About EU Open Research Repository Navigating EU Open Research Repository Use your EU Project Community Request an EU Project Community Project checks Browse collections Submitting content Docs This guide explains how you request an EU Project Community. An EU Project Community\nis a special type of community : Indexed in EU Open Research Repository - all content in the community is automatically available in the EU Open Research Repository. Automated curation checks - submissions to the community is subject to the curation policy of the EU Open Resea"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/eu/requesting-a-community/project-checks/",
+  "title": "Project checks | Zenodo",
+  "headings": [
+   "Automated curation checks on project requests",
+   "List of required project checks",
+   "List of recommended project checks"
+  ],
+  "summary": "Help FAQ Docs Guides Horizon Europe Guidance About EU Open Research Repository Navigating EU Open Research Repository Use your EU Project Community Request an EU Project Community Project checks Browse collections Submitting content Docs When requesting an EU Project Community, a set of automated curation checks run on the project, providing helpful information for curators and project managers. The guide covers the following: Automated curation checks on project requests List of required project checks List of recommended project checks 1 Navigate to the request page and click on the Checks t"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/eu/submit/",
+  "title": "Submitting content | Zenodo",
+  "headings": [
+   "Overview",
+   "Submit via EU Project Community (preferred)",
+   "Submit directly (single submissions only)"
+  ],
+  "summary": "Help FAQ Docs Guides Horizon Europe Guidance About EU Open Research Repository Navigating EU Open Research Repository Use your EU Project Community Request an EU Project Community Browse collections Submitting content Metadata checks File format checks Funding checks Docs Records can be submitted to the EU Open Research Repository in 3 ways (see curation policy ): Via EU Project Community (preferred) - all EU projects can request an EU Project Community and self-manage submissions. This is preferred submission method, especially if you plan to submit more than a couple of records. Via direct s"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/eu/submit/file-checks/",
+  "title": "File format checks | Zenodo",
+  "headings": [
+   "Viewing file format checks (as uploader)",
+   "Viewing file format checks (as curator)",
+   "Finding an alternative to closed/proprietary file format",
+   "List of open and/or scientific file formats",
+   "Report a missing format"
+  ],
+  "summary": "Help FAQ Docs Guides Horizon Europe Guidance About EU Open Research Repository Navigating EU Open Research Repository Use your EU Project Community Request an EU Project Community Browse collections Submitting content Metadata checks File format checks Funding checks Docs Files in submissions to the EU Open Research Repository are automatically checked against if the format used is an open or scientific file format . Open or scientific file formats are important because they ensure long-term accessibility, interoperability, and reuse of research outputs. The guide covers the following: Viewing"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/eu/submit/funding-checks/",
+  "title": "Funding checks | Zenodo",
+  "headings": [
+   "Viewing funding checks"
+  ],
+  "summary": "Help FAQ Docs Guides Horizon Europe Guidance About EU Open Research Repository Navigating EU Open Research Repository Use your EU Project Community Request an EU Project Community Browse collections Submitting content Metadata checks File format checks Funding checks Docs When a record or draft is submitted to a project within the EU Open Research Repository, a funding relevance check runs automatically, verifying whether the record's metadata (title and description) is reasonably related to the project's award. To avoid blocking submissions, records can be published even if this check does no"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/eu/submit/metadata-checks/",
+  "title": "Metadata checks | Zenodo",
+  "headings": [
+   "Viewing metadata checks (as uploader)",
+   "Viewing metadata checks (as curator)",
+   "List of required metadata checks",
+   "List of recommended metadata checks"
+  ],
+  "summary": "Help FAQ Docs Guides Horizon Europe Guidance About EU Open Research Repository Navigating EU Open Research Repository Use your EU Project Community Request an EU Project Community Browse collections Submitting content Metadata checks File format checks Funding checks Docs Submissions to the EU Open Research Repository are automatically checked against the open science requirements in Horizon Europe. To learn more about the open science requirements please see: Open Science in Horizon Europe The metadata checks are either: required - you must fix the error in order to publish/submit for review."
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/eu/using-your-community/",
+  "title": "Use your EU Project Community | Zenodo",
+  "headings": [
+   "Managing your community",
+   "Collaborative and sharing features"
+  ],
+  "summary": "Help FAQ Docs Guides Horizon Europe Guidance About EU Open Research Repository Navigating EU Open Research Repository Use your EU Project Community Request an EU Project Community Browse collections Submitting content Docs This guide is an overview over how you can manage and use your EU Project Community. An EU Project Community\nis a special type of community: Indexed in EU Open Research Repository - all content in the community is automatically available in the EU Open Research Repository. Automated curation checks - submissions to the community is subject to the curation policy of the EU Op"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/nih/",
+  "title": "NIH Data Management and Sharing Plan Guidance | Zenodo",
+  "headings": [
+   "DMSP Elements"
+  ],
+  "summary": "Help FAQ Docs Guides NIH Data Management and Sharing Plan Guidance Element 1: Maximum Appropriate Data Sharing Element 2: Deadline for Data Sharing Element 3: How Long will Data be Made Available Element 4: If \"No\" was Responded to any of the First Three Questions, Provide Explanation Element 5: Protecting Privacy, Rights, and Confidentiality of Research Participants Element 6: Table for Expected Data Type and Established Repository or Example Element 7: For studies subject to the NIH Genomic Data Sharing Policy (GDS) Docs A Data Management and Sharing Plan that is compliant with the NIH Data "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/nih/element1/",
+  "title": "Element 1: Maximum Appropriate Data Sharing | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides NIH Data Management and Sharing Plan Guidance Element 1: Maximum Appropriate Data Sharing Element 2: Deadline for Data Sharing Element 3: How Long will Data be Made Available Element 4: If \"No\" was Responded to any of the First Three Questions, Provide Explanation Element 5: Protecting Privacy, Rights, and Confidentiality of Research Participants Element 6: Table for Expected Data Type and Established Repository or Example Element 7: For studies subject to the NIH Genomic Data Sharing Policy (GDS) Docs Question Will there be maximum appropriate sharing of scientific data u"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/nih/element2/",
+  "title": "Element 2: Deadline for Data Sharing | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides NIH Data Management and Sharing Plan Guidance Element 1: Maximum Appropriate Data Sharing Element 2: Deadline for Data Sharing Element 3: How Long will Data be Made Available Element 4: If \"No\" was Responded to any of the First Three Questions, Provide Explanation Element 5: Protecting Privacy, Rights, and Confidentiality of Research Participants Element 6: Table for Expected Data Type and Established Repository or Example Element 7: For studies subject to the NIH Genomic Data Sharing Policy (GDS) Docs Question Will the scientific data underlying peer-reviewed publications"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/nih/element3/",
+  "title": "Element 3: How Long will Data be Made Available | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides NIH Data Management and Sharing Plan Guidance Element 1: Maximum Appropriate Data Sharing Element 2: Deadline for Data Sharing Element 3: How Long will Data be Made Available Element 4: If \"No\" was Responded to any of the First Three Questions, Provide Explanation Element 5: Protecting Privacy, Rights, and Confidentiality of Research Participants Element 6: Table for Expected Data Type and Established Repository or Example Element 7: For studies subject to the NIH Genomic Data Sharing Policy (GDS) Docs Question Will shared scientific data be made available for at least as "
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/nih/element4/",
+  "title": "Element 4: If \"No\" was Responded to any of the First Three Questions, Provide Explanation | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides NIH Data Management and Sharing Plan Guidance Element 1: Maximum Appropriate Data Sharing Element 2: Deadline for Data Sharing Element 3: How Long will Data be Made Available Element 4: If \"No\" was Responded to any of the First Three Questions, Provide Explanation Element 5: Protecting Privacy, Rights, and Confidentiality of Research Participants Element 6: Table for Expected Data Type and Established Repository or Example Element 7: For studies subject to the NIH Genomic Data Sharing Policy (GDS) Docs Question If you answered \"No\" to elements 1, 2, or 3, or if you anticip"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/nih/element5/",
+  "title": "Element 5: Protecting Privacy, Rights, and Confidentiality of Research Participants | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides NIH Data Management and Sharing Plan Guidance Element 1: Maximum Appropriate Data Sharing Element 2: Deadline for Data Sharing Element 3: How Long will Data be Made Available Element 4: If \"No\" was Responded to any of the First Three Questions, Provide Explanation Element 5: Protecting Privacy, Rights, and Confidentiality of Research Participants Element 6: Table for Expected Data Type and Established Repository or Example Element 7: For studies subject to the NIH Genomic Data Sharing Policy (GDS) Docs Question If scientific data derived from human research participants wi"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/nih/element6/",
+  "title": "Element 6: Table for Expected Data Type and Established Repository or Example | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides NIH Data Management and Sharing Plan Guidance Element 1: Maximum Appropriate Data Sharing Element 2: Deadline for Data Sharing Element 3: How Long will Data be Made Available Element 4: If \"No\" was Responded to any of the First Three Questions, Provide Explanation Element 5: Protecting Privacy, Rights, and Confidentiality of Research Participants Element 6: Table for Expected Data Type and Established Repository or Example Element 7: For studies subject to the NIH Genomic Data Sharing Policy (GDS) Docs Question In the table below, please list [100 words maximum]: Key types"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/nih/element7/",
+  "title": "Element 7: For studies subject to the NIH Genomic Data Sharing Policy (GDS) | Zenodo",
+  "headings": [],
+  "summary": "Help FAQ Docs Guides NIH Data Management and Sharing Plan Guidance Element 1: Maximum Appropriate Data Sharing Element 2: Deadline for Data Sharing Element 3: How Long will Data be Made Available Element 4: If \"No\" was Responded to any of the First Three Questions, Provide Explanation Element 5: Protecting Privacy, Rights, and Confidentiality of Research Participants Element 6: Table for Expected Data Type and Established Repository or Example Element 7: For studies subject to the NIH Genomic Data Sharing Policy (GDS) Docs Question For studies subject to the NIH Genomic Data Sharing Policy (GD"
+ },
+ {
+  "site": "help",
+  "url": "https://help.zenodo.org/guides/search/",
+  "title": "Search guide | Zenodo",
+  "headings": [
+   "Simple search (one or multiple terms)",
+   "Phrase search",
+   "Field search",
+   "Combined simple, phrase or field search",
+   "Range search",
+   "Ranking/Sorting",
+   "Regular expressions",
+   "Missing values",
+   "Advanced concepts",
+   "Fields reference"
+  ],
+  "summary": "Help FAQ Docs Guides This guide explains how to perform advanced search queries on Zenodo using easy to understand examples. Example: open science Results will match records with the terms open or science in any field . Note that stemming is applied so e.g. science will also match sciences . Search results are ranked according to an algorithm that takes your query terms into account. You can require presence of both terms using either the + or AND operator: Examples: +open +science or open AND science You can require absence of one or more terms using either the - or NOT operator: Examples: -o"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#rest-api",
+  "title": "REST API",
+  "level": "h1"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#introduction",
+  "title": "Introduction",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#quickstart-upload",
+  "title": "Quickstart - Upload",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#testing",
+  "title": "Testing",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#versioning",
+  "title": "Versioning",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#authentication",
+  "title": "Authentication",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#creating-a-personal-access-token",
+  "title": "Creating a personal access token",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#using-access-tokens",
+  "title": "Using access tokens",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#scopes",
+  "title": "Scopes",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#requests",
+  "title": "Requests",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#responses",
+  "title": "Responses",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#http-status-codes",
+  "title": "HTTP status codes",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#errors",
+  "title": "Errors",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#entities",
+  "title": "Entities",
+  "level": "h1"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#depositions",
+  "title": "Depositions",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#representation",
+  "title": "Representation",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#list",
+  "title": "List",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#create",
+  "title": "Create",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#retrieve",
+  "title": "Retrieve",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#update",
+  "title": "Update",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#delete",
+  "title": "Delete",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#deposition-files",
+  "title": "Deposition files",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#representation",
+  "title": "Representation",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#list",
+  "title": "List",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#create",
+  "title": "Create",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#sort",
+  "title": "Sort",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#retrieve",
+  "title": "Retrieve",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#update",
+  "title": "Update",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#delete",
+  "title": "Delete",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#deposition-actions",
+  "title": "Deposition actions",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#publish",
+  "title": "Publish",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#edit",
+  "title": "Edit",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#discard",
+  "title": "Discard",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#new-version",
+  "title": "New version",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#records",
+  "title": "Records",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#representation",
+  "title": "Representation",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#list",
+  "title": "List",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#retrieve",
+  "title": "Retrieve",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#licenses",
+  "title": "Licenses",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#representation",
+  "title": "Representation",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#list",
+  "title": "List",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#retrieve",
+  "title": "Retrieve",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#changes",
+  "title": "Changes",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#oai-pmh",
+  "title": "OAI-PMH",
+  "level": "h1"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#base-url",
+  "title": "Base URL",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#installing-prerequisites-for-our-example",
+  "title": "Installing prerequisites for our example",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#get-information-about-the-oai-pmh-api",
+  "title": "Get information about the OAI-PMH API",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#resumption-tokens",
+  "title": "Resumption tokens",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#rate-limit",
+  "title": "Rate limit",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#metadata-formats",
+  "title": "Metadata formats",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#available-metadata-formats",
+  "title": "Available metadata formats",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#sets",
+  "title": "Sets",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#entire-repository",
+  "title": "Entire repository",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#selective-harvesting",
+  "title": "Selective harvesting",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#harvesting-with-a-different-metadata-format",
+  "title": "Harvesting with a different metadata format",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#harvesting-with-multiple-filters",
+  "title": "Harvesting with multiple filters",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#other-questions-on-harvesting",
+  "title": "Other questions on harvesting",
+  "level": "h3"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#update-schedule",
+  "title": "Update schedule",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#metadata-dumps",
+  "title": "Metadata Dumps",
+  "level": "h1"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#list-available-dumps",
+  "title": "List available dumps",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#download-a-dump",
+  "title": "Download a dump",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#streaming-processing-example",
+  "title": "Streaming processing example",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#github",
+  "title": "GitHub",
+  "level": "h1"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#add-metadata-to-your-github-repository-release",
+  "title": "Add metadata to your GitHub repository release",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#how-to-verify-your-zenodo-json-file",
+  "title": "How to verify your \u201c.zenodo.json\u201d file?",
+  "level": "h2"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#rate-limiting",
+  "title": "Rate Limiting",
+  "level": "h1"
+ },
+ {
+  "site": "developers",
+  "url": "https://developers.zenodo.org/#user-agent",
+  "title": "User-Agent",
+  "level": "h2"
+ }
+]

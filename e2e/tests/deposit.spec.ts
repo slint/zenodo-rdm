@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { api, json, draftPayload, publishRecord } from "../lib/api";
+import { shot } from "../lib/shot";
 
 // Deposit area: creating, editing, versioning and publishing records, through
 // the UI deposit form, the RDM REST API and the legacy Zenodo deposit API.
@@ -8,6 +9,7 @@ test.describe("UI", () => {
   test("[deposit.ui.login-required] anonymous users are sent to log in", async ({ page }) => {
     await page.goto("/uploads/new");
     await expect(page).toHaveURL(/\/login\/\?next=/);
+    await shot(page, "Anonymous visit to /uploads/new lands on the login form");
   });
 
   test.describe("as user", () => {
@@ -22,6 +24,7 @@ test.describe("UI", () => {
         buffer: Buffer.from("uploaded from the form\n"),
       });
       await expect(page.getByText("ui.txt").first()).toBeVisible();
+      await shot(page, "Open /uploads/new and upload a file");
 
       await page.getByRole("combobox", { name: "Resource type" }).click();
       await page.getByRole("option").getByText("Dataset", { exact: true }).click();
@@ -30,6 +33,7 @@ test.describe("UI", () => {
       await page.locator('input[name="metadata.publisher"]').fill("Zenodo");
       // Leaving the DOI question unanswered fails with "Missing DOI for required field."
       await page.getByText("No, I need one").first().click();
+      await shot(page, "Pick a resource type, fill in title and publisher, ask for a DOI");
 
       await page.getByRole("button", { name: "Add author", exact: true }).click();
       const modal = page.locator(".ui.modal.visible");
@@ -37,11 +41,14 @@ test.describe("UI", () => {
       await modal.locator('input[name="person_or_org.given_name"]').fill("Grace");
       await modal.getByRole("button", { name: /^Save$/ }).click();
       await expect(page.getByText("Hopper, Grace")).toBeVisible();
+      await shot(page, "Add an author through the author modal");
 
       await page.getByRole("button", { name: "Publish", exact: true }).first().click();
+      await shot(page, "Click Publish and confirm in the dialog");
       await page.locator(".ui.modal.visible").getByRole("button", { name: "Publish" }).click();
       await expect(page).toHaveURL(/\/records\/\d+/, { timeout: 30_000 });
       await expect(page.locator("h1#record-title")).toHaveText(title);
+      await shot(page, "Published record page");
     });
 
     test("[deposit.ui.dashboard] my uploads lists the user's records", async ({ page }) => {
@@ -49,6 +56,7 @@ test.describe("UI", () => {
       await json((await api("user")).post("/api/records", { data: draftPayload(title) }), 201);
       await page.goto("/me/uploads");
       await expect(page.getByText(title).first()).toBeVisible({ timeout: 30_000 });
+      await shot(page, "My dashboard lists the new draft");
     });
   });
 });

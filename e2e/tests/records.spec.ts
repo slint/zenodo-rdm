@@ -1,5 +1,6 @@
 import { test, expect, type APIRequestContext } from "@playwright/test";
 import { api, json, publishRecord } from "../lib/api";
+import { shot } from "../lib/shot";
 
 // Records area: what anyone can do with a published record, plus search and
 // OAI-PMH over it. One record is published by a regular user first.
@@ -18,6 +19,7 @@ test("[records.landing] landing page shows metadata, files and exports", async (
   await expect(page.getByText("Lovelace, Ada").first()).toBeVisible();
   await expect(page.locator("#files-list-accordion-trigger, .files").first()).toBeVisible();
   await expect(page.getByText("hello.txt").first()).toBeVisible();
+  await shot(page, "Record landing page with metadata and files");
 });
 
 test("[records.files.download] anyone downloads a public file", async () => {
@@ -89,6 +91,7 @@ test("[search.api] the new record is searchable", async () => {
 test("[search.ui] search page lists the record", async ({ page }) => {
   await page.goto(`/search?q="${encodeURIComponent(title)}"`);
   await expect(page.getByRole("link", { name: title })).toBeVisible();
+  await shot(page, "Search for the title lists the record");
 });
 
 test("[search.sort-filter] search API sorts and filters", async () => {
