@@ -8,7 +8,7 @@
 #   docker compose -f docker-compose.mini.yml run --rm app ./wipe_recreate.sh
 #   docker compose -f docker-compose.mini.yml up -d
 #
-# then open http://127.0.0.1:5000.
+# then open https://127.0.0.1:5000 (self-signed certificate).
 #
 # Search runs on a small OpenSearch here. docker/mini/Dockerfile builds one
 # container that searches in Postgres instead (SEARCH_HOSTS=paradedb://).
@@ -17,11 +17,8 @@ x-app-env: &app-env
   INVENIO_SQLALCHEMY_DATABASE_URI: postgresql+psycopg2://zenodo:zenodo@db:5432/zenodo
   INVENIO_SEARCH_HOSTS: "['search:9200']"
   INVENIO_SECRET_KEY: CHANGE_ME
-  INVENIO_SITE_UI_URL: http://127.0.0.1:5000
-  INVENIO_SITE_API_URL: http://127.0.0.1:5000/api
-  # Plain HTTP on localhost, without nginx in front
-  INVENIO_SESSION_COOKIE_SECURE: "False"
-  INVENIO_APP_DEFAULT_SECURE_HEADERS: '{"force_https": False, "session_cookie_secure": False, "content_security_policy": {}}'
+  INVENIO_SITE_UI_URL: https://127.0.0.1:5000
+  INVENIO_SITE_API_URL: https://127.0.0.1:5000/api
 
 services:
   db:
@@ -61,7 +58,11 @@ services:
         celery -A invenio_app.celery worker --beat --loglevel=INFO
         --concurrency=2 --queues=celery,low,indexing
         --schedule=/opt/invenio/var/instance/data/celerybeat-schedule &
-        exec uwsgi --http 0.0.0.0:5000 --module invenio_app.wsgi:application
+        D=/opt/invenio/var/instance/data;
+        [ -s $$D/tls.crt ] || openssl req -x509 -newkey rsa:2048 -nodes -days 3650
+        -subj /CN=localhost -addext subjectAltName=DNS:localhost,IP:127.0.0.1
+        -keyout $$D/tls.key -out $$D/tls.crt 2>/dev/null;
+        exec uwsgi --https 0.0.0.0:5000,$$D/tls.crt,$$D/tls.key --module invenio_app.wsgi:application
         --master --processes 2 --threads 2 --die-on-term
     ports:
       - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:5000:5000"

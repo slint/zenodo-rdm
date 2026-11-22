@@ -13,7 +13,8 @@ import hashlib
 import os
 import threading
 
-from celery.signals import worker_init
+from celery.beat import EmbeddedService
+from celery.signals import celeryd_after_setup, worker_init, worker_shutdown
 from kombu.transport import TRANSPORT_ALIASES, pgmq
 from psycopg import connect, sql
 from sqlalchemy.engine import make_url
@@ -180,3 +181,23 @@ def release_reserved(sender=None, **kwargs):
                     sql.Identifier(f"q_{name}")
                 )
             )
+
+
+@celeryd_after_setup.connect
+def start_beat_thread(sender=None, instance=None, **kwargs):
+    """Run beat as a thread of the worker when ``ZENODO_BEAT=thread``.
+
+    ``celery worker -B`` forks beat into its own process (outside gevent and
+    eventlet pools), which holds one more copy of the app.
+    """
+    if os.environ.get("ZENODO_BEAT") != "thread":
+        return
+    beat = EmbeddedService(
+        instance.app,
+        thread=True,
+        schedule_filename=instance.schedule_filename,
+        scheduler_cls=instance.scheduler,
+    )
+    beat.start()
+    # Saves the schedule state on shutdown, as the beat process does
+    worker_shutdown.connect(lambda **kw: beat.stop(), weak=False)

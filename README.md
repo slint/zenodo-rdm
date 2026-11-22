@@ -43,7 +43,7 @@ Production keeps the full stack.
 ```bash
 docker compose -f docker-compose.mini.yml build
 docker compose -f docker-compose.mini.yml run --rm app ./wipe_recreate.sh
-docker compose -f docker-compose.mini.yml up -d  # http://127.0.0.1:5000
+docker compose -f docker-compose.mini.yml up -d  # https://127.0.0.1:5000 (self-signed)
 ```
 
 To develop against it with a local virtualenv,
@@ -70,9 +70,12 @@ docker run -p 5000:5000 -v zenodo-mini:/var/lib/postgresql zenodo-mini-all
 ```
 
 The first start creates the database and loads the demo fixtures.
-It keeps processes few (one uwsgi worker, and a solo Celery worker with beat)
-and fits in 1.25 GB of memory, including an extra `invenio shell`;
-set `WEB_PROCESSES`, `WORKER_POOL=prefork` and `WORKER_CONCURRENCY` to use more.
+It serves HTTPS with a self-signed certificate (kept in the volume)
+and runs two app processes: Werkzeug's threaded server for the web app,
+and a solo Celery worker with beat in a thread.
+To use more, set `WEB_SERVER=uwsgi` and `WEB_PROCESSES`,
+`WORKER_POOL=prefork` and `WORKER_CONCURRENCY`, or `ZENODO_BEAT=process`.
+`docker exec <container> invenio ...` uses the same secret key as the app.
 
 ### Update dependencies
 
