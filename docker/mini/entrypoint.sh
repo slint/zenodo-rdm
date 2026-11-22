@@ -14,11 +14,12 @@ export INVENIO_SECRET_KEY="${INVENIO_SECRET_KEY:-$(cat "$PGDATA/secret_key" 2>/d
 trap '"$PG/pg_ctl" -D "$PGDATA" -m fast stop' EXIT
 cd /opt/invenio/src
 [ -n "$first" ] && ./wipe_recreate.sh
-# Each worker child holds its own copy of the app (~150 MiB): one child and one
-# web process keep the image within 1 GB.
-celery -A invenio_app.celery worker --beat --loglevel=INFO \
-  --concurrency="${WORKER_CONCURRENCY:-1}" \
+# Every process holds its own copy of the app (~150 MiB), so keep few: the solo
+# pool runs tasks in the worker process itself (-B still forks beat), and uwsgi
+# serves HTTP from its worker without a separate router process.
+celery -A invenio_app.celery worker -B --loglevel=INFO \
+  --pool="${WORKER_POOL:-solo}" --concurrency="${WORKER_CONCURRENCY:-1}" \
   --queues=celery,low,indexing --schedule="$PGDATA/celerybeat-schedule" &
-uwsgi --http 0.0.0.0:5000 --module invenio_app.wsgi:application \
+uwsgi --http-socket 0.0.0.0:5000 --module invenio_app.wsgi:application \
   --master --processes "${WEB_PROCESSES:-1}" --threads 4 --die-on-term &
 wait -n

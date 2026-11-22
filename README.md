@@ -70,8 +70,9 @@ docker run -p 5000:5000 -v zenodo-mini:/var/lib/postgresql zenodo-mini-all
 ```
 
 The first start creates the database and loads the demo fixtures.
-It runs one web process and one worker child to fit in 1.25 GB of memory;
-set `WEB_PROCESSES` and `WORKER_CONCURRENCY` to use more.
+It keeps processes few (one uwsgi worker, and a solo Celery worker with beat)
+and fits in 1.25 GB of memory, including an extra `invenio shell`;
+set `WEB_PROCESSES`, `WORKER_POOL=prefork` and `WORKER_CONCURRENCY` to use more.
 
 ### Update dependencies
 
