@@ -1,0 +1,12 @@
+{
+  "name": "zenodo-e2e",
+  "private": true,
+  "description": "Feature catalog checks against a running Zenodo (the mini image by default)",
+  "scripts": {
+    "test": "playwright test",
+    "report": "node report.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.1"
+  }
+}

@@ -34,3 +34,6 @@ flake.lock
 # OS / editor cruft
 .DS_Store
 *.log
+
+# Browser and API checks against a running instance
+e2e/
