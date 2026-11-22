@@ -10,8 +10,8 @@
 #
 # then open http://127.0.0.1:5000.
 #
-# OpenSearch stays until the ParadeDB search backend for invenio-search lands;
-# it will then be configured through SEARCH_CLIENT_CONFIG and this service removed.
+# Search runs on a small OpenSearch here. docker/mini/Dockerfile builds one
+# container that searches in Postgres instead (SEARCH_HOSTS=paradedb://).
 x-app-env: &app-env
   ZENODO_STACK: mini
   INVENIO_SQLALCHEMY_DATABASE_URI: postgresql+psycopg2://zenodo:zenodo@db:5432/zenodo

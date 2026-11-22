@@ -36,7 +36,8 @@ For demos, development and PR previews,
 Postgres (the ParadeDB image) holds the cache, locks, sessions, rate limits,
 the Celery broker and results, and the indexing and stats queues
 (on [PGMQ](https://github.com/pgmq/pgmq), installed as plain SQL by `wipe_recreate.sh`).
-OpenSearch is still needed until the ParadeDB search backend lands.
+Search runs on a small OpenSearch container here;
+the all-in-one image below searches in Postgres instead.
 Production keeps the full stack.
 
 ```bash
@@ -55,6 +56,21 @@ and run the web app and the worker:
 uwsgi --http :5000 --module invenio_app.wsgi:application --master --processes 2
 celery -A invenio_app.celery worker --beat --loglevel=INFO
 ```
+
+For a single container with Postgres, the web app and the worker inside,
+searching through pg_search with
+[invenio-search-paradedb](https://github.com/slint/invenio-search/tree/invenio-search-paradedb)
+(`SEARCH_HOSTS=paradedb://`),
+build on top of the app image:
+
+```bash
+docker compose -f docker-compose.mini.yml build app
+docker build -f docker/mini/Dockerfile -t zenodo-mini-all .
+docker run -p 5000:5000 -v zenodo-mini:/var/lib/postgresql zenodo-mini-all
+```
+
+The first start creates the database and loads the demo fixtures;
+it fits in a 1.5 GB memory limit.
 
 ### Update dependencies
 
