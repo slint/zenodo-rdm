@@ -4,6 +4,7 @@
 """Postgres stand-ins for Redis and RabbitMQ in the mini stack."""
 
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 from invenio_queues.queue import Queue
 from kombu import Connection, Exchange
@@ -28,6 +29,16 @@ def test_cache_add_is_exclusive_until_expiry(app, db):
     assert worker.add("lock", "worker", timeout=1)
     assert web.delete("lock")
     assert not web.delete("lock")
+
+
+def test_cache_reads_from_many_threads(app, db):
+    # uwsgi threads share the process' small connection pool
+    cache = PostgresCache(app.config["SQLALCHEMY_DATABASE_URI"], "t3:")
+    for i in range(8):
+        cache.set(f"k{i}", i)
+    with ThreadPoolExecutor(8) as pool:
+        got = list(pool.map(lambda n: cache.get(f"k{n % 8}"), range(2000)))
+    assert got == [n % 8 for n in range(2000)]
 
 
 def test_rate_limit_moving_window(app, db):

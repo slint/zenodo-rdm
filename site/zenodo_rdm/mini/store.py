@@ -54,9 +54,11 @@ class KV:
             "(key text PRIMARY KEY, value bytea NOT NULL, expires_at timestamptz)",
         )
 
-    def _run(self, sql, **params):
+    def _run(self, sql, fetch=lambda r: None, **params):
+        # Fetch before the connection goes back to the pool, where another thread
+        # can take it and close this cursor.
         with engine(self.uri).connect() as conn:
-            return conn.execute(text(sql.format(t=self.table)), params)
+            return fetch(conn.execute(text(sql.format(t=self.table)), params))
 
     _live = "(expires_at IS NULL OR expires_at > now())"
     _expiry = "CASE WHEN :ttl > 0 THEN now() + make_interval(secs => :ttl) END"
@@ -64,8 +66,10 @@ class KV:
     def get(self, key):
         """Return the value, or None if missing or expired."""
         return self._run(
-            f"SELECT value FROM {{t}} WHERE key = :key AND {self._live}", key=key
-        ).scalar()
+            f"SELECT value FROM {{t}} WHERE key = :key AND {self._live}",
+            fetch=lambda r: r.scalar(),
+            key=key,
+        )
 
     def set(self, key, value, ttl=None):
         """Store a value; ttl in seconds, None or 0 for no expiry."""
@@ -86,10 +90,11 @@ class KV:
                 "ON CONFLICT (key) DO UPDATE "
                 "SET value = excluded.value, expires_at = excluded.expires_at "
                 "WHERE {t}.expires_at <= now() RETURNING key",
+                fetch=lambda r: r.first(),
                 key=key,
                 value=value,
                 ttl=ttl or 0,
-            ).first()
+            )
             is not None
         )
 
@@ -97,8 +102,10 @@ class KV:
         """Delete a key; True if a live value was there."""
         return (
             self._run(
-                f"DELETE FROM {{t}} WHERE key = :key RETURNING {self._live}", key=key
-            ).scalar()
+                f"DELETE FROM {{t}} WHERE key = :key RETURNING {self._live}",
+                fetch=lambda r: r.scalar(),
+                key=key,
+            )
             is True
         )
 

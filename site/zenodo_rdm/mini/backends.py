@@ -170,9 +170,10 @@ class RateLimitStorage(Storage, MovingWindowSupport):
         """Errors the storage may raise."""
         return exc.SQLAlchemyError
 
-    def _run(self, sql, **params):
+    def _run(self, sql, fetch=lambda r: None, **params):
+        # Fetch before the connection goes back to the pool (see KV._run).
         with engine(self.uri).connect() as conn:
-            return conn.execute(text(sql), params)
+            return fetch(conn.execute(text(sql), params))
 
     def incr(self, key, expiry, amount=1):
         """Increment the counter, starting a new window if it expired."""
@@ -185,10 +186,11 @@ class RateLimitStorage(Storage, MovingWindowSupport):
             "expires_at = CASE WHEN r.expires_at <= now() THEN excluded.expires_at "
             "ELSE r.expires_at END "
             "RETURNING count",
+            fetch=lambda r: r.scalar(),
             key=key,
             amount=amount,
             expiry=expiry,
-        ).scalar()
+        )
 
     def get(self, key):
         """Current counter value."""
@@ -196,8 +198,9 @@ class RateLimitStorage(Storage, MovingWindowSupport):
             self._run(
                 "SELECT count FROM zenodo_mini_ratelimit "
                 "WHERE key = :key AND expires_at > now()",
+                fetch=lambda r: r.scalar(),
                 key=key,
-            ).scalar()
+            )
             or 0
         )
 
@@ -206,8 +209,9 @@ class RateLimitStorage(Storage, MovingWindowSupport):
         value = self._run(
             "SELECT extract(epoch FROM coalesce(max(expires_at), now())) "
             "FROM zenodo_mini_ratelimit WHERE key = :key",
+            fetch=lambda r: r.scalar(),
             key=key,
-        ).scalar()
+        )
         return float(value)
 
     def acquire_entry(self, key, limit, expiry, amount=1):
@@ -245,22 +249,25 @@ class RateLimitStorage(Storage, MovingWindowSupport):
             "SELECT extract(epoch FROM min(at)), count(*) "
             "FROM zenodo_mini_ratelimit_hits WHERE key = :key "
             "AND at > clock_timestamp() - make_interval(secs => :expiry)",
+            fetch=lambda r: r.first(),
             key=key,
             expiry=expiry,
-        ).first()
+        )
         return (float(start), count) if count else (time.time(), 0)
 
     def check(self):
         """Whether the database answers."""
         try:
-            return self._run("SELECT 1").scalar() == 1
+            return self._run("SELECT 1", fetch=lambda r: r.scalar()) == 1
         except exc.SQLAlchemyError:
             return False
 
     def reset(self):
         """Delete all counters."""
         self._run("DELETE FROM zenodo_mini_ratelimit_hits")
-        return self._run("DELETE FROM zenodo_mini_ratelimit").rowcount
+        return self._run(
+            "DELETE FROM zenodo_mini_ratelimit", fetch=lambda r: r.rowcount
+        )
 
     def clear(self, key):
         """Delete one counter."""
